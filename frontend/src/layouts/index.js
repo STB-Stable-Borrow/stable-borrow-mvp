@@ -1,12 +1,12 @@
-import React from 'react'
-import LandingBody from './landingPage/LandingBody'
+import React from "react";
+import LandingBody from "./landingPage/LandingBody";
 
 function Index() {
   return (
-    <div className=''>
+    <div className="">
       <LandingBody />
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;
