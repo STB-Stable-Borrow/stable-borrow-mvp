@@ -7,13 +7,13 @@ function Header() {
       <div>
         <img className="w-[259px] h-[59px]" src={logoStb} alt="Stb Logo" />
       </div>
-      <div className="flex justify-betweeen gap-[41px] text-[#FFFFFF]">
-        <ul className="flex gap-[41px]">
-          <li className="font-semibold ">About</li>
+      <div className="flex justify-betweeen items-center gap-[41px] text-[#FFFFFF] font-semibold">
+        <ul className="flex gap-[41px] font-sans  text-lg cursor-pointer">
+          <li>About</li>
           <li>Exchange</li>
         </ul>
 
-        <button>Connect Wallet</button>
+        <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg">Connect Wallet</button>
       </div>
     </div>
   );
