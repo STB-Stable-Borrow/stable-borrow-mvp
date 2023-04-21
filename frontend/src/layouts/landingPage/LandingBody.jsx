@@ -1,11 +1,12 @@
 import React from "react";
 import bgImage from "../../assets/landing/bg.png";
 import Header from "./Header";
-import HeroSection from "./HeroSection";
-import Footer from "./Footer";
+import { useLocation } from "react-router-dom";
 
 
-function LandingBody() {
+function LandingBody({children}) {
+  const location = useLocation()
+  console.log(location)
   return (
     <div className="relative min-h-screen">
       <div
@@ -14,8 +15,7 @@ function LandingBody() {
       ></div>
       <div className="relative flex flex-col justify-between h-[100vh] z-10 py-[37px] px-[80px]">
         <Header />
-        <HeroSection />
-        <Footer />
+        {children}
       </div>
     </div>
   );

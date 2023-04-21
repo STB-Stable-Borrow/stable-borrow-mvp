@@ -22,7 +22,7 @@ function HeroSection() {
             Earn and Exchange Tokens at-a-go using our Simple and Swift UI with
             Unique Protocols embedded in our Smart Contracts!...{" "}
               <span className="text-[#865DFF] font-bold underline underline-offset-4">
-            <Link to="/">
+            <Link to="/about">
                
                 Learn more
             </Link>
@@ -30,6 +30,7 @@ function HeroSection() {
               </span>
           </p>
           <div>
+            <Link to="/info">
             <button
               className={`mt-[27px] text-[#FFFFFF] bg-[#009FBD] py-[17px] px-[58px] rounded-lg`}
               onClick={handleConnectWallet}
@@ -39,6 +40,8 @@ function HeroSection() {
                 <img src={next} alt="next icon" />
               </div>
             </button>
+            </Link>
+       
           </div>
         </div>
       </div>
