@@ -3,20 +3,23 @@ import { createContext, useContext, useState } from "react";
 const BorrowContext = createContext();
 
 export const BorrowProvider = ({ children }) => {
-  const [vault, setVault] = useState(null);
-  const [genateSTC, setGenerateSTC] = useState(null);
-  const [confirm, setConfirm] = useState(null);
+  const [vault, setVault] = useState(true);
+  const [generateSTC, setGenerateSTC] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
-  const handleVault = () => {
-    setVault((prevState) => !prevState);
+  const handleVaultNext = () => {
+    setVault(false);
+    setGenerateSTC(true);
   };
 
-  const handleGenerateSTC = () => {
-    setGenerateSTC((prevState) => !prevState);
+  const handleGenerateSTCNext = () => {
+    setGenerateSTC(false);
+    setConfirm(true);
   };
 
-  const handleConfirm = () => {
-    setConfirm((prevState) => !prevState);
+  const handleGenerateSTCBack = () => {
+    setGenerateSTC(true);
+    setConfirm(false);
   };
 
   return (
@@ -24,13 +27,13 @@ export const BorrowProvider = ({ children }) => {
       value={{
         vault,
         setVault,
-        genateSTC,
+        generateSTC,
         setGenerateSTC,
         confirm,
         setConfirm,
-        handleVault,
-        handleGenerateSTC,
-        handleConfirm,
+        handleVaultNext,
+        handleGenerateSTCNext,
+        handleGenerateSTCBack,
       }}
     >
       {children}

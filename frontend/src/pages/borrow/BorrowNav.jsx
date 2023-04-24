@@ -26,10 +26,7 @@ function BorrowNav({ handleVault, handleGenerateSTC, handleConfirm }) {
 
   return (
     <div className="text-white  bg-[#202225]  flex items-center  justify-between h-[7.47vh] px-[33px] rounded-[15px] ">
-      <div
-        className="flex items-center gap-2  font-semibold "
-        onClick={handleVault}
-      >
+      <div className="flex items-center gap-2  font-semibold ">
         <img src={vaultmgt} alt="" className="w-[20px] " />
         <p
           className={`
@@ -40,18 +37,12 @@ function BorrowNav({ handleVault, handleGenerateSTC, handleConfirm }) {
         </p>
       </div>
       <div className={`w-[135px] h-[2px] ${bgColor}`}></div>
-      <div
-        className="flex items-center gap-2 justify-between"
-        onClick={handleGenerateSTC}
-      >
+      <div className="flex items-center gap-2 justify-between">
         <img src={generate} alt="" className="w-[20px] " />
         <p className={`${textColor}`}>Generate STC</p>
       </div>
       <div className={`${bgColor} w-[132px] h-[2px] `}></div>
-      <div
-        className="flex items-center gap-2 justify-between"
-        onClick={handleConfirm}
-      >
+      <div className="flex items-center gap-2 justify-between">
         <img src={confirmations} alt="" className="w-[20px] " />
         <p className={`${textColor}`}>Confirmations</p>
       </div>

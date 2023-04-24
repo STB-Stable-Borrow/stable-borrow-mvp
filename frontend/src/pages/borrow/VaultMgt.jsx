@@ -5,7 +5,7 @@ import approve from "../../assets/borrow/approve.svg";
 import back from "../../assets/borrow/back.svg";
 import next from "../../assets/borrow/next.svg";
 
-function VaultMgt() {
+function VaultMgt({ onNextButtonClicked }) {
   return (
     <div>
       <div className="flex items-center pt-[2.5vh] px-[34px] gap-[16px] text-sm">
@@ -112,7 +112,10 @@ function VaultMgt() {
           <img src={back} alt="" />
           Back
         </button>
-        <button className="bg-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 ">
+        <button
+          className="bg-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
+          onClick={onNextButtonClicked}
+        >
           Next
           <img src={next} alt="" />
         </button>

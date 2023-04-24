@@ -10,11 +10,11 @@ import Confirmations from "./Confirmations";
 function Borrow() {
   const {
     vault,
-    genateSTC,
+    generateSTC,
     confirm,
-    handleVault,
-    handleGenerateSTC,
-    handleConfirm,
+    handleVaultNext,
+    handleGenerateSTCNext,
+    handleGenerateSTCBack,
   } = useBorrow();
   return (
     <div className="w-screen h-screen bg-[#292C31] ">
@@ -26,17 +26,15 @@ function Borrow() {
         />
       </Link>
       <div className="mx-[147px]    ">
-        <BorrowNav
-          handleConfirm={handleConfirm}
-          handleGenerateSTC={handleGenerateSTC}
-          handleVault={handleVault}
-          vault={vault}
-          genateSTC={genateSTC}
-          confirm={confirm}
-        />
+        <BorrowNav />
         <div className="bg-[#202225] w-full mt-[3.2vh] flex items-center justify-center text-white rounded-[15px] h-[70vh] ">
-          {vault && <VaultMgt />}
-          {genateSTC && <Generate />}
+          {vault && <VaultMgt onNextButtonClicked={handleVaultNext} />}
+          {generateSTC && (
+            <Generate
+              onNextButtonClicked={handleGenerateSTCNext}
+              onBackButton={handleGenerateSTCBack}
+            />
+          )}
           {confirm && <Confirmations />}
         </div>
       </div>
