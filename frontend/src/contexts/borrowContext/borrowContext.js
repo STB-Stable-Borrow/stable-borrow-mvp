@@ -18,8 +18,8 @@ export const BorrowProvider = ({ children }) => {
   };
 
   const handleGenerateSTCBack = () => {
-    setGenerateSTC(true);
-    setConfirm(false);
+    setGenerateSTC(false);
+    setVault(true);
   };
 
   return (

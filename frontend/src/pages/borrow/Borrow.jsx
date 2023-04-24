@@ -32,7 +32,7 @@ function Borrow() {
           {generateSTC && (
             <Generate
               onNextButtonClicked={handleGenerateSTCNext}
-              onBackButton={handleGenerateSTCBack}
+              onBackButtonClicked={handleGenerateSTCBack}
             />
           )}
           {confirm && <Confirmations />}
