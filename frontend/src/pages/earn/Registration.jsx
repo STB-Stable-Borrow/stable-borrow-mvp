@@ -10,6 +10,9 @@ function Registration() {
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
 
+  const [username, setUsername] = useState("");
+  const [about, setAbout] = useState("");
+
   const handleCreateAvatar = () => {
     setCreateAvatar(true);
     setShowRegistration(false);
@@ -66,12 +69,16 @@ function Registration() {
                   type="text"
                   className=" w-full h-[5.4vh] rounded-lg bg-[#B0B0B0] pl-[21px] placeholder:text-[#292C31] mb-[10px]"
                   placeholder="Enter Your Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <textarea
                   name=""
                   id=""
                   placeholder="About"
                   className=" w-full h-[20.7vh] pt-[15px]  rounded-lg bg-[#B0B0B0] pl-[21px] placeholder:text-[#292C31] mb-[10px]"
+                  value={about}
+                  onChange={(e) => setAbout(e.target.value)}
                 ></textarea>
               </form>
             </div>
