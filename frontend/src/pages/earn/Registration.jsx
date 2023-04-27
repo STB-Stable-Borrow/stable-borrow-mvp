@@ -5,10 +5,13 @@ import back from "../../assets/borrow/back.svg";
 import next from "../../assets/borrow/next.svg";
 import addAvatar from "../../assets/earn/addAvatar.svg";
 import CreateAvatar from "./CreateAvatar";
+import editAvatar from "../../assets/earn/editAvatar.svg";
 
 function Registration() {
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [avatar, setAvatar] = useState(null);
 
   const [username, setUsername] = useState("");
   const [about, setAbout] = useState("");
@@ -22,6 +25,27 @@ function Registration() {
     setCreateAvatar(false);
     setShowRegistration(true);
   };
+
+  const handleFileSelect = (event) => {
+    setLoading(true);
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setAvatar(reader.result);
+      setLoading(false);
+    };
+  };
+
+  //   useEffect(() => {
+  //     if (generalStoreState.avatarUrl !== "") {
+  //       setLoading(true);
+  //       (async () => {
+  //         await get2dUrl(generalStoreState.avatarUrl);
+  //         setLoading(false);
+  //       })();
+  //     }
+  //   }, []);
 
   return (
     <div className="w-screen h-screen bg-[#292C31] ">
@@ -53,12 +77,50 @@ function Registration() {
               <h1 className="text-center text-sm font-semibold text-[#009FBD] mb-[2.4vh] ">
                 Step 1
               </h1>
-              <div className="w-[150px] h-[150px] rounded-full mx-[26px] border border-dashed border-[#585858] flex justify-center items-center flex-col  ">
-                <img src={addAvatar} alt="" />
-                <p className="text-xs text-center text-[#B0B0B0] ">
-                  Click to choose <br /> an Avatar
-                </p>
+              <div className="w-[150px] h-[150px] rounded-full mx-[26px] border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
+                {loading && (
+                  <div>
+                    <h1>Loading...</h1>
+                  </div>
+                )}
+                <img
+                  src={avatar || addAvatar}
+                  alt=""
+                  className={
+                    avatar
+                      ? "w-full h-full object-cover rounded-full"
+                      : "w-[50px] h-[50px]"
+                  }
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className={`w-full h-full opacity-0  absolute inset-0 cursor-pointer ${
+                    avatar ? "hidden" : "block"
+                  } `}
+                  onChange={handleFileSelect}
+                />
+                {avatar ? (
+                  ""
+                ) : (
+                  <p className="text-xs text-center text-[#B0B0B0] ">
+                    Click to choose <br /> an Avatar
+                  </p>
+                )}
               </div>
+              {avatar && (
+                <div className="flex justify-center items-center text-xs mt-2 gap-1 relative">
+                  <img src={editAvatar} alt="" className="w-[20px]" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className={`w-full h-full opacity-0  absolute inset-0 cursor-pointer 
+                  } `}
+                    onChange={handleFileSelect}
+                  />
+                  <p className="text-[#B0B0B0] hover:underline ">Edit Avatar</p>
+                </div>
+              )}
             </div>
             <div className="w-full h-full rounded-[15px] bg-[#202225] pt-[1.6vh] pb-[5vh] px-[30px] ">
               <h1 className=" text-sm font-semibold text-[#009FBD] mb-[2.4vh] ">
