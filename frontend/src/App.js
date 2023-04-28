@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AboutProvider } from "./context/aboutContext";
 import Borrow from "./pages/borrow/Borrow";
 import { BorrowProvider } from "./contexts/borrowContext/borrowContext";
+import Registration from "./pages/earn/Registration";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/about" element={<About />} />
 
               <Route path="/borrow" element={<Borrow />} />
+              <Route path="/register" element={<Registration />} />
             </Routes>
           </BorrowProvider>
         </AboutProvider>
