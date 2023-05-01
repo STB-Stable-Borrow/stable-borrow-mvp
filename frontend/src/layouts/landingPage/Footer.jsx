@@ -8,14 +8,14 @@ import phone from "../../assets/landing/phone.svg";
 function Footer() {
   const [copied, setCopied] = useState(false);
 
-  console.log(copied)
+  console.log(copied);
 
   function copyToClipboard() {
-     document.getElementById("+1 (202) 555 0156");
+    document.getElementById("+1 (202) 555 0156");
     setCopied(true);
   }
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center text-xs">
       <div className="flex gap-[21px]">
         <div className="flex gap-[13px]">
           <img src={twitter} alt="twitter" />
