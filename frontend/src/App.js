@@ -7,6 +7,8 @@ import { AboutProvider } from "./context/aboutContext";
 import Borrow from "./pages/borrow/Borrow";
 import { BorrowProvider } from "./contexts/borrowContext/borrowContext";
 import Registration from "./pages/earn/Registration";
+import Dashboard from "./pages/dashboard/Dashboard";
+import { DashboardProvider } from "./contexts/dashboardContext"
 
 function App() {
   return (
@@ -14,14 +16,22 @@ function App() {
       <Router>
         <AboutProvider>
           <BorrowProvider>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route path="/info" element={<Info />} />
-              <Route path="/about" element={<About />} />
+            <DashboardProvider>
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route path="/info" element={<Info />} />
+                <Route path="/about" element={<About />} />
 
+
+                <Route path="/borrow" element={<Borrow />} />
+                <Route path="/register" element={<Registration />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+              </Routes>
+            </DashboardProvider>
               <Route path="/borrow" element={<Borrow />} />
               <Route path="/register" element={<Registration />} />
             </Routes>
+
           </BorrowProvider>
         </AboutProvider>
       </Router>
