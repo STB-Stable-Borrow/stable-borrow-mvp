@@ -26,7 +26,7 @@ function Dashboard() {
   } = useDashboard();
 
   return (
-    <div className="flex w-screen h-screen bg-[#585858] px-[80px] ">
+    <div className="flex w-screen h-screen overflow-none bg-[#292C31] px-[80px] ">
       <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] ">
         <Sidebar
           onDashBorrowClick={onDashBorrowClick}
@@ -41,7 +41,7 @@ function Dashboard() {
         <div className=" mt-[7.6vh] text-[#B0B0B0]   ">
           <Navbar />
         </div>
-        <div className="mt-[3.6vh] w-full h-full mb-[4.88vh]">
+        <div className="mt-[3.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
           {showHome && <Home />}
           {showDashBorrow && <DashBorrow />}
           {showEarn && <Earn />}
