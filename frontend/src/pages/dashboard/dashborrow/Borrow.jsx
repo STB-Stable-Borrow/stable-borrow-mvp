@@ -1,8 +1,8 @@
 import React from "react";
-import filter from "../../assets/dashboard/filter.svg";
-import search from "../../assets/dashboard/search.svg";
-import edit from "../../assets/dashboard/edit.svg";
-import dashBorrowData from "../../data/dashBorrowData";
+import filter from "../../../assets/dashboard/filter.svg";
+import search from "../../../assets/dashboard/search.svg";
+import edit from "../../../assets/dashboard/edit.svg";
+import dashBorrowData from "../../../data/dashBorrowData";
 
 function Borrow() {
   return (

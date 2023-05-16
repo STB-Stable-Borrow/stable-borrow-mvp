@@ -2,12 +2,12 @@ import React from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useDashboard } from "../../contexts/dashboardContext";
-import Home from "./Home";
-import DashBorrow from "./DashBorrow";
-import Earn from "./Earn";
-import Exchange from "./Exchange";
-import History from "./History";
-import Settings from "./Settings";
+import Home from "./dashhome/Home";
+import DashBorrow from "../dashboard/dashborrow/DashBorrow";
+import Earn from "./dashearn/Earn";
+import Exchange from "./dashexchange/Exchange";
+import History from "./dashhistory/History";
+import Settings from "./dashsettings/Settings";
 
 function Dashboard() {
   const {

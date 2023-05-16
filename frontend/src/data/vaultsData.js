@@ -21,3 +21,5 @@ const vaultsData = [
     txHash: "xdc7ef2be6...10eb",
   },
 ];
+
+export default vaultsData;
