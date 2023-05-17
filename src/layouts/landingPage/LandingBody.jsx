@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 
 function LandingBody({ children }) {
   const location = useLocation();
+ 
   console.log(location);
   return (
     <div className="relative min-h-screen">
@@ -12,7 +13,7 @@ function LandingBody({ children }) {
         className="absolute inset-0 z-0 bg-cover bg-center bg-[#00000080]"
         style={{ backgroundImage: `url(${bgImage})` }}
       ></div>
-      <div className="relative flex flex-col justify-between h-[100vh] z-10 py-[20px] px-[80px]">
+      <div className="relative flex flex-col justify-between h-[100vh] py-[20px] px-[80px]">
         <Header />
         {children}
       </div>

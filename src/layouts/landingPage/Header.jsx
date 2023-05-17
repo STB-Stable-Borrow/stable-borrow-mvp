@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useContext, useCallback} from "react";
 import logoStb from "../../assets/landing/stb-logo.svg";
 import { Link, useLocation } from "react-router-dom";
+import { Web3ModalContext } from "../../contexts/web3ModalContext";
 
 function Header() {
   const location = useLocation();
+  const { account, isClicked, connect, disconnect, handleClick } = useContext(Web3ModalContext);
+  const handleConnectWallet = useCallback(() => {
+    handleClick();
+    connect();
+  }, [connect]);
+
+  const handleDisconnectWallet = useCallback(() => {
+    disconnect();
+  }, [disconnect]);
 
   return (
     <div className="flex justify-between items-center">
@@ -20,15 +30,19 @@ function Header() {
           <li>
             <Link to="/exchange" className={location.pathname === "/exchange" ? "text-[#009FBD]" : ""}>Exchange</Link>
           </li>
-          {location.pathname !== "/" && (
+          {/* {location.pathname !== "/" && (
             <li>
               <Link to="/contact" className={location.pathname === "/contact" ? "text-[#009FBD]" : ""}>Contact</Link>
             </li>
-          )}
+          )} */}
         </ul>
 
         {location.pathname === "/" && (
-          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg">
+          isClicked? <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={handleConnectWallet}>
+            {`< Back`}
+          </button>
+          :
+          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={handleConnectWallet}>
             Connect Wallet
           </button>
         )}
