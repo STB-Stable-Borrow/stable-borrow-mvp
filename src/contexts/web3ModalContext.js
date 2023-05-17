@@ -6,13 +6,11 @@ import Web3Modal from "web3modal";
 export const Web3ModalContext = createContext({
   connect: () => {},
   disconnect: () => {},
-  handleClick: () => {},
   web3: null,
   account: null,
   chainId: null,
   networkId: null,
   connected: false,
-  isClicked: false,
 });
 
 const Web3ModalProvider = ({ children }) => {
@@ -22,7 +20,6 @@ const Web3ModalProvider = ({ children }) => {
   const [chainId, setChainId] = useState(null);
   const [networkId, setNetworkId] = useState(null);
   const [connected, setConnected] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
 
   //create and save new web3Modal onload
   useEffect(() => {
@@ -132,24 +129,16 @@ const Web3ModalProvider = ({ children }) => {
     resetConnection();
   }, [web3Modal, web3, resetConnection]);
 
-  //handles web3modal popup
-  const handleClick = () => {
-    setIsClicked((prevState) => !prevState);
-    console.log("workiiiing");
-  };
-
   return (
     <Web3ModalContext.Provider
       value={{
         connect,
         disconnect,
-        handleClick,
         web3,
         account,
         networkId,
         chainId,
         connected,
-        isClicked,
       }}
     >
       {children}

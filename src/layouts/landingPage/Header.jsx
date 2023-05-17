@@ -5,15 +5,18 @@ import { Web3ModalContext } from "../../contexts/web3ModalContext";
 
 function Header() {
   const location = useLocation();
-  const { account, isClicked, connect, disconnect, handleClick } = useContext(Web3ModalContext);
-  const handleConnectWallet = useCallback(() => {
-    handleClick();
-    connect();
-  }, [connect]);
+  const { account, connect, disconnect} = useContext(Web3ModalContext);
 
-  const handleDisconnectWallet = useCallback(() => {
+  //handles wallet connection
+  const handleConnectWallet = () => {
+    connect();
+  }
+
+  // handles wallet disconnection
+  const handleDisconnectWallet = () => {
     disconnect();
-  }, [disconnect]);
+  }
+
 
   return (
     <div className="flex justify-between items-center">
@@ -38,13 +41,9 @@ function Header() {
         </ul>
 
         {location.pathname === "/" && (
-          isClicked? <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={handleConnectWallet}>
-            {`< Back`}
-          </button>
-          :
           <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={handleConnectWallet}>
-            Connect Wallet
-          </button>
+          Connect Wallet
+        </button>
         )}
       </div>
     </div>
