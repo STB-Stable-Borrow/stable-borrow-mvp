@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import borrow from "../assets/info/Borrow.svg";
 import exchange from "../assets/info/Exchange.svg";
 import earn from "../assets/info/Earn.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LandingBody from "../layouts";
 import { useAbout } from "../context/aboutContext";
+import { Web3ModalContext } from "../contexts/web3ModalContext";
 
 function Info() {
   const { navigateToAbout } = useAbout();
-
+  const navigate = useNavigate();
   return (
     <LandingBody>
       <body className="md:mx-[60px] md:mt-[48px] flex justify-between text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
@@ -31,7 +32,7 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
+            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2" onClick={() => {navigate("/borrow")}}>
               Borrow now
             </button>
           </div>

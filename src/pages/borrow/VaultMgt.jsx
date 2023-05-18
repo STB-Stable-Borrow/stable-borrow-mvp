@@ -5,7 +5,8 @@ import approve from "../../assets/borrow/approve.svg";
 import back from "../../assets/borrow/back.svg";
 import next from "../../assets/borrow/next.svg";
 
-function VaultMgt({ onNextButtonClicked }) {
+function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
+  console.log("bb: ", _xdcBalance)
   return (
     <div>
       <div className="flex items-center pt-[2.5vh] px-[34px] gap-[16px] text-sm">
@@ -21,7 +22,7 @@ function VaultMgt({ onNextButtonClicked }) {
             <div className="flex items-center justify-between mb-1">
               <p>Deposit XDC</p>
               <p className="text-[#865dff] ">
-                Balance: <span className="text-white">10000000.00 XDC</span>
+                Balance: <span className="text-white">{_xdcBalance}</span>
               </p>
             </div>
             <div className="w-full relative text-[#292C31]">
@@ -117,7 +118,7 @@ function VaultMgt({ onNextButtonClicked }) {
           onClick={onNextButtonClicked}
         >
           Next
-          <img src={next} alt="" />
+          <img src={next} alt="" onLoad={onLoaded}/>
         </button>
       </div>
     </div>

@@ -2,12 +2,17 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import Web3 from "web3";
 import { providerOptions } from "xdcpay-connect";
 import Web3Modal from "web3modal";
+import { Big } from "big.js";
 
 export const Web3ModalContext = createContext({
   connect: () => {},
   disconnect: () => {},
+  getXdcBalance: () => {},
   web3: null,
   account: null,
+  address: "",
+  xdcBalance: null,
+  xdcBlnc: null,
   chainId: null,
   networkId: null,
   connected: false,
@@ -17,6 +22,9 @@ const Web3ModalProvider = ({ children }) => {
   const [web3Modal, setWeb3Modal] = useState(null);
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState(null);
+  const [address, setAddress] = useState("");
+  const [xdcBalance, setXdcBalance] = useState(null);
+  const [xdcBlnc, setXdcBlnc] = useState(null);
   const [chainId, setChainId] = useState(null);
   const [networkId, setNetworkId] = useState(null);
   const [connected, setConnected] = useState(false);
@@ -24,7 +32,7 @@ const Web3ModalProvider = ({ children }) => {
   //create and save new web3Modal onload
   useEffect(() => {
     const _web3Modal = new Web3Modal({
-      cacheProvider: true, // incase there's more than one wallet(no need for cacheProvider)
+      cacheProvider: true, // for previous connection
       providerOptions, // for XDCPay
       disableInjectedProvider: false, //For Metamask
       theme: "dark", // For dark theme todo: customise theme,
@@ -34,6 +42,11 @@ const Web3ModalProvider = ({ children }) => {
 
   //initialize and save web3 from _provider
   const web3Init = (_provider) => {
+    if (!_provider) {
+      window.alert(
+        "Error while connecting to wallet provider. Try again later"
+      );
+    }
     let provider;
     if (typeof _provider === "string") {
       if (_provider.includes("wss")) {
@@ -42,9 +55,7 @@ const Web3ModalProvider = ({ children }) => {
         provider = new Web3.providers.HttpProvider(_provider);
       }
     } else {
-      window.alert(
-        "Error while connecting to wallet provider. Try again later"
-      );
+      provider = _provider;
     }
     const _web3 = new Web3(provider);
     setWeb3(_web3);
@@ -90,6 +101,11 @@ const Web3ModalProvider = ({ children }) => {
     [resetConnection]
   );
 
+  //slices wallet address and replace 0x with xdc
+  const formatAddress = (_address) => {
+    return `xdc${_address.slice(2, 5)}...${_address.slice(39)}`;
+  };
+
   // connects wallet
   const connect = useCallback(async () => {
     // connect web3modal and get provider
@@ -97,25 +113,29 @@ const Web3ModalProvider = ({ children }) => {
     const _provider = await web3Modal.connect();
     if (_provider === null) return;
     //initialize web3 with provider
-    const _web3 = await web3Init(_provider);
+    const _web3 = web3Init(_provider);
     //monitor wallet actions
     await subscribeProvider(_provider, _web3);
     //saved needed instances
-    const account = await _web3.eth.getAccounts()[0]; //first account connected
-    const _account = _web3.utils.toChecksumAddress(account[0]); //get address
+    const accounts = await _web3.eth.getAccounts(); //first account connected
+    const _account = _web3.utils.toChecksumAddress(accounts[0]); //get address
+    const _address = formatAddress(_account);
     const _networkId = await _web3.eth.net.getId(); // get networkid
     const _chainId = await _web3.eth.getChainId(); // get chainid
     setAccount(_account);
+    setAddress(_address);
     setNetworkId(Number(_networkId));
     setChainId(Number(_chainId));
     setConnected(true);
+    return true;
   }, [web3Modal, subscribeProvider]);
 
-  //   useEffect(() => {
-  //     if (web3Modal) {
-  //       connect();
-  //     }
-  //   }, [web3Modal, connect]);
+  //track previous connection and automatically connect
+  useEffect(() => {
+    if (web3Modal && web3Modal.cachedProvider) {
+      connect();
+    }
+  }, [web3Modal, connect]);
 
   //disconnects wallet
   const disconnect = useCallback(async () => {
@@ -125,17 +145,35 @@ const Web3ModalProvider = ({ children }) => {
     }
     if (web3Modal) {
       await web3Modal.clearCachedProvider();
-    } //clear cachedProvider even if it's not beign used
+    }
     resetConnection();
   }, [web3Modal, web3, resetConnection]);
+
+  //gets, formats and save xdcBalance(always call to update balance)
+  const getXdcBalance = async (_web3, _account) => {
+    if (_web3 && _account) {
+      await _web3.eth.getBalance(_account).then((res) => {
+        setXdcBalance(res);
+        const blnc = new Big(res || 0);
+        const formattedBlnc = blnc.div("10e17").toFixed(4);
+        setXdcBlnc(formattedBlnc);
+      });
+    } else {
+      return;
+    }
+  };
 
   return (
     <Web3ModalContext.Provider
       value={{
         connect,
         disconnect,
+        getXdcBalance,
         web3,
         account,
+        address,
+        xdcBalance,
+        xdcBlnc,
         networkId,
         chainId,
         connected,

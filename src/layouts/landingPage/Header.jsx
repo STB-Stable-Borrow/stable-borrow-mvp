@@ -1,15 +1,19 @@
-import React, {useContext, useCallback} from "react";
+import React, {useContext} from "react";
 import logoStb from "../../assets/landing/stb-logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
 
 function Header() {
   const location = useLocation();
   const { account, connect, disconnect} = useContext(Web3ModalContext);
-
+  const navigate = useNavigate();
   //handles wallet connection
-  const handleConnectWallet = () => {
-    connect();
+  const handleConnectWallet = async() => {
+    await connect().then((res) => {
+      if(res) {
+        navigate("/info")
+      }
+    });
   }
 
   // handles wallet disconnection
