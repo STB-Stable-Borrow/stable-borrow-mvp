@@ -1,12 +1,65 @@
-import React from "react";
+import React, {useState} from "react";
 import arrow from "../../assets/borrow/arrow.svg";
 import dash from "../../assets/borrow/dash.svg";
 import approve from "../../assets/borrow/approve.svg";
 import back from "../../assets/borrow/back.svg";
 import next from "../../assets/borrow/next.svg";
+import { useBorrow } from "../../contexts/borrowContext/borrowContext";
+import {useNavigate } from "react-router-dom";
 
-function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
-  console.log("bb: ", _xdcBalance)
+function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account}) {
+  const navigate = useNavigate();
+  const {calculateAmounts} = useBorrow();
+  const [xdcIn, setXdcIn] = useState(null);
+  const [stcOut, setStcOut] = useState(null);
+  const [hntFee, setHntFee] = useState(null);
+  const [isApproved, setIsApproved] = useState(false);
+
+  const approveBtn = document.getElementById("approve-btn");
+  const nextBtn = document.getElementById("vm-next-btn");
+  
+
+  //sets xdc amount, gets and sets returned STC
+  const handleInputXDC = (e) => {
+    let input = e.target.value;
+    setXdcIn(parseFloat(input));
+    const haunterFee = (10/100) * input;
+    setHntFee(haunterFee)
+    const stcOut = (_xdcPrice* input) /_colRatio;
+    setStcOut(stcOut.toFixed(4))
+  }
+
+  //handles approve button colour change
+  const handleApproveBtnColour = () => {
+    if (approveBtn) {
+      if (stcOut > 0) {
+        approveBtn.style.backgroundColor = "#865DFF";
+      }else{
+        approveBtn.style.backgroundColor = "#585858";
+      }
+      
+    }
+  }
+
+  handleApproveBtnColour()
+  // const handleNextButtonColour = async() => {
+  //   if (_account) {
+  //     const stcAddress = stc._address;
+  //     await stc.methods.allowance(userAddress, stcAddress).call().then(async(res) => {
+  //       if (res == maxU256 && nextButtonTag && stcOut > 0) {
+  //         nextButtonTag.style.backgroundColor = "#12A92A"
+  //         setIsApproved(true);
+  //       }else{
+  //         nextButtonTag.style.backgroundColor = "#0C0B0B70"
+  //         setIsApproved(false);
+  //       }
+  //   }).catch((err) => {
+  //     if (err.message.includes("Response has no error or result for request")){
+  //       window.alert("You are offline due to internet connection. check your connection and try again"); 
+  //     }    
+  //   })
+  //   }
+  // }
   return (
     <div>
       <div className="flex items-center pt-[2.5vh] px-[34px] gap-[16px] text-sm">
@@ -27,6 +80,8 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
             </div>
             <div className="w-full relative text-[#292C31]">
               <input
+              onInput={(e) => {handleInputXDC(e)}}
+              onChange={calculateAmounts(xdcIn, stcOut, hntFee)}
                 type="number"
                 placeholder="Enter Amount"
                 className="w-full bg-[#D5D5D5] rounded-[7px] h-[5.46vh] px-[21px] placeholder:text-[#292C31]  "
@@ -40,12 +95,13 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
               Generated STC
             </h1>
             <p className="mb-[2.75px]">
-              Max: <span>10000000.00 STC</span>
+              Max: <span>{_maxSTC} STC</span>
             </p>
             <div className=" relative text-[#292C31]">
               <input
                 type="number"
                 className="w-[302px] bg-[#D5D5D5] rounded-[7px] h-[5.46vh] px-[21px]  "
+                value={stcOut}
               />
               <h1 className="absolute top-1 right-[21px] font-semibold">XDC</h1>
             </div>
@@ -56,16 +112,16 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
           </h1>
           <div className="text-xs">
             <div className="flex justify-between items-center">
-              <h1>Collateralization Ratio:</h1>
-              <small>0.00% → 211.04%</small>
+              <h1>Total Debt:</h1>
+              <small>$0.00 → $1,560000000.00</small>
             </div>
             <div className="flex justify-between items-center">
-              <h1>Liquidation Price:</h1>
-              <small>$0.00 → $1,560.00</small>
+            <h1>Haunter's fee:</h1>
+              <small>0.00 → {hntFee}</small>
             </div>
             <div className="flex itme justify-between items-center">
-              <h1>Max Gas Fee:</h1>
-              <small>n/a</small>
+              <h1>Annual interest:</h1>
+              <small>0.00 → 0.15%</small>
             </div>
           </div>
         </div>
@@ -84,24 +140,24 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
           </p>
           <div className="flex flex-wrap justify-between gap-y-[3.3vh] mb-[5.27vh] text-xs ">
             <div className="w-[150px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
-              <h1 className="text-xs">Liquidation Price:</h1>
-              <p className="font-bold">$0.00</p>
+              <h1 className="text-xs">Total Debt:</h1>
+              <p className="font-bold">${stcOut}</p>
             </div>
             <div className="w-[150px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
               <h1 className="text-xs">Collateralization Ratio:</h1>
-              <p className="font-bold">$0.00</p>
-            </div>
-            <div className="w-[150px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
-              <h1 className="text-xs">Liquidation Price:</h1>
-              <p className="font-bold">$0.00</p>
+              <p className="font-bold">{_colRatio}</p>
             </div>
             <div className="w-[150px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
               <h1 className="text-xs">Current Price:</h1>
-              <p className="font-bold">$0.00</p>
+              <p className="font-bold">${_xdcPrice}</p> 
+            </div>
+            <div className="w-[150px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
+              <h1 className="text-xs">Liquidation Price:</h1>
+              <p className="font-bold">${_xdcPrice}</p>
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <button className="w-[198px] h-[6.6vh] bg-[#865DFF] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg ">
+            <button id="approve-btn" className="w-[198px] h-[6.6vh] bg-[#585858] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg ">
               Approve
               <img src={approve} alt="" />
             </button>
@@ -109,12 +165,13 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance}) {
         </div>
       </div>
       <div className="flex items-center justify-center gap-[110px] mt-[3.19vh] mb-[5.5vh] ">
-        <button className="border border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 ">
+        <button onClick={() => {navigate("/")}} className="border border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 ">
           <img src={back} alt="" />
           Back
         </button>
         <button
-          className="bg-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
+        id="vm-next-btn"
+          className="bg-[#585858] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
           onClick={onNextButtonClicked}
         >
           Next

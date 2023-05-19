@@ -3,10 +3,9 @@ import bgImage from "../assets/landing/bg.png";
 import { useLocation } from "react-router-dom";
 import Header from "./landingPage/Header";
 
-
-function LandingBody({children}) {
-  const location = useLocation()
-  console.log(location)
+function LandingBody({ children }) {
+  const location = useLocation();
+  // console.log(location)
   return (
     <div className="relative min-h-screen">
       <div

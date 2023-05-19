@@ -1,35 +1,44 @@
-import React from "react";
+import React, {useState} from "react";
 import back from "../../assets/borrow/back.svg";
 import gen from "../../assets/borrow/gen.svg";
+import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 
-function Generate({ onNextButtonClicked, onBackButtonClicked }) {
+function Generate({ onNextButtonClicked, onBackButtonClicked, _xdcPrice, _colRatio }) {
+  const {totalStcOut,totalXdcIn} = useBorrow();
+
+  console.log("totalin: ", totalXdcIn)
+  console.log("totalout: ", totalStcOut)
+  
   return (
     <div className="bg-[#292C31] rounded-[12px] flex flex-col gap-[4vh] w-[735px] py-[2vh] px-[86px] ">
       <div className="flex flex-col gap-[10px] font-bold ">
         <div className="flex items-center justify-between">
-          <h1>XDC to Deposit:</h1>
-          <p>$100000.00</p>
+          <h1>Total XDC to Deposit Amount:</h1>
+          <p>${totalXdcIn * _xdcPrice}</p>
         </div>
         <div className="flex items-center justify-between">
-          <h1>STC to Generate:</h1>
-          <p>$100000.00</p>
+          <h1>Total STC To Generate Amount:</h1>
+          <p>${totalStcOut}</p>
         </div>
         <div className="flex items-center justify-between">
-          <h1>Stability Fee:</h1>
-          <p>$100000.00</p>
+          <h1>XDC To Deposit:</h1>
+          <p>{totalXdcIn}</p>
         </div>
         <div className="flex items-center justify-between">
-          <h1>Liquidity Fee:</h1>
-          <p>$100000.00</p>
+          <h1>STC To Generate:</h1>
+          <p>{totalStcOut}</p>
+        </div>
+        <div className="flex items-center justify-between">
+          <h1>Current XDC Price:</h1>
+          <p>${_xdcPrice}</p>
         </div>
         <div className="flex items-center justify-between">
           <h1>Liquidity Ratio:</h1>
-          <p>$100000.00</p>
+          <p>{_colRatio}</p>
         </div>
       </div>
       <p className="text-center">
-        <span className="text-[#865DFF] ">Note:</span> The amount of STC you are
-        generating is putting your vault at risk of Liquidation.
+        <span className="text-[#865DFF] ">Note:</span> Total XDC Amount may vary depending on price action but XDC to deposit must be the same verify on your wallet before you approve transaction. Thanks
       </p>
       <div className="flex items-center justify-center gap-[110px] mt-[5.19vh] mb-[5.5vh] ">
         <button
