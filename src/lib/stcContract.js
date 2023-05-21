@@ -8,6 +8,7 @@ const stcContractInit = (web3) => {
 
 const maxU256 =
   115792089237316195423570985008687907853269984665640564039457584007913129639935n;
+
 //calls approve function on STC contract
 const approveAccount = async (stc, userAccount) => {
   const stcAddress = stc._address;

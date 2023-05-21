@@ -11,14 +11,18 @@ const MAXVAULT = 10;
 
 module.exports = async function (deployer) {
   await deployer.deploy(STC, STCNAME, STCSYMBOL).then(async (res1) => {
-    await deployer.deploy(
-      STB,
-      res1.address,
-      INITIALCOLRATIO,
-      REGPERCENTAGE,
-      INTEREST,
-      INTERESTDURATION,
-      MAXVAULT
-    );
+    await deployer
+      .deploy(
+        STB,
+        res1.address,
+        INITIALCOLRATIO,
+        REGPERCENTAGE,
+        INTEREST,
+        INTERESTDURATION,
+        MAXVAULT
+      )
+      .then((res2) => {
+        res1.authorize(res2.address);
+      });
   });
 };

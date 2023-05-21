@@ -36,8 +36,7 @@ const getColRatio = async (stb) => {
   return colRt;
 };
 
-//gets regulator frr from STB contract
-//gets collaritization ratio from STB contract
+//gets regulator fee from STB contract
 const getRegFee = async (stb, amount) => {
   const regFee = await stb.methods
     .getRegulatorFee(amount)
@@ -60,4 +59,41 @@ const getRegFee = async (stb, amount) => {
   return regFee;
 };
 
-export { stbContractInit, getRegFee, getColRatio };
+//calls createVault function on STB contract
+const createVault = async (stb, userAccount, amount) => {
+  const res = await stb.methods
+    .createVault(amount)
+    .send({ from: userAccount, value: amount })
+    .then((res) => {
+      if (res) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((err) => {
+      if (
+        err.message.includes(
+          `Given address "xdc0000000000000000000000000000000000000000" is not a valid Ethereum address`
+        ) ||
+        err.message.includes(`Failed to check for transaction receipt`)
+      ) {
+        return true;
+      } else {
+        if (
+          err.message.includes("Response has no error or result for request")
+        ) {
+          window.alert(
+            "You are offline due to internet connection. check your connection and try again"
+          );
+        } else {
+          console.log("Error while creating vault :", err);
+          window.alert("Error while creating vault. Try again later");
+        }
+        return false;
+      }
+    });
+  return res;
+};
+
+export { stbContractInit, getRegFee, getColRatio, createVault };

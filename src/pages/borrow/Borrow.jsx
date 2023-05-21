@@ -94,12 +94,7 @@ const getMaxSTC = () => {
         <div className="bg-[#202225] w-full mt-[3.2vh] flex items-center justify-center text-white rounded-[15px] h-[70vh] ">
           {vault && <VaultMgt _xdcBalance={xdcBlnc} _xdcPrice={xdcPrc} _colRatio={colRt} _maxSTC={getMaxSTC()} _account={account} _stc={stc} onNextButtonClicked={handleVaultNext} onLoaded={verifyConnection}/>}
           {generateSTC && (
-            <Generate
-              onNextButtonClicked={handleGenerateSTCNext}
-              onBackButtonClicked={handleGenerateSTCBack}
-              _xdcPrice={xdcPrc}
-              _colRatio={colRt}
-            />
+            <Generate onBackButtonClicked={handleGenerateSTCBack} _xdcPrice={xdcPrc} _colRatio={colRt} _stb={stb} _account={account} _web3={web3}/>
           )}
           {confirm && <Confirmations _generateRes={generateRes}/>}
         </div>

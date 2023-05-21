@@ -21,9 +21,9 @@ export const BorrowProvider = ({ children }) => {
     console.log("GGU");
   };
 
-  const handleGenerateSTCNext = () => {
+  const handleGenerateSTCNext = (genRes) => {
     setGenerateSTC(false);
-    setGenerateRes(approveAccount());
+    setGenerateRes(genRes);
     setConfirm(true);
   };
 

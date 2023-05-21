@@ -10,7 +10,7 @@ function Confirmations({_generateRes}) {
  const dashboardRedirect = () => {
   setInterval(() => {
     navigate("/dashboard");
-  }, 3000)
+  }, 5000)
  }
 
  //redirect to dashboard affer 3 seconds

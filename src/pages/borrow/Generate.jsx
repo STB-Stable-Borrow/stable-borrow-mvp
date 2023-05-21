@@ -2,12 +2,18 @@ import React, {useState} from "react";
 import back from "../../assets/borrow/back.svg";
 import gen from "../../assets/borrow/gen.svg";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
+import { createVault } from "../../lib/stbContract";
 
-function Generate({ onNextButtonClicked, onBackButtonClicked, _xdcPrice, _colRatio }) {
-  const {totalStcOut,totalXdcIn} = useBorrow();
-
-  console.log("totalin: ", totalXdcIn)
-  console.log("totalout: ", totalStcOut)
+function Generate({ onNextButtonClicked, onBackButtonClicked, _xdcPrice, _colRatio, _stb, _account, _web3 }) {
+  const {totalStcOut,totalXdcIn, handleGenerateSTCNext} = useBorrow();
+  
+  //handles generate click event
+  const handleGenerate = async () => {
+    const amt = _web3.utils.toWei(String(totalXdcIn), "ether")
+    await createVault(_stb,_account, amt).then((res) => {
+      handleGenerateSTCNext(res); 
+    })
+  }
   
   return (
     <div className="bg-[#292C31] rounded-[12px] flex flex-col gap-[4vh] w-[735px] py-[2vh] px-[86px] ">
@@ -50,7 +56,7 @@ function Generate({ onNextButtonClicked, onBackButtonClicked, _xdcPrice, _colRat
         </button>
         <button
           className="bg-[#009FBD] w-[210px] h-[7.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
-          onClick={onNextButtonClicked}
+          onClick={handleGenerate}
         >
           Generate
           <img src={gen} alt="" />
