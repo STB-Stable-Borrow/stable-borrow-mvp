@@ -8,8 +8,6 @@ import phone from "../../assets/landing/phone.svg";
 function Footer() {
   const [copied, setCopied] = useState(false);
 
-  console.log(copied);
-
   function copyToClipboard() {
     document.getElementById("+1 (202) 555 0156");
     setCopied(true);

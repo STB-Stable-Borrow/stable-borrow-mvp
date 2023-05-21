@@ -8,19 +8,20 @@ import Generate from "./Generate";
 import Confirmations from "./Confirmations";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { getCurrentPrice } from "../../lib/coingecko";
-import { getColRatio } from "../../lib/stbContract";
+import { getColRatio, getRegFee } from "../../lib/stbContract";
 
 
 
 function Borrow() {
   const navigate = useNavigate();
-  const { web3, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
+  const { web3, stb, stc, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
+  const { vault, generateSTC, confirm, handleVaultNext, handleGenerateSTCNext, handleGenerateSTCBack, generateRes } = useBorrow();
   const [xdcPrice, setXdcPrice] = useState(null);
   const [xdcPrc, setXdcPrc] = useState(null);
-  const [colRatio, setColRatio] = useState(null);
+  const [colRt, setColRt] = useState(null);
 
-  // console.log("connected: ", connected)
-  // console.log("chainId: ", chainId)
+  // console.log("stb: ", stb)
+  // console.log("stc: ", stc)
   // console.log("account: ", account)
   // console.log("address: ", address)
 
@@ -43,30 +44,35 @@ function Borrow() {
       getXdcBalance(web3, account);
     }
    
-  }, []);
+  }, [xdcBalance]);
   
 
   //get prices
   useEffect(() => {
     (async () => {
       await getCurrentPrice("xdce-crowd-sale").then((price) => {
-        setXdcPrice(price[0]);
-        setXdcPrc(price[1])
+        if(price) {
+          setXdcPrice(price[0]);
+          setXdcPrc(price[1])
+        }
       })
     })();
   
-}, []);
+}, );
 
 //get and set collaritazation ratio
 useEffect(() => {
   (async () => {
-    const colRatio = getColRatio();
-    setColRatio(colRatio)
+    if(connected && stb) {
+      await getColRatio(stb).then((res) => {
+        setColRt(res)
+      });
+    }
   })();
-}, []);
+}, );
 
 const getMaxSTC = () => {
- return(((xdcPrc * xdcBlnc)/colRatio).toFixed(4))
+ return((xdcBlnc/colRt).toFixed(4))
 }
   // console.log("balance: ", xdcBalance)
   // console.log("blnc: ", xdcBlnc)
@@ -74,15 +80,6 @@ const getMaxSTC = () => {
   // console.log("prc: ", xdcPrc)
   // console.log("colRatio: ", colRatio)
 
-  const {
-    vault,
-    generateSTC,
-    confirm,
-    handleVaultNext,
-    handleGenerateSTCNext,
-    handleGenerateSTCBack,
-    generateRes,
-  } = useBorrow();
   return (
     <div className="w-screen h-screen bg-[#292C31] ">
       <Link to={"/"}>
@@ -95,13 +92,13 @@ const getMaxSTC = () => {
       <div className="mx-[147px]    ">
         <BorrowNav />
         <div className="bg-[#202225] w-full mt-[3.2vh] flex items-center justify-center text-white rounded-[15px] h-[70vh] ">
-          {vault && <VaultMgt _xdcBalance={xdcBlnc} _xdcPrice={xdcPrc} _colRatio={colRatio} _maxSTC={getMaxSTC()} onNextButtonClicked={handleVaultNext} onLoaded={verifyConnection}/>}
+          {vault && <VaultMgt _xdcBalance={xdcBlnc} _xdcPrice={xdcPrc} _colRatio={colRt} _maxSTC={getMaxSTC()} _account={account} _stc={stc} onNextButtonClicked={handleVaultNext} onLoaded={verifyConnection}/>}
           {generateSTC && (
             <Generate
               onNextButtonClicked={handleGenerateSTCNext}
               onBackButtonClicked={handleGenerateSTCBack}
               _xdcPrice={xdcPrc}
-              _colRatio={colRatio}
+              _colRatio={colRt}
             />
           )}
           {confirm && <Confirmations _generateRes={generateRes}/>}

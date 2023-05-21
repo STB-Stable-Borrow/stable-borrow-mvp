@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import arrow from "../../assets/borrow/arrow.svg";
 import dash from "../../assets/borrow/dash.svg";
 import approve from "../../assets/borrow/approve.svg";
@@ -6,8 +6,9 @@ import back from "../../assets/borrow/back.svg";
 import next from "../../assets/borrow/next.svg";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import {useNavigate } from "react-router-dom";
+import { approveAccount } from "../../lib/stcContract";
 
-function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account}) {
+function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc}) {
   const navigate = useNavigate();
   const {calculateAmounts} = useBorrow();
   const [xdcIn, setXdcIn] = useState(null);
@@ -17,7 +18,8 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
 
   const approveBtn = document.getElementById("approve-btn");
   const nextBtn = document.getElementById("vm-next-btn");
-  
+  const maxU256 = 115792089237316195423570985008687907853269984665640564039457584007913129639935n; 
+
 
   //sets xdc amount, gets and sets returned STC
   const handleInputXDC = (e) => {
@@ -25,7 +27,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
     setXdcIn(parseFloat(input));
     const haunterFee = (10/100) * input;
     setHntFee(haunterFee)
-    const stcOut = (_xdcPrice* input) /_colRatio;
+    const stcOut = input /_colRatio;
     setStcOut(stcOut.toFixed(4))
   }
 
@@ -41,25 +43,60 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
     }
   }
 
-  handleApproveBtnColour()
-  // const handleNextButtonColour = async() => {
-  //   if (_account) {
-  //     const stcAddress = stc._address;
-  //     await stc.methods.allowance(userAddress, stcAddress).call().then(async(res) => {
-  //       if (res == maxU256 && nextButtonTag && stcOut > 0) {
-  //         nextButtonTag.style.backgroundColor = "#12A92A"
-  //         setIsApproved(true);
-  //       }else{
-  //         nextButtonTag.style.backgroundColor = "#0C0B0B70"
-  //         setIsApproved(false);
-  //       }
-  //   }).catch((err) => {
-  //     if (err.message.includes("Response has no error or result for request")){
-  //       window.alert("You are offline due to internet connection. check your connection and try again"); 
-  //     }    
-  //   })
-  //   }
-  // }
+  //handles next button colour
+  const handleNextButtonColour = async() => {
+    if (_account && _stc && nextBtn) {
+      const stcAddress = _stc._address;
+      await _stc.methods.allowance(_account, stcAddress).call().then((res) => {
+        if (res == maxU256 && nextBtn && stcOut > 0) {
+          nextBtn.style.backgroundColor = "#009FBD"
+          setIsApproved(true);
+        }else{
+          nextBtn.style.backgroundColor = "#585858"
+          setIsApproved(false);
+        }
+    }).catch((err) => {
+      if (err.message.includes("Response has no error or result for request")){
+        window.alert("You are offline due to internet connection. check your connection and try again"); 
+      }else{
+        console.log("Error while getting allowance between user and STB :", err)
+        window.alert("Error while getting allowance between user and STB. Try again later")
+      }   
+    })
+    }
+  }
+
+  handleNextButtonColour();
+  handleApproveBtnColour();
+
+  //handles approve button click
+  const handleAllowance = async () => {
+    if(approveBtn.style.backgroundColor === "rgb(134, 93, 255)") {
+      if(isApproved) {
+        onNextButtonClicked();
+      }else{
+        await approveAccount(_stc, _account).then((res) => {
+          if (res) {
+            nextBtn.style.backgroundColor = "#009FBD"
+            setIsApproved(true);
+          }else{
+            nextBtn.style.backgroundColor = "#585858"
+            setIsApproved(false);
+          }
+        });
+      }
+    }
+  }
+
+  //handles next button click
+  const handleNextButton = async () => { 
+   if(isApproved && nextBtn.style.backgroundColor === "rgb(0, 159, 189)") {
+      onNextButtonClicked();
+    }
+  }
+
+
+
   return (
     <div>
       <div className="flex items-center pt-[2.5vh] px-[34px] gap-[16px] text-sm">
@@ -157,7 +194,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <button id="approve-btn" className="w-[198px] h-[6.6vh] bg-[#585858] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg ">
+            <button onClick={handleAllowance} id="approve-btn" className="w-[198px] h-[6.6vh] bg-[#585858] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg ">
               Approve
               <img src={approve} alt="" />
             </button>
@@ -172,7 +209,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
         <button
         id="vm-next-btn"
           className="bg-[#585858] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
-          onClick={onNextButtonClicked}
+          onClick={handleNextButton}
         >
           Next
           <img src={next} alt="" onLoad={onLoaded}/>

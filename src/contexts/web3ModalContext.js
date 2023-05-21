@@ -2,6 +2,8 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import Web3 from "web3";
 import { providerOptions } from "xdcpay-connect";
 import Web3Modal from "web3modal";
+import { stbContractInit } from "../lib/stbContract";
+import { stcContractInit } from "../lib/stcContract";
 import { Big } from "big.js";
 
 export const Web3ModalContext = createContext({
@@ -9,6 +11,8 @@ export const Web3ModalContext = createContext({
   disconnect: () => {},
   getXdcBalance: () => {},
   web3: null,
+  stb: null,
+  stc: null,
   account: null,
   address: "",
   xdcBalance: null,
@@ -21,6 +25,8 @@ export const Web3ModalContext = createContext({
 const Web3ModalProvider = ({ children }) => {
   const [web3Modal, setWeb3Modal] = useState(null);
   const [web3, setWeb3] = useState(null);
+  const [stb, setStb] = useState(null);
+  const [stc, setStc] = useState(null);
   const [account, setAccount] = useState(null);
   const [address, setAddress] = useState("");
   const [xdcBalance, setXdcBalance] = useState(null);
@@ -65,6 +71,8 @@ const Web3ModalProvider = ({ children }) => {
   //clear all saved instances
   const resetConnection = useCallback(() => {
     setWeb3(null);
+    setStb(null);
+    setStc(null);
     setAccount(null);
     setChainId(null);
     setNetworkId(null);
@@ -116,7 +124,12 @@ const Web3ModalProvider = ({ children }) => {
     const _web3 = web3Init(_provider);
     //monitor wallet actions
     await subscribeProvider(_provider, _web3);
-    //saved needed instances
+    //initialize and save contracts
+    const stc = await stcContractInit(_web3);
+    const stb = await stbContractInit(_web3);
+    setStc(stc);
+    setStb(stb);
+    //get and save needed instances/variables
     const accounts = await _web3.eth.getAccounts(); //first account connected
     const _account = _web3.utils.toChecksumAddress(accounts[0]); //get address
     const _address = formatAddress(_account);
@@ -157,6 +170,7 @@ const Web3ModalProvider = ({ children }) => {
         const blnc = new Big(res || 0);
         const formattedBlnc = blnc.div("10e17").toFixed(4);
         setXdcBlnc(formattedBlnc);
+        return formattedBlnc;
       });
     } else {
       return;
@@ -170,6 +184,8 @@ const Web3ModalProvider = ({ children }) => {
         disconnect,
         getXdcBalance,
         web3,
+        stb,
+        stc,
         account,
         address,
         xdcBalance,

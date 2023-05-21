@@ -7,6 +7,8 @@ export const BorrowProvider = ({ children }) => {
   const [vault, setVault] = useState(true);
   const [generateSTC, setGenerateSTC] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const [colRatio, setColRatio] = useState(null);
+  const [colRt, setColRt] = useState(null);
   const [totalXdcIn, setTotalXdcIn] = useState(null);
   const [totalStcOut, setTotalStcOut] = useState(null);
   const [generateRes, setGenerateRes] = useState(false);
@@ -49,6 +51,8 @@ export const BorrowProvider = ({ children }) => {
       value={{
         vault,
         confirm,
+        colRatio,
+        colRt,
         generateSTC,
         totalStcOut,
         totalXdcIn,
@@ -56,6 +60,8 @@ export const BorrowProvider = ({ children }) => {
         setVault,
         setGenerateSTC,
         setConfirm,
+        setColRatio,
+        setColRt,
         handleVaultNext,
         handleGenerateSTCNext,
         handleGenerateSTCBack,
