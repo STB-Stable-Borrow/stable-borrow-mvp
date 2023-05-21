@@ -15,10 +15,7 @@ const getColRatio = async (stb) => {
     .call()
     .then((res) => {
       const colRatio = new Big(res || 0);
-      // setColRatio(colRatio);
       const formattedColRatio = colRatio.div("10e17").toFixed(4);
-      // setColRt(formattedColRatio);
-      console.log("res: ", formattedColRatio);
       return formattedColRatio;
     })
     .catch((err) => {

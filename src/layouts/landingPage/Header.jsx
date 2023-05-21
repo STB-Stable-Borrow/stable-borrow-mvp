@@ -1,26 +1,10 @@
 import React, {useContext} from "react";
 import logoStb from "../../assets/landing/stb-logo.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Web3ModalContext } from "../../contexts/web3ModalContext";
+import { Link, useLocation} from "react-router-dom";
 
-function Header() {
+
+function Header({_handleConnectWallet}) {
   const location = useLocation();
-  const { account, connect, disconnect} = useContext(Web3ModalContext);
-  const navigate = useNavigate();
-  //handles wallet connection
-  const handleConnectWallet = async() => {
-    await connect().then((res) => {
-      if(res) {
-        navigate("/info")
-      }
-    });
-  }
-
-  // handles wallet disconnection
-  const handleDisconnectWallet = () => {
-    disconnect();
-  }
-
 
   return (
     <div className="flex justify-between items-center">
@@ -45,7 +29,7 @@ function Header() {
         </ul>
 
         {location.pathname === "/" && (
-          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={handleConnectWallet}>
+          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={_handleConnectWallet}>
           Connect Wallet
         </button>
         )}

@@ -3,10 +3,7 @@ import heroImage from "../../assets/landing/Hero_Image.svg";
 import next from "../../assets/landing/next.svg";
 import { Link } from "react-router-dom";
 
-function HeroSection() {
-  const handleConnectWallet = () => {
-    console.log("connect walllet");
-  };
+function HeroSection({_handleConnectWallet}) {
 
   return (
     <div className="flex justify-between w-full ">
@@ -29,7 +26,7 @@ function HeroSection() {
             <Link to="/info">
               <button
                 className={`mt-[27px] text-[#FFFFFF] bg-[#009FBD] py-[17px] px-[58px] rounded-lg hover:opacity-75`}
-                onClick={handleConnectWallet}
+                onClick={_handleConnectWallet}
               >
                 <div className="flex gap-2">
                   <p>Get started</p>
