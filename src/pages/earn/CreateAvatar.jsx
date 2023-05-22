@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState, useContext }  from "react";
-import { useNavigate } from "react-router-dom";
 import back from "../../assets/borrow/back.svg";
-import { useEarn } from "../../contexts/earnContext";
 
-function CreateAvatar({ onBackButtonClick }) {
-  const {avatar, saveAvatar} = useEarn();
-  const navigate = useNavigate();
+
+function CreateAvatar({ onBackButtonClick, _setAvatartImage, _setLoading, _setAvatar, _avatar, _adr }) {
+
   const domainName = "stb";
   const iFrameRef = useRef(null);
 
   function subscribe(event) {
     const json = parse(event);
-    if (json.source !== "readyplayerme") {
+    if (json?.source !== "readyplayerme") {
       return;
     }
     // Subscribe to all events when frame is ready
@@ -30,13 +28,15 @@ function CreateAvatar({ onBackButtonClick }) {
     }
     // Get avatar GLB URL
     if (json.eventName === "v1.avatar.exported") {
-      saveAvatar(json.data.url);
-      navigate("/register");
+      _setAvatartImage(null)
+      _setAvatar(json.data.url);
+      _setLoading(true);
+      onBackButtonClick();
     }
-    // // Get user id
-    // if (json.eventName === "v1.user.set") {
-    //   console.log(`User with id ${json.data.id} set: ${JSON.stringify(json)}`);
-    // }
+    // Get user id
+    if (json.eventName === "v1.user.set") {
+      console.log(`User with id ${json.data.id} set: ${JSON.stringify(json)}`);
+    }
   }
 
   function parse(event) {
@@ -63,7 +63,6 @@ function CreateAvatar({ onBackButtonClick }) {
     };
   });
 
-
   return (
     <div className="mx-[167px]">
       <div className=" h-[12vh] bg-gradient-to-b from-[#3A3B3D] to-[#202225] py-[2vh] text-center rounded-[15px] mb-[2vh] ">
@@ -83,7 +82,7 @@ function CreateAvatar({ onBackButtonClick }) {
           Back
         </button>
         <div className="h-[6.95vh] rounded-lg bg-[#202225] w-[664px] text-[#B0B0B0] flex items-center pl-[18px] text-sm ">
-          Avatar Link: {avatar}
+          Connected Wallet: {_adr}    ||    Avatar Link: {_avatar}
         </div>
       </div>
       <div className="w-full h-[58vh] bg-[#202225] rounded-[15px]">

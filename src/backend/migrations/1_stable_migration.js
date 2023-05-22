@@ -1,5 +1,6 @@
 const STC = artifacts.require("STC");
 const STB = artifacts.require("STB");
+const SNFT = artifacts.require("SNFT");
 
 const STCNAME = "STABLECOIN";
 const STCSYMBOL = "STC";
@@ -8,6 +9,8 @@ const REGPERCENTAGE = 50000000000000000n;
 const INTEREST = 500000000000000000n;
 const INTERESTDURATION = 31556926;
 const MAXVAULT = 10;
+const SNFTNAME = "STB NON FUNGIBLE TOKEN";
+const SNFTSYMBOL = "SNFT";
 
 module.exports = async function (deployer) {
   await deployer.deploy(STC, STCNAME, STCSYMBOL).then(async (res1) => {
@@ -21,8 +24,8 @@ module.exports = async function (deployer) {
         INTERESTDURATION,
         MAXVAULT
       )
-      .then((res2) => {
-        res1.authorize(res2.address);
+      .then(async () => {
+        await deployer.deploy(SNFT, SNFTNAME, SNFTSYMBOL);
       });
   });
 };

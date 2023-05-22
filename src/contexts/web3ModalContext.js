@@ -5,6 +5,7 @@ import Web3Modal from "web3modal";
 import { stbContractInit } from "../lib/stbContract";
 import { stcContractInit } from "../lib/stcContract";
 import { Big } from "big.js";
+import { sbtContractInit } from "../lib/sbtContract";
 
 export const Web3ModalContext = createContext({
   connect: () => {},
@@ -13,6 +14,7 @@ export const Web3ModalContext = createContext({
   web3: null,
   stb: null,
   stc: null,
+  sbt: null,
   account: null,
   address: "",
   xdcBalance: null,
@@ -27,6 +29,7 @@ const Web3ModalProvider = ({ children }) => {
   const [web3, setWeb3] = useState(null);
   const [stb, setStb] = useState(null);
   const [stc, setStc] = useState(null);
+  const [sbt, setSbt] = useState(null);
   const [account, setAccount] = useState(null);
   const [address, setAddress] = useState("");
   const [xdcBalance, setXdcBalance] = useState(null);
@@ -127,8 +130,10 @@ const Web3ModalProvider = ({ children }) => {
     //initialize and save contracts
     const stc = await stcContractInit(_web3);
     const stb = await stbContractInit(_web3);
+    const sbt = await sbtContractInit(_web3);
     setStc(stc);
     setStb(stb);
+    setSbt(sbt);
     //get and save needed instances/variables
     const accounts = await _web3.eth.getAccounts(); //first account connected
     const _account = _web3.utils.toChecksumAddress(accounts[0]); //get address
@@ -186,6 +191,7 @@ const Web3ModalProvider = ({ children }) => {
         web3,
         stb,
         stc,
+        sbt,
         account,
         address,
         xdcBalance,

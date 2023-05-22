@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/borrow/logo.svg";
 import back from "../../assets/borrow/back.svg";
@@ -7,17 +7,21 @@ import addAvatar from "../../assets/earn/addAvatar.svg";
 import CreateAvatar from "./CreateAvatar";
 import editAvatar from "../../assets/earn/editAvatar.svg";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
+import { getSnftBalance, getSnftSupply, mintSnft } from "../../lib/sbtContract";
+import { getTokenDetails, saveTokenDetails } from "../../lib/filebaseIpfs";
 
 function Registration() {
-  const { web3, stb, stc, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
+  const { web3, stb, sbt, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [avatar, setAvatar] = useState(null);
+  const [avatarImage, setAvatarImage] = useState(null);
 
-  const [username, setUsername] = useState("");
-  const [about, setAbout] = useState("");
+  const [username, setUsername] = useState(null);
+  const [about, setAbout] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
+  const registerBtn = document.getElementById("register-btn");
 
    // verify connection status and chainId
    const verifyConnection = () => {
@@ -42,27 +46,90 @@ function Registration() {
     setShowRegistration(true);
   };
 
+  //handles register button colour behaviour
+  const handleRegisterButtonColour = () => {
+    if(registerBtn) {
+      if(avatarImage && username && about) {
+        registerBtn.style.backgroundColor = "#009FBD";
+      }else{
+        registerBtn.style.backgroundColor = "#585858";
+      }
+    }
+  }
 
-  // const handleFileSelect = (event) => {
-  //   setLoading(true);
-  //   const file = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => {
-  //     setAvatar(reader.result);
-  //     setLoading(false);
-  //   };
-  // };
+  handleRegisterButtonColour();
 
-  //   useEffect(() => {
-  //     if (generalStoreState.avatarUrl !== "") {
-  //       setLoading(true);
-  //       (async () => {
-  //         await get2dUrl(generalStoreState.avatarUrl);
-  //         setLoading(false);
-  //       })();
-  //     }
-  //   }, []);
+  const handleMintProfile = async() => {
+    if(registerBtn && registerBtn.style.backgroundColor === "rgb(0, 159, 189)") {
+      registerBtn.style.backgroundColor = "rgb(88, 88, 88)";
+      await getSnftBalance(sbt,account).then(async(res) => {
+        console.log("res: ", res)
+        if(res < 1 ) {
+          await getSnftSupply(sbt).then(async(res1) => {
+            const tokenId = res1 + 1;
+            saveTokenDetails(tokenId,username,about,avatarImage,account).on("httpHeaders", async(statusCode, headers) => {
+              const  tokenUrl =`https://ipfs.filebase.io/ipfs/${headers["x-amz-meta-cid"]}`
+              await mintSnft(sbt, tokenUrl, account).then((res2) => {
+                if(res2) {
+                  navigate("/dashboard")
+                }else{
+                  registerBtn.style.backgroundColor = "rgb(0, 159, 189)";
+                }
+              })
+            });
+          })
+        }else{
+          window.alert("You are a registered user, you will be redirected to your dashbaord.")
+          navigate("/dashboard");
+        }
+      })
+    }
+  }
+
+//gets 2d image of 3d avatar
+  const getAvatarImage = (avatarUrl) => {
+    const params = {
+      model: `${avatarUrl}`,
+      scene: "fullbody-portrait-v1-transparent",
+      armature: "ArmatureTargetMale",
+      blendShapes: {},
+    };
+    const http = new XMLHttpRequest();
+    http.open("POST", "https://render.readyplayer.me/render");
+    http.setRequestHeader("Content-type", "application/json");
+    http.send(JSON.stringify(params));
+    http.onload = function () {
+      const avataerImg = JSON.parse(http.responseText).renders[0];
+      if (avataerImg !== "") {
+        console.log("png: ", avataerImg);
+        setAvatarImage(avataerImg);
+        setAvatar(null);
+        // profileToMint.img = avataerImg;
+      }else{
+        window.alert("Error while getting created avatar. Try again later")
+      }
+      
+    };
+  };
+
+  //get image when avatar is ready
+    useEffect(() => {
+      if (avatar) {
+        // setLoading(true);
+        (async () => {
+          getAvatarImage(avatar);
+        })();
+      }
+    }, [avatar]);
+
+    //handle loading behaviour
+    useEffect(() => {
+      if (avatarImage) {
+        (async () => {
+          setLoading(false)
+        })();
+      }
+    }, [avatar]);
 
   return (
     <div className="w-screen h-screen bg-[#292C31] ">
@@ -94,17 +161,17 @@ function Registration() {
               <h1 className="text-center text-sm font-semibold text-[#009FBD] mb-[2.4vh] ">
                 Step 1
               </h1>
-              <div onClick={handleCreateAvatar} className="w-[150px] h-[150px] rounded-full mx-[26px] border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
+              <div className="w-[150px] h-[150px] rounded-full mx-[26px] border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
                 {loading && (
                   <div>
                     <h1>Loading...</h1>
                   </div>
                 )}
                 <img
-                  src={avatar || addAvatar}
+                  src={avatarImage || addAvatar}
                   alt=""
                   className={
-                    avatar
+                    avatarImage
                       ? "w-full h-full object-cover rounded-full"
                       : "w-[50px] h-[50px]"
                   }
@@ -115,25 +182,18 @@ function Registration() {
                   } `}
                   onChange={handleCreateAvatar}
                 /> */}
-                {avatar ? (
+                {avatarImage ? (
                   ""
                 ) : (
-                  <p className="text-xs text-center text-[#B0B0B0] ">
+                  <p onClick={handleCreateAvatar} className="text-xs text-center text-[#B0B0B0] ">
                     Click to choose <br /> an Avatar
                   </p>
                 )}
               </div>
-              {avatar && (
-                <div onClick={handleCreateAvatar} className="flex justify-center items-center text-xs mt-2 gap-1 relative">
+              {avatarImage && (
+                <div  className="flex justify-center items-center text-xs mt-2 gap-1 relative">
                   <img src={editAvatar} alt="" className="w-[20px]" />
-                  {/* <input
-                    type="file"
-                    accept="image/*"
-                    className={`w-full h-full opacity-0  absolute inset-0 cursor-pointer 
-                  } `}
-                    onChange={handleCreateAvatar}
-                  /> */}
-                  <p className="text-[#B0B0B0] hover:underline ">Edit Avatar</p>
+                  <p onClick={handleCreateAvatar} className="text-[#B0B0B0] hover:underline ">Edit Avatar</p>
                 </div>
               )}
             </div>
@@ -162,18 +222,19 @@ function Registration() {
           </div>
           <div className="flex items-center justify-center gap-[110px] mt-[5.19vh] mb-[5.5vh] ">
             <button
+            onClick={() => {navigate("/info")}}
               className="border border-[#009FBD] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
-              //   onClick={onBackButtonClicked}
             >
               <img src={back} alt="" />
               Back
             </button>
             <button
+            id="register-btn"
               onLoad={verifyConnection}
               className="bg-[#585858] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
-              onClick={handleCreateAvatar}
+              onClick={handleMintProfile}
             >
-              Next
+              Register
               <img src={next} alt="" />
             </button>
           </div>
@@ -182,7 +243,7 @@ function Registration() {
       {
         //   Create Avatar
         createAvatar && (
-          <CreateAvatar onBackButtonClick={handleCreateAvatarBackButtonClick} />
+          <CreateAvatar onBackButtonClick={handleCreateAvatarBackButtonClick} _setAvatartImage={setAvatarImage} _setLoading={setLoading} _setAvatar={setAvatar} _avatar={avatar} _adr={address} />
         )
       }
     </div>

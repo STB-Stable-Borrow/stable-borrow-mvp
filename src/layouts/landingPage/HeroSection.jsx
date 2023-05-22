@@ -23,7 +23,7 @@ function HeroSection({_handleConnectWallet}) {
             </span>
           </p>
           <div>
-            <Link to="/info">
+            <Link>
               <button
                 className={`mt-[27px] text-[#FFFFFF] bg-[#009FBD] py-[17px] px-[58px] rounded-lg hover:opacity-75`}
                 onClick={_handleConnectWallet}
