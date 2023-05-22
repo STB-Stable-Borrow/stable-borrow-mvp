@@ -10,6 +10,7 @@ import Registration from "./pages/earn/Registration";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { DashboardProvider } from "./contexts/dashboardContext";
 import Web3ModalProvider from "./contexts/web3ModalContext";
+import { EarnProvider } from "./contexts/earnContext";
 
 function App() {
   return (
@@ -18,21 +19,23 @@ function App() {
         <Router>
           <AboutProvider>
             <BorrowProvider>
-              <DashboardProvider>
-                <Routes>
-                  <Route exact path="/" element={<Home />} />
-                  <Route exact path="home" element={<Home />} />
-                  <Route path="/info" element={<Info />} />
-                  <Route path="/about" element={<About />} />
+              <EarnProvider>
+                <DashboardProvider>
+                  <Routes>
+                    <Route exact path="/" element={<Home />} />
+                    <Route exact path="home" element={<Home />} />
+                    <Route path="/info" element={<Info />} />
+                    <Route path="/about" element={<About />} />
 
-                  <Route path="/borrow" element={<Borrow />} />
-                  <Route path="/register" element={<Registration />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/borrow" element={<Borrow />} />
+                    <Route path="/register" element={<Registration />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
 
-                  <Route path="/borrow" element={<Borrow />} />
-                  <Route path="/register" element={<Registration />} />
-                </Routes>
-              </DashboardProvider>
+                    <Route path="/borrow" element={<Borrow />} />
+                    <Route path="/register" element={<Registration />} />
+                  </Routes>
+                </DashboardProvider>
+              </EarnProvider>
             </BorrowProvider>
           </AboutProvider>
         </Router>

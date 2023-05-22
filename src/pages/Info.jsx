@@ -53,7 +53,7 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
+            <button onClick={() => {navigate("/register")}} className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
               Earn now
             </button>
           </div>

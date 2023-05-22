@@ -1,7 +1,69 @@
-import React from "react";
+import React, { useEffect, useRef, useState, useContext }  from "react";
+import { useNavigate } from "react-router-dom";
 import back from "../../assets/borrow/back.svg";
+import { useEarn } from "../../contexts/earnContext";
 
 function CreateAvatar({ onBackButtonClick }) {
+  const {avatar, saveAvatar} = useEarn();
+  const navigate = useNavigate();
+  const domainName = "stb";
+  const iFrameRef = useRef(null);
+
+  function subscribe(event) {
+    const json = parse(event);
+    if (json.source !== "readyplayerme") {
+      return;
+    }
+    // Subscribe to all events when frame is ready
+    if (json.eventName === "v1.frame.ready") {
+      let iFrame = iFrameRef.current;
+      if (iFrame && iFrame.contentWindow) {
+        iFrame.contentWindow.postMessage(
+          JSON.stringify({
+            target: "readyplayerme",
+            type: "subscribe",
+            eventName: "v1.**",
+          }),
+          "*"
+        );
+      }
+    }
+    // Get avatar GLB URL
+    if (json.eventName === "v1.avatar.exported") {
+      saveAvatar(json.data.url);
+      navigate("/register");
+    }
+    // // Get user id
+    // if (json.eventName === "v1.user.set") {
+    //   console.log(`User with id ${json.data.id} set: ${JSON.stringify(json)}`);
+    // }
+  }
+
+  function parse(event) {
+    try {
+      return JSON.parse(event.data);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    let iFrame = iFrameRef.current;
+    if (iFrame) {
+      iFrame.src = `https://${domainName}.readyplayer.me/avatar?frameApi`;
+    }
+  });
+
+  useEffect(() => {
+    window.addEventListener("message", subscribe);
+    document.addEventListener("message", subscribe);
+    return () => {
+      window.removeEventListener("message", subscribe);
+      document.removeEventListener("message", subscribe);
+    };
+  });
+
+
   return (
     <div className="mx-[167px]">
       <div className=" h-[12vh] bg-gradient-to-b from-[#3A3B3D] to-[#202225] py-[2vh] text-center rounded-[15px] mb-[2vh] ">
@@ -21,10 +83,24 @@ function CreateAvatar({ onBackButtonClick }) {
           Back
         </button>
         <div className="h-[6.95vh] rounded-lg bg-[#202225] w-[664px] text-[#B0B0B0] flex items-center pl-[18px] text-sm ">
-          Avatar Link: https://www.sampleavatarlink.com/Mohzcrea8me
+          Avatar Link: {avatar}
         </div>
       </div>
-      <div className="w-full h-[58vh] bg-[#202225] rounded-[15px]"></div>
+      <div className="w-full h-[58vh] bg-[#202225] rounded-[15px]">
+        <iframe
+          allow="camera *; microphone *"
+          className="iFrame"
+          id="frame"
+          ref={iFrameRef}
+          style={{
+            display: "block",
+            border: "none",
+            width: "100%",
+            height: "inherit",
+          }}
+          title={"STB AVATAR HUB"}
+        />
+      </div>
     </div>
   );
 }

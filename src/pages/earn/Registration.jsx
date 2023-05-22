@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/borrow/logo.svg";
 import back from "../../assets/borrow/back.svg";
 import next from "../../assets/borrow/next.svg";
 import addAvatar from "../../assets/earn/addAvatar.svg";
 import CreateAvatar from "./CreateAvatar";
 import editAvatar from "../../assets/earn/editAvatar.svg";
+import { Web3ModalContext } from "../../contexts/web3ModalContext";
 
 function Registration() {
+  const { web3, stb, stc, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -15,6 +17,20 @@ function Registration() {
 
   const [username, setUsername] = useState("");
   const [about, setAbout] = useState("");
+  const navigate = useNavigate();
+
+   // verify connection status and chainId
+   const verifyConnection = () => {
+    const acceptIds = [50, 51]
+    if(!connected && !chainId) {
+      window.alert("You have to connect your wallet to proceed")
+      navigate("/")
+     }
+     if(connected && !acceptIds.includes(chainId)){
+      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      navigate("/")
+     } 
+  }
 
   const handleCreateAvatar = () => {
     setCreateAvatar(true);
@@ -26,16 +42,17 @@ function Registration() {
     setShowRegistration(true);
   };
 
-  const handleFileSelect = (event) => {
-    setLoading(true);
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setAvatar(reader.result);
-      setLoading(false);
-    };
-  };
+
+  // const handleFileSelect = (event) => {
+  //   setLoading(true);
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => {
+  //     setAvatar(reader.result);
+  //     setLoading(false);
+  //   };
+  // };
 
   //   useEffect(() => {
   //     if (generalStoreState.avatarUrl !== "") {
@@ -77,7 +94,7 @@ function Registration() {
               <h1 className="text-center text-sm font-semibold text-[#009FBD] mb-[2.4vh] ">
                 Step 1
               </h1>
-              <div className="w-[150px] h-[150px] rounded-full mx-[26px] border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
+              <div onClick={handleCreateAvatar} className="w-[150px] h-[150px] rounded-full mx-[26px] border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
                 {loading && (
                   <div>
                     <h1>Loading...</h1>
@@ -92,14 +109,12 @@ function Registration() {
                       : "w-[50px] h-[50px]"
                   }
                 />
-                <input
-                  type="file"
-                  accept="image/*"
+                {/* <input
                   className={`w-full h-full opacity-0  absolute inset-0 cursor-pointer ${
                     avatar ? "hidden" : "block"
                   } `}
-                  onChange={handleFileSelect}
-                />
+                  onChange={handleCreateAvatar}
+                /> */}
                 {avatar ? (
                   ""
                 ) : (
@@ -109,15 +124,15 @@ function Registration() {
                 )}
               </div>
               {avatar && (
-                <div className="flex justify-center items-center text-xs mt-2 gap-1 relative">
+                <div onClick={handleCreateAvatar} className="flex justify-center items-center text-xs mt-2 gap-1 relative">
                   <img src={editAvatar} alt="" className="w-[20px]" />
-                  <input
+                  {/* <input
                     type="file"
                     accept="image/*"
                     className={`w-full h-full opacity-0  absolute inset-0 cursor-pointer 
                   } `}
-                    onChange={handleFileSelect}
-                  />
+                    onChange={handleCreateAvatar}
+                  /> */}
                   <p className="text-[#B0B0B0] hover:underline ">Edit Avatar</p>
                 </div>
               )}
@@ -154,6 +169,7 @@ function Registration() {
               Back
             </button>
             <button
+              onLoad={verifyConnection}
               className="bg-[#585858] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
               onClick={handleCreateAvatar}
             >

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { approveAccount } from "../../lib/stcContract";
 
 const BorrowContext = createContext();
 
