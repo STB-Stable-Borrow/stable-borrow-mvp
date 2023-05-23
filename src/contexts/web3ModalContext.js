@@ -76,6 +76,7 @@ const Web3ModalProvider = ({ children }) => {
     setWeb3(null);
     setStb(null);
     setStc(null);
+    setSbt(null);
     setAccount(null);
     setChainId(null);
     setNetworkId(null);

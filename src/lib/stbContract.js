@@ -93,4 +93,27 @@ const createVault = async (stb, userAccount, amount) => {
   return res;
 };
 
-export { stbContractInit, getRegFee, getColRatio, createVault };
+//calls getUserVaults function on STB contract
+const getAllUserVaults = async (stb, account) => {
+  const res = await stb.methods
+    .getUserVaults(account)
+    .call()
+    .then(async (res) => {
+      let allVaults = [];
+      res.forEach((vault) => {
+        if (vault.created_at > 0) {
+          allVaults.push(vault);
+        }
+      });
+      return allVaults;
+    });
+  return res;
+};
+
+export {
+  stbContractInit,
+  getRegFee,
+  getColRatio,
+  createVault,
+  getAllUserVaults,
+};

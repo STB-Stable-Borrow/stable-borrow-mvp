@@ -48,25 +48,14 @@ const getTokenDetails = (account) => {
     Key: `snft-stable-details-for-${account}`,
     Bucket: "snft-stable-details",
   };
-  return filebase.getObject(params, (err, data) => {
+  const res = filebase.getObject(params, (err, data) => {
     if (err) {
       console.error("token details does not exist: ", err.stack);
     } else {
-      const tokenDetails = Buffer.from(data.Body, "utf8").toString();
-      //   const profileFormatted = tokenDetails.replaceAll("\n", " ");
-      //   const json = JSON.parse(profileFormatted);
-      //   const haunterProfile = {
-      //     creationDate: json[0],
-      //     tokenId: json[1],
-      //     username: json[2],
-      //     about: json[3],
-      //     imgUrl: json[4],
-      //   };
-      //   console.log("haunter profile: ", haunterProfile);
-      //   state.setHaunterProfile(haunterProfile);
-      //   return haunterProfile;
+      return data;
     }
   });
+  return res;
 };
 
 export { saveTokenDetails, getTokenDetails };

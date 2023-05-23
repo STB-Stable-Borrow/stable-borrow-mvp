@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import borrow from "../assets/info/Borrow.svg";
 import exchange from "../assets/info/Exchange.svg";
 import earn from "../assets/info/Earn.svg";
@@ -6,10 +6,48 @@ import { Link, useNavigate } from "react-router-dom";
 import LandingBody from "../layouts";
 import { useAbout } from "../context/aboutContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
+import { getSnftBalance } from "../lib/sbtContract";
+import { getAllUserVaults } from "../lib/stbContract";
 
 function Info() {
+  const { sbt, account, stb, connected, chainId} = useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
+
+  // verify connection status and chainId
+  const verifyConnection = () => {
+    const acceptIds = [50, 51]
+    if(!connected && !chainId) {
+      window.alert("You have to connect your wallet to proceed")
+      navigate("/")
+     }
+     if(connected && !acceptIds.includes(chainId)){
+      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      navigate("/")
+     } 
+  }
+
+  //handles borrow's onclick event
+  const handleBorrow = async() => {
+    await getAllUserVaults(stb, account).then((res) => {
+      if(res.length < 1) {
+        navigate("/borrow")
+      }else{
+        navigate("/dashboard")
+      }
+    })
+  }
+
+  //handles earn's onclick event
+  const handleEarn = async() => {
+    await getSnftBalance(sbt, account).then((res) => {
+      if(res < 1) {
+        navigate("/register")
+      }else{
+        navigate("/dashboard")
+      }
+    })
+  }
   return (
     <LandingBody>
       <body className="md:mx-[60px] md:mt-[48px] flex justify-between text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
@@ -32,7 +70,7 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2" onClick={() => {navigate("/borrow")}}>
+            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2" onClick={handleBorrow}>
               Borrow now
             </button>
           </div>
@@ -53,12 +91,12 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button onClick={() => {navigate("/register")}} className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
+            <button onClick={handleEarn} className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
               Earn now
             </button>
           </div>
         </div>
-        <div className="text-xs border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[10px] py-[6px] px-[20px] w-[45%] ">
+        <div onLoad={verifyConnection} className="text-xs border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[10px] py-[6px] px-[20px] w-[45%] ">
           <img src={exchange} alt="" className="w-[80px] " />
           <h1 className="font-black border-b-2 border-[#009FBD] text-sm ">
             Exchange

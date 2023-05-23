@@ -11,6 +11,7 @@ import settings from "../../assets/dashboard/settings.svg";
 import logout from "../../assets/dashboard/logout.svg";
 import collapse from "../../assets/dashboard/collapse.svg";
 import expand from "../../assets/dashboard/expand.svg";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar({
   onDashBorrowClick,
@@ -19,8 +20,11 @@ function Sidebar({
   onHistoryClick,
   onSettingsClick,
   onHomeClick,
+  _verifyConnection,
+  _disconnect
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   const handleExpand = () => {
     setIsExpanded((prev) => !prev);
@@ -68,12 +72,17 @@ function Sidebar({
     },
   ];
 
+  const handleLogout = async() => {
+    await _disconnect().then(() => {
+      navigate("/")
+    })
+  }
   return (
     <div className="relative">
       {isExpanded ? (
-        <img src={expandLogo} alt="" className="mb-[8.75vh]" />
+        <img onClick={() => navigate("/")} src={expandLogo} alt="" className="mb-[8.75vh]" />
       ) : (
-        <img src={collapseLogo} alt="" className="mb-[8.75vh]" />
+        <img onClick={() => navigate("/")} src={collapseLogo} alt="" className="mb-[8.75vh]" />
       )}
 
       <div className="flex flex-col gap-[2.4vh]">
@@ -98,7 +107,8 @@ function Sidebar({
           </div>
         ))}
       </div>
-      <div
+      <div onLoad={_verifyConnection}
+        onClick={handleLogout}
         className={`${
           isExpanded ? "w-[182px]" : "w-[42px]"
         } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px] mt-[13vh] hover:text-[#009FBD] cursor-pointer `}

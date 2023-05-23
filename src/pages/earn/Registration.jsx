@@ -8,10 +8,10 @@ import CreateAvatar from "./CreateAvatar";
 import editAvatar from "../../assets/earn/editAvatar.svg";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { getSnftBalance, getSnftSupply, mintSnft } from "../../lib/sbtContract";
-import { getTokenDetails, saveTokenDetails } from "../../lib/filebaseIpfs";
+import { saveTokenDetails } from "../../lib/filebaseIpfs";
 
 function Registration() {
-  const { web3, stb, sbt, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
+  const { sbt, account, address, connected, chainId} = useContext(Web3ModalContext)
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -23,8 +23,8 @@ function Registration() {
   const navigate = useNavigate();
   const registerBtn = document.getElementById("register-btn");
 
-   // verify connection status and chainId
-   const verifyConnection = () => {
+  // verify connection status and chainId
+  const verifyConnection = () => {
     const acceptIds = [50, 51]
     if(!connected && !chainId) {
       window.alert("You have to connect your wallet to proceed")
@@ -59,6 +59,7 @@ function Registration() {
 
   handleRegisterButtonColour();
 
+  //handles profile minting
   const handleMintProfile = async() => {
     if(registerBtn && registerBtn.style.backgroundColor === "rgb(0, 159, 189)") {
       registerBtn.style.backgroundColor = "rgb(88, 88, 88)";
