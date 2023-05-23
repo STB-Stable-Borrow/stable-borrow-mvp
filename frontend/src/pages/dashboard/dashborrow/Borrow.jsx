@@ -2,7 +2,8 @@ import React from "react";
 import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import edit from "../../../assets/dashboard/edit.svg";
-import dashBorrowData from "../../../data/dashBorrowData";
+import dashBorrowData from "../../../data/vaultsData";
+import set from "../../../assets/dashboard/set.svg";
 
 function Borrow() {
   return (
@@ -48,44 +49,52 @@ function Borrow() {
           </button>
         </div>
         <h2 className="text-[#B0B0B0] font-bold bg-[#202225] rounded-lg w-[191px] text-center ">
-          Total Vaults: 30
+          Total Vaults: {dashBorrowData.length}
         </h2>
       </div>
-      <div className="table w-full h-[34.57vh] text-[#B0B0B0] text-[1rem] ">
-        <div className="bg-[#202225] h-[5.76vh] flex justify-start items-center pl-[22px] border-b border-[#B0B0B0] ">
-          <h1 className="w-[60px] ">Vault ID</h1>
-          <h1 className=" w-[170px] ml-[20px] ">Vault Name</h1>
+      <div className="table w-full  text-[#B0B0B0] text-[1rem] ">
+        <div className="bg-[#202225] w-full h-[5.76vh] flex justify-between  pl-[21px] items-center  border-b border-[#B0B0B0]  ">
+          <h1 className="w-[60px]">Vault ID</h1>
+          <h1 className=" w-[170px]  ">Vault Name</h1>
           <h1 className="w-[50px]">Asset</h1>
-          <h1 className="w-[150px] ml-[20px]   ">Collateral Locked</h1>
+          <h1 className="w-[150px]    ">Collateral Locked</h1>
           <h1 className=" w-[150px] ">Liquidation Price</h1>
           <h1 className=" w-[120px]  ">Debt</h1>
           <h1 className="w-[100px]  ">Status</h1>
+          <h1 className="w-[60px]">Edit</h1>
         </div>
-        <div className="h-[28.8vh] overflow-y-auto">
-          {dashBorrowData.map((item) => (
-            <div className="bg-[#292C31] h-[5.76vh] flex justify-start items-center pl-[22px] border-b border-[#B0B0B0] ">
-              <h1 className="w-[60px] ">#0{item.vaultID}</h1>
-              <h1 className="w-[170px]  ml-[20px]  flex items-center gap-2">
-                {item.vaultName} <img src={edit} alt="" />
-              </h1>
-              <h1 className="w-[50px]  ">{item.asset}</h1>
-              <h1 className="w-[150px] ml-[20px] ">{item.collateralLocked}</h1>
-              <h1 className="w-[150px] ">${item.liquidationPrice}</h1>
-              <h1 className="w-[120px] ">{item.debt}</h1>
-              <h1
-                className={` w-auto px-[10px] rounded-lg text-center   text-xs ${
-                  item.status === "Partial Active" &&
-                  "bg-[#FFF5E8] text-[#F9971E] "
-                } 
+        <div>
+          <div className="h-[25.8vh] overflow-y-auto">
+            {dashBorrowData.map((item) => (
+              <div className="bg-[#292C31] w-full  h-[5.76vh] flex justify-between pl-[21px] items-center  border-b border-[#B0B0B0]  ">
+                <h1 className="w-[60px]">#0{item.vaultID}</h1>
+                <h1 className="w-[170px] ">{item.vaultName}</h1>
+                <h1 className="w-[50px] text-center  ">{item.asset}</h1>
+                <h1 className="w-[150px] text-center  ">
+                  {item.collateralLocked}
+                </h1>
+                <h1 className="w-[150px] text-center ">
+                  ${item.liquidationPrice}
+                </h1>
+                <h1 className="w-[120px] ">{item.debt}</h1>
+                <h1
+                  className={` w-[100px] px-[10px] rounded-lg text-center   text-xs ${
+                    item.status === "Partial Active" &&
+                    "bg-[#FFF5E8] text-[#F9971E] "
+                  } 
      ${item.status === "Haunted" && "bg-[#FFEBEB] text-[#FF1F1F] "} 
      ${item.status === "Active" && "bg-[#E1FBDA] text-[#12A92A] "} 
 
      } `}
-              >
-                {item.status}
-              </h1>
-            </div>
-          ))}
+                >
+                  {item.status}
+                </h1>
+                <button className="w-[60px] flex items-center justify-center">
+                  <img src={set} alt="" />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

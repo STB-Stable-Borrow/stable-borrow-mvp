@@ -9,8 +9,8 @@ import WithdrawXDC from "./WithdrawXDC";
 function DashBorrow() {
   return (
     <>
-      {/* <Borrow /> */}
-      <Vault />
+      <Borrow />
+      {/* <Vault /> */}
       {/* <PaybackSTC /> */}
       {/* <DepositXDC /> */}
       {/* <WithdrawXDC /> */}
