@@ -4,7 +4,18 @@ import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import vaultsData from "../../../data/vaultsData";
 
-function EarnIndex() {
+function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _onHauntClick}) {
+
+  const getArrayLength = (_array) => {
+    let finalRes = [];
+    _array.forEach((item) => {
+      if (item.created_at > 0) {
+        finalRes.push(item);
+      }
+    });
+    return finalRes.length;
+  }
+
   return (
     <div className="">
       <h1 className="w-full bg-[#202225] flex items-center justify-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[1.48vh] ">
@@ -14,24 +25,34 @@ function EarnIndex() {
         <div className="w-[22.84vw] h-full rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[1.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Vaults Haunted:</h1>
-            <p className="mt-[-5px] text-[1.5em]  font-medium ">12</p>
+            {hauntedVlts && (
+                  <p className="mt-[-5px] text-[1.5em]  font-medium ">{getArrayLength(hauntedVlts)}</p>
+            )}
+            {!hauntedVlts && (
+                <p className="mt-[-5px] text-[1.5em]  font-medium "></p>
+            )}
           </div>
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Payout:</h1>
-            <p className="mt-[-5px] text-[1.5em] font-medium ">3500.00 XDC</p>
+            <p className="mt-[-5px] text-[1.5em] font-medium ">350000.0000 XDC</p>
           </div>
         </div>
-        <div className="bg-[#202225] rounded-[20px] h-[13.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD]  ">
+        <div onClick={_onHauntClick} className="bg-[#202225] rounded-[20px] h-[13.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD]  ">
           <img src={haunt} alt="" className="w=[4.48vw] h-[9.9vh] " />
         </div>
         <div className="w-[22.84vw] h-full rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[1.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Current Collateral Ratio:</h1>
-            <p className="mt-[-5px] text-[1.5em]  font-medium ">1:300</p>
+            <p className="mt-[-5px] text-[1.5em]  font-medium ">{colRatio}</p>
           </div>
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Vaults in Liquidity:</h1>
-            <p className="mt-[-5px] text-[1.5em] font-medium ">20</p>
+            {liquidatedVlts && (
+              <p className="mt-[-5px] text-[1.5em] font-medium ">{getArrayLength(liquidatedVlts)}</p>
+            )}
+            {!liquidatedVlts && (
+                <p className="mt-[-5px] text-[1.5em]  font-medium "></p>
+            )}
           </div>
         </div>
       </div>

@@ -11,10 +11,9 @@ const maxU256 =
   115792089237316195423570985008687907853269984665640564039457584007913129639935n;
 
 //calls approve function on STC contract
-const approveAccount = async (stc, userAccount) => {
-  const stcAddress = stc._address;
+const approveAccount = async (stc, userAccount, stbAddress) => {
   const approveRes = await stc.methods
-    .approve(stcAddress, maxU256)
+    .approve(stbAddress, maxU256)
     .send({ from: userAccount })
     .then((res) => {
       if (res) {

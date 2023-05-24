@@ -1,12 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import dashBorrowData from "../../../data/vaultsData";
 import star from "../../../assets/dashboard/star.svg";
 import unstar from "../../../assets/dashboard/unstar.svg";
 import haunter from "../../../assets/dashboard/haunter.svg";
+import { getAllVaults } from "../../../lib/stbContract";
+import Big from "big.js";
 
-function EarnPageTwo() {
+function EarnPageTwo({xdcPrc, stb}) {
+
+  const [allVaults, setAllVaults] = useState(null);
+  const [isStar, setIsStar] = useState(false);
+
+   //get all vaults 
+   useEffect(() => {
+    (async () => {
+      await getAllVaults(stb).then((res) => {
+        setAllVaults(res)
+      })
+    })();
+}, []);
+
   return (
     <div>
       <h1 className="w-full bg-[#202225] text-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[1.48vh] ">
@@ -16,7 +31,7 @@ function EarnPageTwo() {
         <div className="w-[22.84vw] rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">XDC Price:</h1>
-            <p className="mt-[-5px] text-[1.875em] font-medium ">$1000.006</p>
+            <p className="mt-[-5px] text-[1.875em] font-medium ">${xdcPrc}</p>
           </div>
         </div>
 
@@ -66,30 +81,38 @@ function EarnPageTwo() {
           <h1 className="w-[24px] "> </h1>
         </div>
         <div className="h-[28.8vh] overflow-y-auto">
-          {dashBorrowData.map((item) => (
-            <div className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
-              <p className="w-[60px] ">#0{item.vaultID}</p>
-              <p className=" w-[150px] ">{item.vaultName}</p>
-              <p className=" w-[120px]   ">${item.collateral}</p>
-              <p className="w-[120px]">${item.earnDebt}</p>
-              <p className="w-[100px] ">${item.profit}</p>
-              <p className="w-[60px] text-center ">{item.traffic}</p>
-              <div className="w-[24px] ">
-                <img
-                  src={item.star ? star : unstar}
-                  alt=""
-                  className=" h-[2.34vh]"
-                />
+          {allVaults && (
+            <>
+            {allVaults.map((item) => (
+              <div className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
+                <p className="w-[60px] ">#{item.id}</p>
+                <p className=" w-[150px] ">{item.id}</p>
+                <p className=" w-[120px]   ">{new Big(item.lck_collateral).div("10e17").toFixed(4)}</p>
+                <p className="w-[120px]">{new Big(item.debt).div("10e17").toFixed(4)}</p>
+                <p className="w-[100px] ">$100</p>
+                <p className="w-[60px] text-center ">3</p>
+                <div className="w-[24px] ">
+                  <img
+                    onClick={() => setIsStar(!isStar)}
+                    src={isStar ? star : unstar}
+                    alt=""
+                    className=" h-[2.34vh]"
+                  />
+                </div>
+                <div className=" w-[24px]">
+                  <img
+                    src={haunter}
+                    alt=""
+                    className=" h-[2.34vh]"
+                  />
+                </div>
               </div>
-              <div className=" w-[24px]">
-                <img
-                  src={item.haunter ? haunter : null}
-                  alt=""
-                  className=" h-[2.34vh]"
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+            </>
+          )}
+          {!allVaults && (
+            <></>
+          )}
         </div>
       </div>
     </div>

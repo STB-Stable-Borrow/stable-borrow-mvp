@@ -8,7 +8,7 @@ import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import {useNavigate } from "react-router-dom";
 import { approveAccount } from "../../lib/stcContract";
 
-function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc}) {
+function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc, _stb}) {
   const navigate = useNavigate();
   const {calculateAmounts, resetVaultSetup} = useBorrow();
   const [xdcIn, setXdcIn] = useState(null);
@@ -47,8 +47,8 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
   //handles next button colour
   const handleNextButtonColour = async() => {
     if (_account && _stc && nextBtn) {
-      const stcAddress = _stc._address;
-      await _stc.methods.allowance(_account, stcAddress).call().then((res) => {
+      const stbAddress = _stb.options.address;
+      await _stc.methods.allowance(_account, stbAddress).call().then((res) => {
         if (res == maxU256 && nextBtn && stcOut > 0) {
           nextBtn.style.backgroundColor = "#009FBD"
           setIsApproved(true);
@@ -76,7 +76,8 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
       if(isApproved) {
         onNextButtonClicked();
       }else{
-        await approveAccount(_stc, _account).then((res) => {
+        const stbAddress = _stb.options.address
+        await approveAccount(_stc, _account, stbAddress).then((res) => {
           if (res) {
             nextBtn.style.backgroundColor = "#009FBD"
             setIsApproved(true);

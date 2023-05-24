@@ -1,10 +1,10 @@
 import React from "react";
 import failed from "../../../assets/dashboard/failed.svg";
 
-function FailedModal({vaultId, depositRes, onVaultClick, withdrawRes}) {
+function FailedModal({vaultId, depositRes, onVaultClick, withdrawRes, paybackRes}) {
   return (
     <div onLoad={() => {
-      if(depositRes === false || withdrawRes === false) {
+      if(depositRes === false || withdrawRes === false || paybackRes === false) {
         setTimeout(() => {
           onVaultClick(vaultId);
         }, 5000)
@@ -19,7 +19,7 @@ function FailedModal({vaultId, depositRes, onVaultClick, withdrawRes}) {
         Your Transaction has Failed!
       </h1>
       <p className="text-center text-white w-[433px]">
-        <span className="text-[#FF1F1F] ">Note:</span>You will be redirected to
+        <span className="text-[#FF1F1F] ">Note: </span>You will be redirected to
         your Vault Dashboard in five(5) seconds, don’t cancel or refresh this page.
       </p>
     </div>

@@ -1,10 +1,10 @@
 import React from "react";
 import success from "../../../assets/dashboard/success.svg";
 
-function SuccessfulModal({vaultId, depositRes, onVaultClick, withdrawRes}) {
+function SuccessfulModal({vaultId, depositRes, onVaultClick, withdrawRes, paybackRes}) {
   return (
     <div onLoad={() => {
-      if(depositRes === true || withdrawRes === true) {
+      if(depositRes === true || withdrawRes === true || paybackRes === true) {
         setTimeout(() => {
           onVaultClick(vaultId);
         }, 5000)
@@ -18,7 +18,7 @@ function SuccessfulModal({vaultId, depositRes, onVaultClick, withdrawRes}) {
         Your Transaction was Successful!
       </h1>
       <p className="text-center text-white w-[433px]">
-        <span className="text-[#009FBD] ">Note:</span> You will be redirected to
+        <span className="text-[#009FBD] ">Note: </span> You will be redirected to
         your Vault Dashboard in five(5) seconds, don’t cancel or refresh this
         page.
       </p>

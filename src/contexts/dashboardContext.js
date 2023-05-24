@@ -15,8 +15,9 @@ export const DashboardProvider = ({ children }) => {
   const [payback, setPayback] = useState(false);
   const [deposit, setDeposit] = useState(false);
   const [withdraw, setWithdraw] = useState(false);
-  const [depositRes, SetDepositRes] = useState(null);
-  const [withdrawRes, SetWithdrawRes] = useState(null);
+  const [depositRes, setDepositRes] = useState(null);
+  const [withdrawRes, setWithdrawRes] = useState(null);
+  const [paybackRes, setPaybackRes] = useState(null);
 
   const onHomeClick = () => {
     setShowHome(true);
@@ -106,11 +107,15 @@ export const DashboardProvider = ({ children }) => {
   };
 
   const saveDepositRes = (res) => {
-    SetDepositRes(res);
+    setDepositRes(res);
   };
 
   const saveWithdrawRes = (res) => {
-    SetWithdrawRes(res);
+    setWithdrawRes(res);
+  };
+
+  const savePaybackRes = (res) => {
+    setPaybackRes(res);
   };
 
   const resetBorrowSetup = () => {
@@ -119,8 +124,9 @@ export const DashboardProvider = ({ children }) => {
     setDeposit(false);
     setPayback(false);
     setBorrow(false);
-    SetDepositRes(null);
-    SetWithdrawRes(null);
+    setDepositRes(null);
+    setWithdrawRes(null);
+    setPaybackRes(null);
   };
 
   return (
@@ -159,6 +165,8 @@ export const DashboardProvider = ({ children }) => {
         depositRes,
         saveWithdrawRes,
         withdrawRes,
+        savePaybackRes,
+        paybackRes,
       }}
     >
       {children}

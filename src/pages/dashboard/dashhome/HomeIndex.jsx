@@ -2,7 +2,18 @@ import React from "react";
 import arrow from "../../../assets/dashboard/arrow.svg";
 import vaultsData from "../../../data/vaultsData";
 
-function HomeIndex({totalLck, totalDebt, xdcPrc}) {
+function HomeIndex({totalLck, totalDebt, xdcPrc, hauntedVlts, liquidatedVlts, colRatio}) {
+
+  const getArrayLength = (_array) => {
+    let finalRes = [];
+    _array.forEach((item) => {
+      if (item.created_at > 0) {
+        finalRes.push(item);
+      }
+    });
+    return finalRes.length;
+  }
+  
   return (
     <div className=" overflow-hidden ">
       <div className=" text-[#D9D9D9] flex justify-around mb-[5.09vh]   ">
@@ -31,12 +42,17 @@ function HomeIndex({totalLck, totalDebt, xdcPrc}) {
                 <h1 className="text-[0.675rem] font-bold ">
                   Total Vaults Haunted:
                 </h1>
-                <p className="text-[1.25rem] mt-[-0.74vh] font-medium">12</p>
+                {hauntedVlts && (
+                  <p className="text-[1.25rem] mt-[-0.74vh] font-medium">{getArrayLength(hauntedVlts)}</p>
+                )}
+                {!hauntedVlts && (
+                  <p className="text-[1.25rem] mt-[-0.74vh] font-medium"></p>
+                )}
               </div>
               <div className="flex flex-col items-center">
                 <h1 className="text-[0.675rem] font-bold ">Total Payout:</h1>
                 <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
-                  3500.00 XDC
+                  350000.0000 XDC
                 </p>
               </div>
             </div>
@@ -45,13 +61,18 @@ function HomeIndex({totalLck, totalDebt, xdcPrc}) {
                 <h1 className="text-[0.675rem] font-bold ">
                   Current Collateral Ratio:
                 </h1>
-                <p className="text-[1.25rem] mt-[-0.74vh] font-medium">1:300</p>
+                <p className="text-[1.25rem] mt-[-0.74vh] font-medium">{colRatio}</p>
               </div>
               <div className="flex flex-col items-center">
                 <h1 className="text-[0.675rem] font-bold ">
-                  Total Vaults in Liquidity:
+                  Total Vaults in Liquidation:
                 </h1>
-                <p className="text-[1.25rem] mt-[-0.74vh] font-medium">20</p>
+                {liquidatedVlts && (
+                  <p className="text-[1.25rem] mt-[-0.74vh] font-medium">{getArrayLength(liquidatedVlts)}</p>
+                )}
+                {!liquidatedVlts && (
+                   <p className="text-[1.25rem] mt-[-0.74vh] font-medium"></p>
+                )}
               </div>
             </div>
           </div>

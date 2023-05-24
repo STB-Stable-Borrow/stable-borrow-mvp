@@ -34,7 +34,7 @@ function DepositXDCIndex({_xdcBalance, _xdcPrc, _stb, _account, _web3}) {
           placeholder="Enter Amount"
           onChange={(e) => {setXdcIn(e.target.value)}}
           onInput={(e) => {
-            if(parseFloat(e.target.value) > 0.0 && depositBtn) {
+            if(depositBtn && parseFloat(e.target.value) > 0.0 && parseFloat(e.target.value) <= parseFloat(_xdcBalance)) {
               depositBtn.style.backgroundColor = "#009FBD"
             }else{
               depositBtn.style.backgroundColor = "#585858"

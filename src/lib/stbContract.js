@@ -240,6 +240,75 @@ const withdrawCollateral = async (stb, vaultId, userAccount, amount) => {
   return res;
 };
 
+//pays debt
+const payDebt = async (stb, vaultId, userAccount, amount) => {
+  const res = await stb.methods
+    .payDebt(vaultId, amount)
+    .send({ from: userAccount })
+    .then(async (res) => {
+      if (res) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((err) => {
+      if (
+        err.message.includes(
+          `Given address "xdc0000000000000000000000000000000000000000" is not a valid Ethereum address`
+        ) ||
+        err.message.includes(`Failed to check for transaction receipt`)
+      ) {
+        return true;
+      } else {
+        if (
+          err.message.includes("Response has no error or result for request")
+        ) {
+          window.alert(
+            "You are offline due to internet connection. check your connection and try again"
+          );
+        } else {
+          console.log("Error while withdrawing collateral to vault :", err);
+        }
+        return false;
+      }
+    });
+  return res;
+};
+
+//gets all haunted vaults
+const getAllHauntedVaults = async (stb) => {
+  const res = await stb.methods
+    .allHauntedVaults()
+    .call()
+    .then(async (res) => {
+      return res;
+    });
+  return res;
+};
+
+//gets all liquidated vaults
+const getAllLiquidatedVaults = async (stb) => {
+  const res = await stb.methods
+    .allVaultsInLiquidation()
+    .call()
+    .then(async (res) => {
+      return res;
+    });
+  return res;
+};
+
+//gets all vaults
+const getAllVaults = async (stb) => {
+  const res = await stb.methods
+    .allVaults()
+    .call()
+    .then(async (res) => {
+      return res;
+    });
+  return res;
+};
+
 export {
   stbContractInit,
   getRegFee,
@@ -252,4 +321,8 @@ export {
   getVault,
   depositCollateral,
   withdrawCollateral,
+  payDebt,
+  getAllHauntedVaults,
+  getAllLiquidatedVaults,
+  getAllVaults,
 };

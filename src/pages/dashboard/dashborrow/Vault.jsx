@@ -56,7 +56,7 @@ function Vault({_vaultId, stb, colRatio, xdcPrc, _onDepositClick, _onWithdrawCli
             <div className="flex flex-col items-center">
               <h1 className="text-[1rem] text-center font-bold ">Available</h1>
               {vaultInfo && (
-               <p className="text-[1.5rem] font-medium mt-[-0.74vh] ">{vaultInfo.availCollateral}</p>
+               <p className="text-[1.5rem] font-medium mt-[-0.74vh] ">{new Big (vaultInfo.availCollateral).div("10e17").toFixed(4)}</p>
               )}
               {!vaultInfo && (
                 <p className="text-[1.5rem] font-medium mt-[-0.74vh] ">0.0000</p>

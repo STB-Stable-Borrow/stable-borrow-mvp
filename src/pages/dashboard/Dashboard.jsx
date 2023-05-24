@@ -12,7 +12,7 @@ import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { useNavigate } from "react-router-dom";
 import { getTokenDetails } from "../../lib/filebaseIpfs";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
-import { getAllUserVaults, getColRatio, getUserTotalDebt, getUserTotalLockedCol } from "../../lib/stbContract";
+import { getAllHauntedVaults, getAllLiquidatedVaults, getAllUserVaults, getColRatio, getUserTotalDebt, getUserTotalLockedCol } from "../../lib/stbContract";
 import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
 
@@ -45,6 +45,8 @@ function Dashboard() {
   const [stcBlnc, setStcBlnc] = useState(null);
   const [xdcPrice, setXdcPrice] = useState(null);
   const [xdcPrc, setXdcPrc] = useState(null);
+  const [hauntedVlts, setHauntedVlts] = useState(null);
+  const [liquidatedVlts, setLiquidatedVlts] = useState(null);
   
   
   //reset vault setup
@@ -133,6 +135,20 @@ useEffect(() => {
   })();
 }, );
 
+//get haunter info
+useEffect(() => {
+  (async () => {
+    if(connected && account) {
+      await getAllHauntedVaults(stb).then((res) => {
+        setHauntedVlts(res);
+      });
+      await getAllLiquidatedVaults(stb).then((res) => {
+        setLiquidatedVlts(res);
+      })
+    }
+  })();
+}, );
+
 
   return (
     <div className="flex w-screen h-screen overflow-none bg-[#292C31] px-[80px] ">
@@ -153,9 +169,9 @@ useEffect(() => {
           <Navbar _account={account} _address={address} _profile={profile}/>
         </div>
         <div className="mt-[3.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
-          {showHome && <Home _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc}/>}
+          {showHome && <Home _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts} _colRatio={colRatio}/>}
           {showDashBorrow && <DashBorrow _web3={web3} _resetBorrowSetup={resetBorrowSetup} _stcBlnc={stcBlnc}  _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _colRatio={colRatio} _allVaults={allVaults} _stb={stb} _stc={stc} _xdcBalance={xdcBlnc} _account={account}/>}
-          {showEarn && <Earn />}
+          {showEarn && <Earn _web3={web3} _stb={stb} _account={account} _colRatio={colRatio} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts}  _xdcPrc={xdcPrc}/>}
           {showExchange && <Exchange />}
           {showHistory && <History />}
           {showSettings && <Settings />}
