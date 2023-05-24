@@ -21,7 +21,6 @@ function App() {
               <DashboardProvider>
                 <Routes>
                   <Route exact path="/" element={<Home />} />
-                  <Route exact path="home" element={<Home />} />
                   <Route path="/info" element={<Info />} />
                   <Route path="/about" element={<About />} />
 

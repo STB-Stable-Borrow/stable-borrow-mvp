@@ -77,6 +77,7 @@ function Sidebar({
       navigate("/")
     })
   }
+
   return (
     <div className="relative">
       {isExpanded ? (
@@ -90,7 +91,7 @@ function Sidebar({
           <div
             className={`${
               isExpanded ? "w-[182px]" : "w-[42px]"
-            } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px]  
+            } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px]   hover:bg-[#009FBD]/10
                ${active === item.id && "bg-[#009FBD]"}
             }
              hover:textsb-[#009FBD] cursor-pointer `}
@@ -107,7 +108,8 @@ function Sidebar({
           </div>
         ))}
       </div>
-      <div onLoad={_verifyConnection}
+      <div
+        onLoad={_verifyConnection}
         onClick={handleLogout}
         className={`${
           isExpanded ? "w-[182px]" : "w-[42px]"

@@ -1,9 +1,9 @@
 import React from "react";
 import success from "../../assets/borrow/success.svg";
 
-function SuccessConfirm() {
+function SuccessConfirm({_redirect}) {
   return (
-    <div className="bg-[#292C31] rounded-[12px] flex flex-col items-center gap-[4vh] w-[500px] py-[10vh] px-[50px] ">
+    <div onLoad={_redirect} className="bg-[#292C31] rounded-[12px] flex flex-col items-center gap-[4vh] w-[500px] py-[10vh] px-[50px] ">
       <img src={success} alt="" className="w-[50px]" />
       <p className="text-[#009fbd] text-center ">
         Your Vault and requested STC are being Generated!

@@ -1,4 +1,5 @@
 import STC from "../backend/build/contracts/STC.json";
+import { Big } from "big.js";
 
 //initializes and return stc contract properties
 const stcContractInit = (web3) => {
@@ -48,4 +49,17 @@ const approveAccount = async (stc, userAccount) => {
   return approveRes;
 };
 
-export { stcContractInit, approveAccount };
+//gets stc balance
+const getStcBalance = async (stc, account) => {
+  const res = await stc.methods
+    .balanceOf(account)
+    .call()
+    .then(async (res) => {
+      const blnc = new Big(res);
+      const formattedBlnc = blnc.div("10e17").toFixed(4);
+      return [res, formattedBlnc];
+    });
+  return res;
+};
+
+export { stcContractInit, approveAccount, getStcBalance };

@@ -1,9 +1,9 @@
 import React from "react";
 import error from "../../assets/borrow/error.svg";
 
-function ErrorConfirm() {
+function ErrorConfirm({_redirect}) {
   return (
-    <div className="bg-[#292C31] rounded-[12px] flex flex-col items-center gap-[4vh] w-[500px] py-[10vh] px-[50px] ">
+    <div onLoad={_redirect} className="bg-[#292C31] rounded-[12px] flex flex-col items-center gap-[4vh] w-[500px] py-[10vh] px-[50px] ">
       <img src={error} alt="" className="w-[50px]" />
       <p className="text-[#E32424] text-center ">
         Oops! Error while generating vault and requested STC!

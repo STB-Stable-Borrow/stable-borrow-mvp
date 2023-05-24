@@ -1,30 +1,38 @@
-import React, {useEffect} from "react";
+import React, {useContext} from "react";
 import SuccessConfirm from "./SuccessConfirm";
 import ErrorConfirm from "./ErrorConfirm";
 import {useNavigate } from "react-router-dom";
+import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 
 function Confirmations({_generateRes}) {
   const navigate = useNavigate();
+  const {handleGenerateSTCBack, confirm} = useBorrow();
 
  //handles redirection to dashboard in 3 seconds
  const dashboardRedirect = () => {
-  setInterval(() => {
-    navigate("/dashboard");
-  }, 5000)
+  if(confirm) {
+    setTimeout(() => {
+      navigate("/dashboard");
+     }, 5000)
+  }
  }
 
- //redirect to dashboard affer 3 seconds
- useEffect(() => {
-  dashboardRedirect();
-}, []);
+ //handles redirection to vault in 5 seconds
+ const vaultRedirect = () => {
+  if(confirm) {
+    setTimeout(() => {
+      handleGenerateSTCBack();
+  }, 5000)
+  }
+ }
+
 
   return (
     <div>
-      
       {
-      _generateRes? <SuccessConfirm />
+      _generateRes ? <SuccessConfirm _redirect={dashboardRedirect} />
       : 
-      <ErrorConfirm />
+      <ErrorConfirm _redirect={vaultRedirect} />
       }
     </div>
   );

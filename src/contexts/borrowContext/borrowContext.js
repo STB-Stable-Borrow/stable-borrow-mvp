@@ -15,9 +15,7 @@ export const BorrowProvider = ({ children }) => {
   const handleVaultNext = () => {
     setVault(false);
     setGenerateSTC(true);
-  };
-  const a = () => {
-    console.log("GGU");
+    setConfirm(false);
   };
 
   const handleGenerateSTCNext = (genRes) => {
@@ -27,6 +25,7 @@ export const BorrowProvider = ({ children }) => {
   };
 
   const handleGenerateSTCBack = () => {
+    setConfirm(false);
     setGenerateSTC(false);
     setVault(true);
   };
@@ -39,9 +38,9 @@ export const BorrowProvider = ({ children }) => {
 
   //resets vault setup to initial value; important to ensure vault management are in order(users don't need to refresh)
   const resetVaultSetup = () => {
+    setConfirm(false);
     setVault(true);
     setGenerateSTC(false);
-    setConfirm(false);
     setGenerateRes(false);
   };
 

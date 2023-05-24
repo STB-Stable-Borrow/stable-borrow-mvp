@@ -18,11 +18,11 @@ function Navbar({ _account, _address, _profile}) {
           <p className="flex items-center gap-[7px] ">
             {" "}
             <img src={copy} alt="" />{" "}
-           {_account}
+            {_account}
           </p>
         </div>
         <div className="relative">
-        {_profile && (
+          {_profile && (
             <img
             src={_profile.imgUrl}
             alt=""
@@ -35,7 +35,7 @@ function Navbar({ _account, _address, _profile}) {
             alt=""
             className="w-[5.2vw] h-[7.4vh] rounded-full "
           />
-          )}
+            )}
           <div className="absolute top-0 right-0 w-[25px] h-[25px] rounded-full bg-[#FF4D00]">
             <img src={notif} alt="" />
           </div>

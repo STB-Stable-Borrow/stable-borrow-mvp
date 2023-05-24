@@ -15,17 +15,11 @@ import { getColRatio, getRegFee } from "../../lib/stbContract";
 function Borrow() {
   const navigate = useNavigate();
   const { web3, stb, stc, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
-  const { vault, generateSTC, confirm, handleVaultNext, handleGenerateSTCNext, handleGenerateSTCBack, generateRes } = useBorrow();
+  const { vault, generateSTC, confirm, handleVaultNext, resetVaultSetup, handleGenerateSTCBack, generateRes } = useBorrow();
   const [xdcPrice, setXdcPrice] = useState(null);
   const [xdcPrc, setXdcPrc] = useState(null);
   const [colRt, setColRt] = useState(null);
 
-  // console.log("stb: ", stb)
-  // console.log("stc: ", stc)
-  // console.log("account: ", account)
-  // console.log("address: ", address)
-
-  // verify connection status and chainId
   const verifyConnection = () => {
     const acceptIds = [50, 51]
     if(!connected && !chainId) {
@@ -74,11 +68,6 @@ useEffect(() => {
 const getMaxSTC = () => {
  return((xdcBlnc/colRt).toFixed(4))
 }
-  // console.log("balance: ", xdcBalance)
-  // console.log("blnc: ", xdcBlnc)
-  // console.log("price: ", xdcPrice)
-  // console.log("prc: ", xdcPrc)
-  // console.log("colRatio: ", colRatio)
 
   return (
     <div className="w-screen h-screen bg-[#292C31] ">
@@ -98,7 +87,6 @@ const getMaxSTC = () => {
           )}
           {confirm && <Confirmations _generateRes={generateRes}/>}
         </div>
-        
       </div>
     </div>
   );

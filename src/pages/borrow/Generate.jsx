@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import back from "../../assets/borrow/back.svg";
 import gen from "../../assets/borrow/gen.svg";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
@@ -14,7 +14,7 @@ function Generate({ onNextButtonClicked, onBackButtonClicked, _xdcPrice, _colRat
       handleGenerateSTCNext(res); 
     })
   }
-  
+
   return (
     <div className="bg-[#292C31] rounded-[12px] flex flex-col gap-[4vh] w-[735px] py-[2vh] px-[86px] ">
       <div className="flex flex-col gap-[10px] font-bold ">

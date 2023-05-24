@@ -10,7 +10,7 @@ import { approveAccount } from "../../lib/stcContract";
 
 function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc}) {
   const navigate = useNavigate();
-  const {calculateAmounts} = useBorrow();
+  const {calculateAmounts, resetVaultSetup} = useBorrow();
   const [xdcIn, setXdcIn] = useState(null);
   const [stcOut, setStcOut] = useState(null);
   const [hntFee, setHntFee] = useState(null);
@@ -20,6 +20,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
   const nextBtn = document.getElementById("vm-next-btn");
   const maxU256 = 115792089237316195423570985008687907853269984665640564039457584007913129639935n; 
 
+ 
 
   //sets xdc amount, gets and sets returned STC
   const handleInputXDC = (e) => {
@@ -95,8 +96,6 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
     }
   }
 
-
-
   return (
     <div>
       <div className="flex items-center pt-[2.5vh] px-[34px] gap-[16px] text-sm">
@@ -149,8 +148,8 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
           </h1>
           <div className="text-xs">
             <div className="flex justify-between items-center">
-              <h1>Total Debt:</h1>
-              <small>$0.00 → $1,560000000.00</small>
+            <h1>Total Debt:</h1>
+              <small>$0.00 → {stcOut}</small>
             </div>
             <div className="flex justify-between items-center">
             <h1>Haunter's fee:</h1>
@@ -194,7 +193,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <button onClick={handleAllowance} id="approve-btn" className="w-[198px] h-[6.6vh] bg-[#585858] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg ">
+            <button onClick={handleAllowance} id="approve-btn" className="w-[198px] h-[6.6vh] bg-[#865DFF] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg ">
               Approve
               <img src={approve} alt="" />
             </button>
@@ -207,7 +206,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
           Back
         </button>
         <button
-        id="vm-next-btn"
+          id="vm-next-btn"
           className="bg-[#585858] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
           onClick={handleNextButton}
         >

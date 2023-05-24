@@ -177,12 +177,6 @@ function Registration() {
                       : "w-[50px] h-[50px]"
                   }
                 />
-                {/* <input
-                  className={`w-full h-full opacity-0  absolute inset-0 cursor-pointer ${
-                    avatar ? "hidden" : "block"
-                  } `}
-                  onChange={handleCreateAvatar}
-                /> */}
                 {avatarImage ? (
                   ""
                 ) : (
@@ -192,7 +186,7 @@ function Registration() {
                 )}
               </div>
               {avatarImage && (
-                <div  className="flex justify-center items-center text-xs mt-2 gap-1 relative">
+                <div className="flex justify-center items-center text-xs mt-2 gap-1 relative">
                   <img src={editAvatar} alt="" className="w-[20px]" />
                   <p onClick={handleCreateAvatar} className="text-[#B0B0B0] hover:underline ">Edit Avatar</p>
                 </div>
@@ -223,14 +217,14 @@ function Registration() {
           </div>
           <div className="flex items-center justify-center gap-[110px] mt-[5.19vh] mb-[5.5vh] ">
             <button
-            onClick={() => {navigate("/info")}}
+              onClick={() => {navigate("/info")}}
               className="border border-[#009FBD] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
             >
               <img src={back} alt="" />
               Back
             </button>
             <button
-            id="register-btn"
+              id="register-btn"
               onLoad={verifyConnection}
               className="bg-[#585858] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
               onClick={handleMintProfile}

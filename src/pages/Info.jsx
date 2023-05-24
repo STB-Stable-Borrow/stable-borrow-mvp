@@ -48,6 +48,7 @@ function Info() {
       }
     })
   }
+  
   return (
     <LandingBody>
       <body className="md:mx-[60px] md:mt-[48px] flex justify-between text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
@@ -70,7 +71,7 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2" onClick={handleBorrow}>
+            <button className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2" onClick={() => handleBorrow()}>
               Borrow now
             </button>
           </div>
@@ -91,7 +92,7 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button onClick={handleEarn} className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
+            <button onClick={() => handleEarn()} className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
               Earn now
             </button>
           </div>

@@ -3,7 +3,7 @@ import logoStb from "../../assets/landing/stb-logo.svg";
 import { Link, useLocation} from "react-router-dom";
 
 
-function Header({_handleConnectWallet}) {
+function Header({_handleConnectWallet_}) {
   const location = useLocation();
 
   return (
@@ -29,9 +29,9 @@ function Header({_handleConnectWallet}) {
         </ul>
 
         {location.pathname === "/" && (
-          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={_handleConnectWallet}>
-          Connect Wallet
-        </button>
+          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={_handleConnectWallet_}>
+            Connect Wallet
+          </button>
         )}
       </div>
     </div>

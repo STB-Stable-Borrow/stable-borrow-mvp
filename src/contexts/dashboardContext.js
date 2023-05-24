@@ -9,6 +9,14 @@ export const DashboardProvider = ({ children }) => {
   const [showExchange, setShowExchange] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [borrow, setBorrow] = useState(true);
+  const [vault, setVault] = useState(false);
+  const [vaultId, setVaultId] = useState(null);
+  const [payback, setPayback] = useState(false);
+  const [deposit, setDeposit] = useState(false);
+  const [withdraw, setWithdraw] = useState(false);
+  const [depositRes, SetDepositRes] = useState(null);
+  const [withdrawRes, SetWithdrawRes] = useState(null);
 
   const onHomeClick = () => {
     setShowHome(true);
@@ -64,6 +72,57 @@ export const DashboardProvider = ({ children }) => {
     setShowSettings(true);
   };
 
+  const onVaultClick = (id) => {
+    setVault(true);
+    setDeposit(false);
+    setPayback(false);
+    setBorrow(false);
+    setWithdraw(false);
+    setVaultId(id);
+  };
+
+  const onPaybackClick = () => {
+    setVault(false);
+    setPayback(true);
+    setBorrow(false);
+    setDeposit(false);
+    setWithdraw(false);
+  };
+
+  const onDepositClick = () => {
+    setVault(false);
+    setDeposit(true);
+    setPayback(false);
+    setBorrow(false);
+    setWithdraw(false);
+  };
+
+  const onWithdrawClick = () => {
+    setVault(false);
+    setWithdraw(true);
+    setDeposit(false);
+    setPayback(false);
+    setBorrow(false);
+  };
+
+  const saveDepositRes = (res) => {
+    SetDepositRes(res);
+  };
+
+  const saveWithdrawRes = (res) => {
+    SetWithdrawRes(res);
+  };
+
+  const resetBorrowSetup = () => {
+    setVault(true);
+    setWithdraw(false);
+    setDeposit(false);
+    setPayback(false);
+    setBorrow(false);
+    SetDepositRes(null);
+    SetWithdrawRes(null);
+  };
+
   return (
     <DashboardContext.Provider
       value={{
@@ -85,6 +144,21 @@ export const DashboardProvider = ({ children }) => {
         onExchangeClick,
         onHistoryClick,
         onSettingsClick,
+        onVaultClick,
+        vault,
+        vaultId,
+        borrow,
+        payback,
+        deposit,
+        withdraw,
+        onPaybackClick,
+        onDepositClick,
+        onWithdrawClick,
+        resetBorrowSetup,
+        saveDepositRes,
+        depositRes,
+        saveWithdrawRes,
+        withdrawRes,
       }}
     >
       {children}

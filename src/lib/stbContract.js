@@ -1,5 +1,4 @@
 import STB from "../backend/build/contracts/STB.json";
-import { useBorrow } from "../contexts/borrowContext/borrowContext";
 import { Big } from "big.js";
 
 //initializes and return stb contract properties
@@ -85,7 +84,6 @@ const createVault = async (stb, userAccount, amount) => {
           );
         } else {
           console.log("Error while creating vault :", err);
-          window.alert("Error while creating vault. Try again later");
         }
         return false;
       }
@@ -110,10 +108,148 @@ const getAllUserVaults = async (stb, account) => {
   return res;
 };
 
+//gets total locked collateral for an account
+const getUserTotalLockedCol = async (stb, account) => {
+  const res = await stb.methods
+    .userTotalLockedCol(account)
+    .call()
+    .then(async (res) => {
+      const totalLockedCol = new Big(res || 0);
+      const formatedCol = totalLockedCol.div("10e17").toFixed(4);
+      return formatedCol;
+    });
+  return res;
+};
+
+//gets total vaults
+const getTotalVaults = async (stb) => {
+  const res = await stb.methods
+    .totalVaults()
+    .call()
+    .then(async (res) => {
+      return res;
+    });
+  return res;
+};
+
+//gets user's total debt
+const getUserTotalDebt = async (stb, account) => {
+  const res = await stb.methods
+    .userTotalDebt(account)
+    .call()
+    .then(async (res) => {
+      const totalDebt = new Big(res || 0);
+      const formatedDebt = totalDebt.div("10e17").toFixed(4);
+      return formatedDebt;
+    });
+  return res;
+};
+
+//gets vault's details using it's id
+const getVault = async (stb, vaultId) => {
+  const res = await stb.methods
+    .getVault(vaultId)
+    .call()
+    .then(async (res) => {
+      const vaultDetails = {
+        id: res.id,
+        owner: res.owner,
+        totalDebt: res.debt,
+        totalLockedCol: res.lck_collateral,
+        colRatio: res.col_ratio,
+        availCollateral: res.avail_collateral,
+        createdAt: res.created_at,
+        lastPayment: res.last_payment_at,
+        interest: res.interest,
+        closedAt: res.closed_at,
+      };
+      return vaultDetails;
+    });
+  return res;
+};
+
+//deposits collateral
+const depositCollateral = async (stb, vaultId, userAccount, amount) => {
+  const res = await stb.methods
+    .depositCollateral(vaultId)
+    .send({ from: userAccount, value: amount })
+    .then(async (res) => {
+      if (res) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((err) => {
+      if (
+        err.message.includes(
+          `Given address "xdc0000000000000000000000000000000000000000" is not a valid Ethereum address`
+        ) ||
+        err.message.includes(`Failed to check for transaction receipt`)
+      ) {
+        return true;
+      } else {
+        if (
+          err.message.includes("Response has no error or result for request")
+        ) {
+          window.alert(
+            "You are offline due to internet connection. check your connection and try again"
+          );
+        } else {
+          console.log("Error while depositing collateral to vault :", err);
+        }
+        return false;
+      }
+    });
+  return res;
+};
+
+//withdraws collateral
+const withdrawCollateral = async (stb, vaultId, userAccount, amount) => {
+  const res = await stb.methods
+    .withdrawCollateral(vaultId, amount)
+    .send({ from: userAccount })
+    .then(async (res) => {
+      if (res) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((err) => {
+      if (
+        err.message.includes(
+          `Given address "xdc0000000000000000000000000000000000000000" is not a valid Ethereum address`
+        ) ||
+        err.message.includes(`Failed to check for transaction receipt`)
+      ) {
+        return true;
+      } else {
+        if (
+          err.message.includes("Response has no error or result for request")
+        ) {
+          window.alert(
+            "You are offline due to internet connection. check your connection and try again"
+          );
+        } else {
+          console.log("Error while withdrawing collateral to vault :", err);
+        }
+        return false;
+      }
+    });
+  return res;
+};
+
 export {
   stbContractInit,
   getRegFee,
   getColRatio,
   createVault,
   getAllUserVaults,
+  getUserTotalLockedCol,
+  getTotalVaults,
+  getUserTotalDebt,
+  getVault,
+  depositCollateral,
+  withdrawCollateral,
 };
