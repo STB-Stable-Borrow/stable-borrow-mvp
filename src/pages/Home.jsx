@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import LandingBody from "../layouts/index";
 import HeroSection from "../layouts/landingPage/HeroSection";
 import Footer from "../layouts/landingPage/Footer";
@@ -37,11 +37,11 @@ function Home() {
     <div>
       <LandingBody  _handleConnectWallet={handleConnectWallet}>
         <Web3ModalProvider>
+        </Web3ModalProvider>
         <div className=" h-[70%]">
           <HeroSection _handleConnectWallet={handleConnectWallet} />
         </div>
         <Footer />
-        </Web3ModalProvider>
       </LandingBody>
     </div>
   );

@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@truffle/hdwallet-provider": "^2.1.11",
+    "aws-sdk": "^2.1384.0",
     "big.js": "^6.2.1",
     "coingecko-api": "^1.0.10",
     "dotenv": "^16.0.3",
