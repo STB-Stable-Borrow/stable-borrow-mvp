@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import expandLogo from "../../assets/dashboard/expandLogo.svg";
 import collapseLogo from "../../assets/dashboard/collapseLogo.svg";
-import { useDashboard } from "../../contexts/dashboardContext";
 import home from "../../assets/dashboard/home.svg";
 import borrow from "../../assets/dashboard/borrow.svg";
 import earn from "../../assets/dashboard/earn.svg";
@@ -79,7 +78,7 @@ function Sidebar({
   }
 
   return (
-    <div className="relative">
+    <div className="relative cursor-pointer">
       {isExpanded ? (
         <img onClick={() => navigate("/")} src={expandLogo} alt="" className="mb-[8.75vh]" />
       ) : (

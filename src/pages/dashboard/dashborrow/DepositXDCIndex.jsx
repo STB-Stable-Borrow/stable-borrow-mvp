@@ -1,25 +1,30 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import back from "../../../assets/dashboard/back.svg";
 import approve from "../../../assets/dashboard/approve.svg";
 import { useDashboard } from "../../../contexts/dashboardContext";
 import { depositCollateral } from "../../../lib/stbContract";
 
-function DepositXDCIndex({_xdcBalance, _xdcPrc, _stb, _account, _web3}) {
-
-  const {vaultId, onVaultClick, saveDepositRes} = useDashboard();
-  const [xdcIn, setXdcIn] =useState(null);
+function DepositXDCIndex({ _xdcBalance, _xdcPrc, _stb, _account, _web3 }) {
+  const { vaultId, onVaultClick, saveDepositRes, handleLoading } =
+    useDashboard();
+  const [xdcIn, setXdcIn] = useState(null);
   const depositBtn = document.getElementById("deposit-btn");
 
-  const handleDeposit = async() => {
-    if(depositBtn && depositBtn.style.backgroundColor === "rgb(0, 159, 189)" && xdcIn && parseFloat(xdcIn) > 0.0)
-    {
-      const amount = _web3.utils.toWei(String(xdcIn), "ether")
+  const handleDeposit = async () => {
+    if (
+      depositBtn &&
+      depositBtn.style.backgroundColor === "rgb(0, 159, 189)" &&
+      xdcIn &&
+      parseFloat(xdcIn) > 0.0
+    ) {
+      const amount = _web3.utils.toWei(String(xdcIn), "ether");
+      handleLoading();
       await depositCollateral(_stb, vaultId, _account, amount).then((res) => {
+        handleLoading();
         saveDepositRes(res);
-      })
+      });
     }
-  }
-
+  };
 
   return (
     <div className="w-[760px] bg-[#202225] rounded-[30px] mx-auto pt-[3.0vh] pb-[4.2969vh] flex items-center flex-col">
@@ -32,12 +37,18 @@ function DepositXDCIndex({_xdcBalance, _xdcPrc, _stb, _account, _web3}) {
           type="number"
           className="w-[428px] h-[4.49vh] bg-[#B0B0B0] rounded-lg pl-[21px] placeholder:text-[#292C31] "
           placeholder="Enter Amount"
-          onChange={(e) => {setXdcIn(e.target.value)}}
+          onChange={(e) => {
+            setXdcIn(e.target.value);
+          }}
           onInput={(e) => {
-            if(depositBtn && parseFloat(e.target.value) > 0.0 && parseFloat(e.target.value) <= parseFloat(_xdcBalance)) {
-              depositBtn.style.backgroundColor = "#009FBD"
-            }else{
-              depositBtn.style.backgroundColor = "#585858"
+            if (
+              depositBtn &&
+              parseFloat(e.target.value) > 0.0 &&
+              parseFloat(e.target.value) <= parseFloat(_xdcBalance)
+            ) {
+              depositBtn.style.backgroundColor = "#009FBD";
+            } else {
+              depositBtn.style.backgroundColor = "#585858";
             }
           }}
           value={xdcIn}
@@ -46,9 +57,11 @@ function DepositXDCIndex({_xdcBalance, _xdcPrc, _stb, _account, _web3}) {
       </div>
       <p className="text-white mb-[7.91vh] ">Balance: {_xdcBalance} XDC</p>
       <div className="text-white w-[350px] text-[1rem] mb-[6.738vh] ">
-      <div className="flex w-full justify-between">
+        <div className="flex w-full justify-between">
           <h3>Total XDC to Deposit:</h3>
-          <p className="w-[100px]">${(_xdcPrc * parseFloat(xdcIn)).toFixed(4)}</p>
+          <p className="w-[100px]">
+            ${(_xdcPrc * parseFloat(xdcIn)).toFixed(4)}
+          </p>
         </div>
         <div className="flex w-full justify-between">
           <h3>Current Price:</h3>
@@ -60,11 +73,18 @@ function DepositXDCIndex({_xdcBalance, _xdcPrc, _stb, _account, _web3}) {
         </div>
       </div>
       <div className="flex justify-between gap-[110px] ">
-        <button onClick={() => onVaultClick(vaultId)}  className="border border-[#009FBD] w-[169px] h-[49px] rounded-lg text-white hover:opacity-75 flex items-center gap-2 justify-center">
+        <button
+          onClick={() => onVaultClick(vaultId)}
+          className="border border-[#009FBD] w-[169px] h-[49px] rounded-lg text-white hover:opacity-75 flex items-center gap-2 justify-center"
+        >
           <img src={back} alt="" />
           Back
         </button>
-        <button onClick={handleDeposit} id="deposit-btn" className="text-[#B0B0B0] bg-[#585858] w-[169px] h-[49px] rounded-lg hover:bg-opacity-75 flex items-center gap-2 justify-center">
+        <button
+          onClick={handleDeposit}
+          id="deposit-btn"
+          className="text-[#B0B0B0] bg-[#585858] w-[169px] h-[49px] rounded-lg hover:bg-opacity-75 flex items-center gap-2 justify-center"
+        >
           Deposit
           <img src={approve} alt="" />
         </button>

@@ -1,4 +1,7 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const DashboardContext = createContext();
 
@@ -18,6 +21,7 @@ export const DashboardProvider = ({ children }) => {
   const [depositRes, setDepositRes] = useState(null);
   const [withdrawRes, setWithdrawRes] = useState(null);
   const [paybackRes, setPaybackRes] = useState(null);
+  const [isLoading,setIsloading] = useState(false)
 
   const onHomeClick = () => {
     setShowHome(true);
@@ -129,6 +133,10 @@ export const DashboardProvider = ({ children }) => {
     setPaybackRes(null);
   };
 
+  const handleLoading = () => {
+    setIsloading(prevState => !prevState)
+  }
+
   return (
     <DashboardContext.Provider
       value={{
@@ -167,6 +175,8 @@ export const DashboardProvider = ({ children }) => {
         withdrawRes,
         savePaybackRes,
         paybackRes,
+        handleLoading,
+        isLoading
       }}
     >
       {children}

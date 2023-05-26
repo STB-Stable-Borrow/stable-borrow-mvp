@@ -9,6 +9,7 @@ import { useBorrow } from "../contexts/borrowContext/borrowContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
 import { useNavigate } from "react-router-dom";
 
+
 function Home() {
   const {connect, disconnect} = useContext(Web3ModalContext);
   const {resetVaultSetup} = useBorrow();
@@ -42,6 +43,7 @@ function Home() {
           <HeroSection _handleConnectWallet={handleConnectWallet} />
         </div>
         <Footer />
+        
       </LandingBody>
     </div>
   );

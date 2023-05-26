@@ -1,5 +1,7 @@
 import SNFT from "../backend/build/contracts/SNFT.json";
 import { Big } from "big.js";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //initializes and return sbt contract properties
 const sbtContractInit = (web3) => {
@@ -17,12 +19,12 @@ const getSnftBalance = async (sbt, account) => {
     })
     .catch((err) => {
       if (err.message.includes("Response has no error or result for request")) {
-        window.alert(
+        toast.error(
           "You are offline due to internet connection. check your connection and try again"
         );
       } else {
         console.log("Error while getting snft balance :", err);
-        window.alert("Error while getting snft balance. Try again later");
+        toast.error("Error while getting snft balance. Try again later");
       }
     });
   return res;
@@ -37,12 +39,12 @@ const getSnftSupply = async (sbt) => {
     })
     .catch((err) => {
       if (err.message.includes("Response has no error or result for request")) {
-        window.alert(
+        toast.error(
           "You are offline due to internet connection. check your connection and try again"
         );
       } else {
         console.log("Error while  getting Total supply :", err);
-        window.alert("Error while getting Total supply. Try again later");
+        toast.error("Error while getting Total supply. Try again later");
       }
     });
   return res;
@@ -56,7 +58,7 @@ const mintSnft = async (sbt, tokenUrl, userAccount) => {
       if (res > 0) {
         return true;
       } else {
-        window.alert("Unable to create profile. Try again later");
+        toast.error("Unable to create profile. Try again later");
         return false;
       }
     })
@@ -72,12 +74,12 @@ const mintSnft = async (sbt, tokenUrl, userAccount) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          window.alert(
+          toast.error(
             "You are offline due to internet connection. check your connection and try again"
           );
         } else {
           console.log("Unexpected error while creating profile :", err);
-          window.alert(
+          toast.error(
             "Unexpected error while creating profile. Try again later"
           );
         }
