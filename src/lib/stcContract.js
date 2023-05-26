@@ -1,5 +1,8 @@
 import STC from "../backend/build/contracts/STC.json";
 import { Big } from "big.js";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 //initializes and return stc contract properties
 const stcContractInit = (web3) => {
@@ -19,7 +22,7 @@ const approveAccount = async (stc, userAccount, stbAddress) => {
       if (res) {
         return true;
       } else {
-        window.alert("Unexpected Error occured. Try again later");
+        toast.error("Unexpected Error occured. Try again later");
         return false;
       }
     })
@@ -35,12 +38,12 @@ const approveAccount = async (stc, userAccount, stbAddress) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          window.alert(
-            "You are offline due to internet connection. check your connection and try again"
-          );
+          toast.error("You are offline due to internet connection. check your connection and try again")
+
         } else {
+          toast.error("Error while approving STB. Try again later")
           console.log("Error while approving STB :", err);
-          window.alert("Error while approving STB. Try again later");
+          
         }
         return false;
       }

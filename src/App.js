@@ -10,6 +10,8 @@ import Registration from "./pages/earn/Registration";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { DashboardProvider } from "./contexts/dashboardContext";
 import Web3ModalProvider from "./contexts/web3ModalContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -34,7 +36,17 @@ function App() {
               </DashboardProvider>
             </BorrowProvider>
           </AboutProvider>
+          <ToastContainer
+        position="top-center" 
+        autoClose={3000} 
+        hideProgressBar 
+        pauseOnHover 
+        draggable 
+        closeOnClick 
+        closeButton={false} 
+      />
         </Router>
+     
       </Web3ModalProvider>
     </React.StrictMode>
   );

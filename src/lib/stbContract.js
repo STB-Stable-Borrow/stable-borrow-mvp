@@ -1,5 +1,7 @@
 import STB from "../backend/build/contracts/STB.json";
 import { Big } from "big.js";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //initializes and return stb contract properties
 const stbContractInit = (web3) => {
@@ -19,12 +21,12 @@ const getColRatio = async (stb) => {
     })
     .catch((err) => {
       if (err.message.includes("Response has no error or result for request")) {
-        window.alert(
+        toast.error(
           "You are offline due to internet connection. check your connection and try again"
         );
       } else {
         console.log("Error while getting collatarilization ratio :", err);
-        window.alert(
+        toast.error(
           "Error while getting collatarilization ratio. Try again later"
         );
       }
@@ -44,12 +46,12 @@ const getRegFee = async (stb, amount) => {
     })
     .catch((err) => {
       if (err.message.includes("Response has no error or result for request")) {
-        window.alert(
+        toast.error(
           "You are offline due to internet connection. check your connection and try again"
         );
       } else {
         console.log("Error while getting reg fee :", err);
-        window.alert("Error while getting reg fee. Try again later");
+        toast.error("Error while getting reg fee. Try again later");
       }
     });
   return regFee;
@@ -79,7 +81,7 @@ const createVault = async (stb, userAccount, amount) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          window.alert(
+          toast.error(
             "You are offline due to internet connection. check your connection and try again"
           );
         } else {
@@ -192,7 +194,7 @@ const depositCollateral = async (stb, vaultId, userAccount, amount) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          window.alert(
+          toast.error(
             "You are offline due to internet connection. check your connection and try again"
           );
         } else {
@@ -228,7 +230,7 @@ const withdrawCollateral = async (stb, vaultId, userAccount, amount) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          window.alert(
+          toast.error(
             "You are offline due to internet connection. check your connection and try again"
           );
         } else {
@@ -264,7 +266,7 @@ const payDebt = async (stb, vaultId, userAccount, amount) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          window.alert(
+          toast.error(
             "You are offline due to internet connection. check your connection and try again"
           );
         } else {

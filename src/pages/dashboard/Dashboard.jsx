@@ -15,6 +15,8 @@ import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import { getAllHauntedVaults, getAllLiquidatedVaults, getAllUserVaults, getColRatio, getUserTotalDebt, getUserTotalLockedCol } from "../../lib/stbContract";
 import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
+import LoadingSpinner from "../../utils/spinner";
+
 
 function Dashboard() {
   const {web3, account, address, stb, stc, sbt,  connected, chainId, xdcBalance, xdcBlnc, getXdcBalance, disconnect, connect} = useContext(Web3ModalContext);
@@ -31,7 +33,8 @@ function Dashboard() {
     onExchangeClick,
     onHistoryClick,
     onSettingsClick,
-    resetBorrowSetup
+    resetBorrowSetup,
+    isLoading
   } = useDashboard();
   const navigate = useNavigate();
   const {resetVaultSetup} = useBorrow();
@@ -150,8 +153,10 @@ useEffect(() => {
 }, );
 
 
+
   return (
     <div className="flex w-screen h-screen overflow-none bg-[#292C31] px-[80px] ">
+      {isLoading && <LoadingSpinner/>}
       <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] ">
         <Sidebar
           onDashBorrowClick={onDashBorrowClick}

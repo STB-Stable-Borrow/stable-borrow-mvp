@@ -9,6 +9,8 @@ import Confirmations from "./Confirmations";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { getCurrentPrice } from "../../lib/coingecko";
 import { getColRatio, getRegFee } from "../../lib/stbContract";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 

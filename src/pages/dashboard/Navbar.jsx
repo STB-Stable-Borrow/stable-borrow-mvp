@@ -15,9 +15,9 @@ function Navbar({ _account, _address, _profile}) {
           {!_profile && (
             <h1 className="font-semibold">username</h1>
           )}
-          <p className="flex items-center gap-[7px] ">
+          <p className="flex items-center gap-[7px] cursor-pointer ">
             {" "}
-            <img src={copy} alt="" />{" "}
+            <img src={copy} alt="copy" />{" "}
             {_account}
           </p>
         </div>
@@ -25,18 +25,18 @@ function Navbar({ _account, _address, _profile}) {
           {_profile && (
             <img
             src={_profile.imgUrl}
-            alt=""
-            className="w-[5.2vw] h-[7.4vh] rounded-full "
+            alt="profile"
+            className="w-[5.2vw] h-[10.4vh] rounded-full border border-full border-2 border-[#009FBD]"
           />
           )}
           {!_profile && (
             <img
             src={profile}
-            alt=""
-            className="w-[5.2vw] h-[7.4vh] rounded-full "
+            alt="profile"
+            className="w-[5.2vw] h-[10.4vh] rounded-full border border-full border-2 border-[#009FBD]"
           />
             )}
-          <div className="absolute top-0 right-0 w-[25px] h-[25px] rounded-full bg-[#FF4D00]">
+          <div className="absolute top-0 right-0 w-[25px] h-[25px] rounded-full bg-[#009FBD]">
             <img src={notif} alt="" />
           </div>
         </div>
