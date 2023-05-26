@@ -8,6 +8,8 @@ import { useAbout } from "../context/aboutContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
 import { getSnftBalance } from "../lib/sbtContract";
 import { getAllUserVaults } from "../lib/stbContract";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Info() {
   const { sbt, account, stb, connected, chainId} = useContext(Web3ModalContext);
@@ -18,11 +20,11 @@ function Info() {
   const verifyConnection = () => {
     const acceptIds = [50, 51]
     if(!connected && !chainId) {
-      window.alert("You have to connect your wallet to proceed")
+      toast.info("You have to connect your wallet to proceed")
       navigate("/")
      }
      if(connected && !acceptIds.includes(chainId)){
-      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      toast.info("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
       navigate("/")
      } 
   }

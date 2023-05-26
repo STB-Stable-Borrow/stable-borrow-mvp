@@ -7,6 +7,8 @@ import next from "../../assets/borrow/next.svg";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import {useNavigate } from "react-router-dom";
 import { approveAccount } from "../../lib/stcContract";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc, _stb}) {
   const navigate = useNavigate();
@@ -58,10 +60,10 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
         }
     }).catch((err) => {
       if (err.message.includes("Response has no error or result for request")){
-        window.alert("You are offline due to internet connection. check your connection and try again"); 
+        toast.error("You are offline due to internet connection. check your connection and try again"); 
       }else{
         console.log("Error while getting allowance between user and STB :", err)
-        window.alert("Error while getting allowance between user and STB. Try again later")
+        toast.error("Error while getting allowance between user and STB. Try again later")
       }   
     })
     }
@@ -72,6 +74,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
 
   //handles approve button click
   const handleAllowance = async () => {
+
     if(approveBtn.style.backgroundColor === "rgb(134, 93, 255)") {
       if(isApproved) {
         onNextButtonClicked();
@@ -88,6 +91,7 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
         });
       }
     }
+    
   }
 
   //handles next button click

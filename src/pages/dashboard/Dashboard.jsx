@@ -16,6 +16,8 @@ import { getAllHauntedVaults, getAllLiquidatedVaults, getAllUserVaults, getColRa
 import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Dashboard() {
@@ -52,6 +54,7 @@ function Dashboard() {
   const [liquidatedVlts, setLiquidatedVlts] = useState(null);
   
   
+  
   //reset vault setup
   useEffect(() => {
     resetVaultSetup();
@@ -64,7 +67,7 @@ function Dashboard() {
       connect();
      }
      if(connected && !acceptIds.includes(chainId)){
-      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      toast.erorr("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
       navigate("/")
      } 
   }

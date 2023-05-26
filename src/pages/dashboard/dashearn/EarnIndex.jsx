@@ -1,11 +1,12 @@
-import React from "react";
+import React,{useState} from "react";
 import haunt from "../../../assets/dashboard/haunt.svg";
 import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import vaultsData from "../../../data/vaultsData";
+import { motion, AnimatePresence } from 'framer-motion';
 
 function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _onHauntClick}) {
-
+  const [isBouncing, setIsBouncing] = useState(true);
   const getArrayLength = (_array) => {
     let finalRes = [];
     _array.forEach((item) => {
@@ -37,9 +38,20 @@ function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _
             <p className="mt-[-5px] text-[1.5em] font-medium ">350000.0000 XDC</p>
           </div>
         </div>
-        <div onClick={_onHauntClick} className="bg-[#202225] rounded-[20px] h-[13.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD]  ">
-          <img src={haunt} alt="" className="w=[4.48vw] h-[9.9vh] " />
-        </div>
+      <div onClick={_onHauntClick} className="bg-[#202225] rounded-[20px] h-[16.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD] cursor-pointer">
+
+      <AnimatePresence>
+        <motion.img
+          src={haunt}
+          alt=""
+          className={`w-[4.48vw] h-[9.9vh] ${isBouncing ? 'animate-bounce' : ''}`}
+          initial={{ y: 0 }}
+          animate={{ y: isBouncing ? [-10, 0] : 0 }}
+          transition={{ duration: 0.5 }}
+        />
+      </AnimatePresence>
+    </div>
+
         <div className="w-[22.84vw] h-full rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[1.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Current Collateral Ratio:</h1>

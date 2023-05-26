@@ -9,6 +9,8 @@ import editAvatar from "../../assets/earn/editAvatar.svg";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { getSnftBalance, getSnftSupply, mintSnft } from "../../lib/sbtContract";
 import { saveTokenDetails } from "../../lib/filebaseIpfs";
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Registration() {
   const { sbt, account, address, connected, chainId} = useContext(Web3ModalContext)
@@ -23,15 +25,16 @@ function Registration() {
   const navigate = useNavigate();
   const registerBtn = document.getElementById("register-btn");
 
+
   // verify connection status and chainId
   const verifyConnection = () => {
     const acceptIds = [50, 51]
     if(!connected && !chainId) {
-      window.alert("You have to connect your wallet to proceed")
+      toast.info("You have to connect your wallet to proceed")
       navigate("/")
      }
      if(connected && !acceptIds.includes(chainId)){
-      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      toast.error("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
       navigate("/")
      } 
   }
@@ -80,7 +83,7 @@ function Registration() {
             });
           })
         }else{
-          window.alert("You are a registered user, you will be redirected to your dashbaord.")
+          toast.success("You are a registered user, you will be redirected to your dashbaord.")
           navigate("/dashboard");
         }
       })
@@ -107,7 +110,7 @@ function Registration() {
         setAvatar(null);
         // profileToMint.img = avataerImg;
       }else{
-        window.alert("Error while getting created avatar. Try again later")
+        toast.error("Error while getting created avatar. Try again later")
       }
       
     };
