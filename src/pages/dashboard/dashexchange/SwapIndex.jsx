@@ -35,8 +35,8 @@ function SwapIndex() {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <p className="text-center w-[23.02vw] text-[#585858]  mb-[1.22vh] text-[.75rem] ">
+    <div className="flex flex-col items-center ">
+      <p className="text-center text-[#585858]  mb-[1.22vh] text-[.875rem] ">
         Select Token Pair, input desired amount and select Token Tolerance{" "}
       </p>
       <div
@@ -52,7 +52,7 @@ function SwapIndex() {
           <p className="text-[#B0B0B0] text-[0.85rem] text-center ">
             Balance: 24,333.2213 XDC
           </p>
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[17.45vw] px-[.83vw] py-[.56vh] flex items-center  ">
+          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px]  w-full px-[.83vw] py-[.56vh] flex items-center  ">
             <img
               src={xdc}
               alt=""
@@ -88,7 +88,7 @@ function SwapIndex() {
           </button>
           <div className="w-[7.29vw] h-[.19vh] bg-[#B0B0B0] "></div>
         </div>
-        <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[17.45vw] px-[.83vw] py-[.56vh] flex items-center">
+        <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-full px-[.83vw] py-[.56vh] flex items-center">
           <img src={stc} alt="" className="w-[3.2vh] h-[3.2vh] mr-[0.52vw] " />
           <select
             name=""
