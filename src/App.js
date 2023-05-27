@@ -10,6 +10,7 @@ import Registration from "./pages/earn/Registration";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { DashboardProvider } from "./contexts/dashboardContext";
 import Web3ModalProvider from "./contexts/web3ModalContext";
+import Vault from "./pages/dashboard/dashborrow/Vault";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
 
                   <Route path="/borrow" element={<Borrow />} />
                   <Route path="/register" element={<Registration />} />
+                  <Route path="/vault" element={<Vault />} />
                 </Routes>
               </DashboardProvider>
             </BorrowProvider>
