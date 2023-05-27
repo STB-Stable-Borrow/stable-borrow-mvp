@@ -87,39 +87,39 @@ function Borrow({
         )}
       </div>
       <div className="table w-full  text-[#B0B0B0] text-[1rem] ">
-        <div className="bg-[#202225] w-full h-[5.76vh] flex justify-evenly  pl-[21px] items-center  border-b border-[#B0B0B0]  ">
-          <h1 className="w-[60px]">Vault ID</h1>
-          <h1 className=" w-[120px]  ">Vault Name</h1>
-          <h1 className="w-[50px]">Asset</h1>
-          <h1 className="w-[150px]    ">Collateral Locked</h1>
-          <h1 className=" w-[150px] ">Liquidation Ratio</h1>
-          <h1 className=" w-[120px]  ">Debt</h1>
-          <h1 className="w-[100px]  ">Status</h1>
-          <h1 className="w-[60px]">Edit</h1>
+        <div className="bg-[#202225] w-full h-[5.76vh] flex justify-between  pl-[21px] items-center  border-b border-[#B0B0B0]  ">
+          <h1 className="w-[5.13vw] bg-red-500">Vault ID</h1>
+          <h1 className=" w-[7.21vw]  ">Vault Name</h1>
+          <h1 className="w-[2.60vw]">Asset</h1>
+          <h1 className="w-[10.81vw]    ">Collateral Locked</h1>
+          <h1 className=" w-[10.81vw] ">Liquidation Ratio</h1>
+          <h1 className=" w-[6.25vw]  ">Debt</h1>
+          <h1 className="w-[5.21vw]  ">Status</h1>
+          <h1 className="w-[3.13vw]">Edit</h1>
         </div>
         <div>
           {allVaults && (
             <div className="h-[25.8vh] overflow-y-auto">
               {allVaults.map((item) => (
-                <div className="bg-[#292C31] w-full  h-[5.76vh] flex justify-evenly pl-[21px] items-center  border-b border-[#B0B0B0]  ">
-                  <h1 className="w-[60px]">#{item.id}</h1>
-                  <h1 className="w-[120px] ">{item.id}</h1>
-                  <h1 className="w-[50px] text-center  ">XDC</h1>
-                  <h1 className="w-[150px] text-center  ">
+                <div className="bg-[#292C31] w-full  h-[5.76vh] flex justify-between pl-[21px] items-center  border-b border-[#B0B0B0]  ">
+                  <h1 className="w-[5.13vw]">#{item.id}</h1>
+                  <h1 className="w-[7.21vw] text-center ">{item.id}</h1>
+                  <h1 className="w-[2.60vw]   ">XDC</h1>
+                  <h1 className="w-[10.81vw]  ">
                     $
                     {(
                       xdcPrc *
                       new Big(item.lck_collateral).div("10e17").toFixed(4)
                     ).toFixed(4)}
                   </h1>
-                  <h1 className="w-[150px] text-center ">
+                  <h1 className="w-[10.81vw]  ">
                     {new Big(item.col_ratio).div("10e17").toFixed(4)}
                   </h1>
-                  <h1 className="w-[120px] ">
+                  <h1 className="w-[6.21vw] ">
                     ${new Big(item.debt).div("10e17").toFixed(4)}
                   </h1>
                   <h1
-                    className={` w-[100px] px-[10px] rounded-lg text-center   text-xs ${
+                    className={` w-[5.21vw] px-[0.52vw] rounded-lg text-center   text-xs ${
                       getStatus(
                         new Big(item.col_ratio).div("10e17").toFixed(4)
                       ) === "Partial Active" && "bg-[#FFF5E8] text-[#F9971E] "
@@ -138,7 +138,7 @@ function Borrow({
                   >
                     {getStatus(new Big(item.col_ratio).div("10e17").toFixed(4))}
                   </h1>
-                  <button className="w-[60px] flex items-center justify-center">
+                  <button className="w-[3.21vw] flex items-center ">
                     <img
                       id={item.id}
                       onClick={(e) => handleSettings(e)}

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import dashBorrowData from "../../../data/vaultsData";
@@ -7,26 +7,30 @@ import unstar from "../../../assets/dashboard/unstar.svg";
 import haunter from "../../../assets/dashboard/haunter.svg";
 import { getAllVaults } from "../../../lib/stbContract";
 import Big from "big.js";
+import arrowLeft from "../../../assets/dashboard/arrowLeft.svg";
 
-function EarnPageTwo({xdcPrc, stb}) {
-
+function EarnPageTwo({ xdcPrc, stb }) {
   const [allVaults, setAllVaults] = useState(null);
   const [isStar, setIsStar] = useState(false);
 
-   //get all vaults 
-   useEffect(() => {
+  //get all vaults
+  useEffect(() => {
     (async () => {
       await getAllVaults(stb).then((res) => {
-        setAllVaults(res)
-      })
+        setAllVaults(res);
+      });
     })();
-}, []);
+  }, []);
 
   return (
     <div>
-      <h1 className="w-full bg-[#202225] text-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[1.48vh] ">
-        Overview
-      </h1>
+      <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
+        <button className="flex items-center gap-2 text-[#009FBD] text-sm ">
+          <img src={arrowLeft} alt="" />
+          Back
+        </button>
+        <h1 className=" ">Overview</h1>
+      </div>
       <div className="flex justify-center items-center gap-[230px] mb-[5.93vh]  ">
         <div className="w-[22.84vw] rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
@@ -70,49 +74,47 @@ function EarnPageTwo({xdcPrc, stb}) {
         </h2>
       </div>
       <div className="table w-full h-[34.57vh] text-[#B0B0B0] text-[1rem] ">
-        <div className="bg-[#202225] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
-          <h1 className="w-[60px] ">Vault ID</h1>
-          <h1 className=" w-[150px] ">Vault Name</h1>
-          <h1 className=" w-[120px] ">Collateral</h1>
-          <h1 className="w-[120px]">Debt</h1>
-          <h1 className="w-[100px] ">Profit</h1>
-          <h1 className="w-[60px]">Traffic</h1>
-          <h1 className="w-[24px]  "> </h1>
-          <h1 className="w-[24px] "> </h1>
+        <div className="bg-[#202225] h-[5.76vh] flex justify-around items-center pl-[1.15vw] border-b border-[#B0B0B0] ">
+          <h1 className="w-[5.13vw] ">Vault ID</h1>
+          <h1 className=" w-[8.21vw] ">Vault Name</h1>
+          <h1 className=" w-[6.25vw] ">Collateral</h1>
+          <h1 className="w-[6.25vw]">Debt</h1>
+          <h1 className="w-[5.21vw] ">Profit</h1>
+          <h1 className="w-[3.13vw]">Traffic</h1>
+          <h1 className="w-[1.25vw]  "> </h1>
+          <h1 className="w-[1.25vw] "> </h1>
         </div>
         <div className="h-[28.8vh] overflow-y-auto">
           {allVaults && (
             <>
-            {allVaults.map((item) => (
-              <div className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
-                <p className="w-[60px] ">#{item.id}</p>
-                <p className=" w-[150px] ">{item.id}</p>
-                <p className=" w-[120px]   ">{new Big(item.lck_collateral).div("10e17").toFixed(4)}</p>
-                <p className="w-[120px]">{new Big(item.debt).div("10e17").toFixed(4)}</p>
-                <p className="w-[100px] ">$100</p>
-                <p className="w-[60px] text-center ">3</p>
-                <div className="w-[24px] ">
-                  <img
-                    onClick={() => setIsStar(!isStar)}
-                    src={isStar ? star : unstar}
-                    alt=""
-                    className=" h-[2.34vh]"
-                  />
+              {allVaults.map((item) => (
+                <div className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
+                  <p className="w-[5.13vw] ">#{item.id}</p>
+                  <p className=" w-[8.21vw] text-center ">{item.id}</p>
+                  <p className=" w-[6.25vw]   ">
+                    {new Big(item.lck_collateral).div("10e17").toFixed(4)}
+                  </p>
+                  <p className="w-[6.25vw]">
+                    {new Big(item.debt).div("10e17").toFixed(4)}
+                  </p>
+                  <p className="w-[5.21vw] ">$100</p>
+                  <p className="w-[3.13vw] text-center ">3</p>
+                  <div className="w-[1.25vw] ">
+                    <img
+                      onClick={() => setIsStar(!isStar)}
+                      src={isStar ? star : unstar}
+                      alt=""
+                      className=" h-[2.34vh]"
+                    />
+                  </div>
+                  <div className=" w-[1.25vw]">
+                    <img src={haunter} alt="" className=" h-[2.34vh]" />
+                  </div>
                 </div>
-                <div className=" w-[24px]">
-                  <img
-                    src={haunter}
-                    alt=""
-                    className=" h-[2.34vh]"
-                  />
-                </div>
-              </div>
-            ))}
+              ))}
             </>
           )}
-          {!allVaults && (
-            <></>
-          )}
+          {!allVaults && <></>}
         </div>
       </div>
     </div>
