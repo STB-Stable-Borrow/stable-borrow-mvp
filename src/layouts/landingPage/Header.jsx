@@ -1,25 +1,42 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import logoStb from "../../assets/landing/stb-logo.svg";
-import { Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-
-function Header({_handleConnectWallet_}) {
+function Header({ _handleConnectWallet_ }) {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center ">
       <div>
-        <Link to='/'>
-          <img className="w-[259px] h-[59px]" src={logoStb} alt="Stb Logo" />
+        <Link to="/">
+          <img
+            className="w-[13.50vw] h-[5.46vh]"
+            src={logoStb}
+            alt="Stb Logo"
+          />
         </Link>
       </div>
-      <div className="flex justify-betweeen items-center gap-[41px] text-[#FFFFFF] font-semibold">
-        <ul className="flex gap-[41px] font-sans  text-lg cursor-pointer">
-          <li>
-            <Link to="/about" className={location.pathname === "/about" ? "text-[#009FBD]" : ""}>About</Link>
+      <div className="flex justify-betweeen items-center gap-[2.14vw] text-[#FFFFFF] font-semibold  ">
+        <ul className="flex gap-[2.14vw] font-sans  text-sm cursor-pointer">
+          <li className="hover:opacity-75">
+            <Link
+              to="/about"
+              className={`${
+                location.pathname === "/about" ? "text-[#009FBD]" : ""
+              }  `}
+            >
+              About
+            </Link>
           </li>
-          <li>
-            <Link to="/exchange" className={location.pathname === "/exchange" ? "text-[#009FBD]" : ""}>Exchange</Link>
+          <li className="hover:opacity-75">
+            <Link
+              to="/exchange"
+              className={`   ${
+                location.pathname === "/exchange" ? "text-[#009FBD] " : ""
+              }`}
+            >
+              Exchange
+            </Link>
           </li>
           {/* {location.pathname !== "/" && (
             <li>
@@ -29,7 +46,10 @@ function Header({_handleConnectWallet_}) {
         </ul>
 
         {location.pathname === "/" && (
-          <button className="border border-[#009FBD] px-[17px] py-[10px] rounded-lg" onClick={_handleConnectWallet_}>
+          <button
+            className="border border-[#009FBD] px-[0.90vw] py-[0.93vh] rounded-lg hover:opacity-75 text-sm "
+            onClick={_handleConnectWallet_}
+          >
             Connect Wallet
           </button>
         )}

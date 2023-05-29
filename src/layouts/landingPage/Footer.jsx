@@ -14,8 +14,8 @@ function Footer() {
   }
   return (
     <div className="flex justify-between items-center text-xs">
-      <div className="flex gap-[21px]">
-        <div className="flex gap-[13px]">
+      <div className="flex gap-[1.09vw]">
+        <div className="flex gap-[0.68vw]">
           <img src={twitter} alt="twitter" />
           <img src={telegram} alt="telegram" />
           <img src={discord} alt="discord" />
@@ -24,14 +24,14 @@ function Footer() {
           Copyright © Stable Borrow 2023 | All Rights Reserved
         </p>
       </div>
-      <div className="flex text-[#FFFFFF] items-center gap-[30px]">
-        <div className="flex gap-[9px] items-center">
+      <div className="flex text-[#FFFFFF] items-center gap-[1.56vw]">
+        <div className="flex gap-[0.47vw] items-center">
           <img src={phone} alt="phone" />
           <p className="cursor-pointer" onClick={copyToClipboard}>
             +1 (202) 555 0156
           </p>
         </div>
-        <div className="flex gap-[9px] items-center">
+        <div className="flex gap-[0.47vw] items-center">
           <img src={chat} alt="chat" />
           <p>info@stableborrow.com</p>
         </div>

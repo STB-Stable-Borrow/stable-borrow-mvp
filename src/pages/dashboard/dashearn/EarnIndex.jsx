@@ -4,8 +4,15 @@ import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import vaultsData from "../../../data/vaultsData";
 
-function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _onHauntClick}) {
-
+function EarnIndex({
+  web3,
+  stb,
+  account,
+  colRatio,
+  hauntedVlts,
+  liquidatedVlts,
+  _onHauntClick,
+}) {
   const getArrayLength = (_array) => {
     let finalRes = [];
     _array.forEach((item) => {
@@ -14,7 +21,7 @@ function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _
       }
     });
     return finalRes.length;
-  }
+  };
 
   return (
     <div className="">
@@ -26,18 +33,25 @@ function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Vaults Haunted:</h1>
             {hauntedVlts && (
-                  <p className="mt-[-5px] text-[1.5em]  font-medium ">{getArrayLength(hauntedVlts)}</p>
+              <p className="mt-[-5px] text-[1.5em]  font-medium ">
+                {getArrayLength(hauntedVlts)}
+              </p>
             )}
             {!hauntedVlts && (
-                <p className="mt-[-5px] text-[1.5em]  font-medium "></p>
+              <p className="mt-[-5px] text-[1.5em]  font-medium "></p>
             )}
           </div>
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Payout:</h1>
-            <p className="mt-[-5px] text-[1.5em] font-medium ">350000.0000 XDC</p>
+            <p className="mt-[-5px] text-[1.5em] font-medium ">
+              350000.0000 XDC
+            </p>
           </div>
         </div>
-        <div onClick={_onHauntClick} className="bg-[#202225] rounded-[20px] h-[13.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD]  ">
+        <div
+          onClick={_onHauntClick}
+          className="bg-[#202225] rounded-[20px] h-[13.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD] cursor-pointer "
+        >
           <img src={haunt} alt="" className="w=[4.48vw] h-[9.9vh] " />
         </div>
         <div className="w-[22.84vw] h-full rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[1.3vh] gap-[2.59vh]  ">
@@ -48,10 +62,12 @@ function EarnIndex({web3, stb, account, colRatio, hauntedVlts, liquidatedVlts, _
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Vaults in Liquidity:</h1>
             {liquidatedVlts && (
-              <p className="mt-[-5px] text-[1.5em] font-medium ">{getArrayLength(liquidatedVlts)}</p>
+              <p className="mt-[-5px] text-[1.5em] font-medium ">
+                {getArrayLength(liquidatedVlts)}
+              </p>
             )}
             {!liquidatedVlts && (
-                <p className="mt-[-5px] text-[1.5em]  font-medium "></p>
+              <p className="mt-[-5px] text-[1.5em]  font-medium "></p>
             )}
           </div>
         </div>

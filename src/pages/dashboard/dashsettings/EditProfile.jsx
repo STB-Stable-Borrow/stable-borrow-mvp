@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import profile from "../../../assets/dashboard/profileImg.svg";
 import save from "../../../assets/dashboard/save.svg";
+import arrowLeft from "../../../assets/dashboard/arrowLeft.svg";
 
-function EditProfile() {
+function EditProfile({ onBackClick }) {
   const [data, setData] = useState({
     username: "",
     about: "",
@@ -11,9 +12,16 @@ function EditProfile() {
 
   return (
     <div>
-      <h1 className="w-full bg-[#202225] text-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[1.48vh] ">
-        Settings
-      </h1>
+      <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
+        <button
+          className="flex items-center gap-2 text-[#009FBD] text-sm "
+          onClick={onBackClick}
+        >
+          <img src={arrowLeft} alt="" />
+          Back
+        </button>
+        <h1 className="">Settings</h1>
+      </div>
       <div className="flex items-center gap-[23px] mb-[4.35vh]">
         <img
           src={profile}
@@ -63,7 +71,7 @@ function EditProfile() {
           </label>
           <textarea
             type="text"
-            className="bg-[#B0B0B0] py-[1.30vh] pl-[21px] rounded-lg h-[13.65vh] text-[#292C31] text-[0.85em] "
+            className="bg-[#B0B0B0] py-[1.30vh] pl-[21px] rounded-lg h-[10.65vh] text-[#292C31] text-[0.85em] "
           ></textarea>
         </div>
         <button className="text-white w-max flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 ">

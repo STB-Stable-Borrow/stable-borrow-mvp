@@ -10,8 +10,8 @@ import Registration from "./pages/earn/Registration";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { DashboardProvider } from "./contexts/dashboardContext";
 import Web3ModalProvider from "./contexts/web3ModalContext";
+import Vault from "./pages/dashboard/dashborrow/Vault";
 import { ToastContainer, toast } from "react-toastify";
-import { CivicPassProvider } from "./contexts/civicpassContext";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -22,7 +22,6 @@ function App() {
           <AboutProvider>
             <BorrowProvider>
               <DashboardProvider>
-                {/* <CivicPassProvider> */}
                 <Routes>
                   <Route exact path="/" element={<Home />} />
                   <Route path="/info" element={<Info />} />
@@ -34,8 +33,8 @@ function App() {
 
                   <Route path="/borrow" element={<Borrow />} />
                   <Route path="/register" element={<Registration />} />
+                  <Route path="/vault" element={<Vault />} />
                 </Routes>
-                {/* </CivicPassProvider> */}
               </DashboardProvider>
             </BorrowProvider>
           </AboutProvider>
