@@ -63,7 +63,6 @@ function Registration() {
 
   //handles register button colour behaviour
   const handleRegisterButtonColour = () => {
-    console.log("stat: ", gatewayStatus);
     if (registerBtn && captchaBtn) {
       if (
         captchaBtn[0].children[1].textContent == "Active" &&
