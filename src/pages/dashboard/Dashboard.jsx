@@ -16,7 +16,7 @@ import { getAllHauntedVaults, getAllLiquidatedVaults, getAllUserVaults, getColRa
 import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
-
+import { CivicPassProvider } from "../../contexts/civicpassContext";
 
 function Dashboard() {
   const {web3, account, address, stb, stc, sbt,  connected, chainId, xdcBalance, xdcBlnc, getXdcBalance, disconnect, connect} = useContext(Web3ModalContext);

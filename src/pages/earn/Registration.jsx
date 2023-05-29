@@ -7,11 +7,15 @@ import addAvatar from "../../assets/earn/addAvatar.svg";
 import CreateAvatar from "./CreateAvatar";
 import editAvatar from "../../assets/earn/editAvatar.svg";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
-import { getSnftBalance, getSnftSupply, mintSnft } from "../../lib/sbtContract";
+import { isRegistered, totalTokenCount, createAccount } from "../../lib/sbtContract";
 import { saveTokenDetails } from "../../lib/filebaseIpfs";
+import { GatewayStatus, IdentityButton, useGateway } from "@civic/ethereum-gateway-react";
+import { CivicPassProvider } from "../../contexts/civicpassContext";
+
 
 function Registration() {
-  const { sbt, account, address, connected, chainId} = useContext(Web3ModalContext)
+  const { web3, sbt, account, signer, address, connected, chainId} = useContext(Web3ModalContext)
+  const { gatewayStatus } = useGateway();
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -22,6 +26,7 @@ function Registration() {
   const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
   const registerBtn = document.getElementById("register-btn");
+  const captchaBtn = document.getElementsByClassName("sc-gTRrQi czsvEU")
 
   // verify connection status and chainId
   const verifyConnection = () => {
@@ -48,8 +53,9 @@ function Registration() {
 
   //handles register button colour behaviour
   const handleRegisterButtonColour = () => {
-    if(registerBtn) {
-      if(avatarImage && username && about) {
+    console.log("stat: ", gatewayStatus);
+    if(registerBtn && captchaBtn) {
+      if(captchaBtn[0].children[1].textContent == "Active" && avatarImage && username && about) {
         registerBtn.style.backgroundColor = "#009FBD";
       }else{
         registerBtn.style.backgroundColor = "#585858";
@@ -57,20 +63,21 @@ function Registration() {
     }
   }
 
-  handleRegisterButtonColour();
 
-  //handles profile minting
+  handleRegisterButtonColour();
+  
+
+  //handles profile creation
   const handleMintProfile = async() => {
     if(registerBtn && registerBtn.style.backgroundColor === "rgb(0, 159, 189)") {
       registerBtn.style.backgroundColor = "rgb(88, 88, 88)";
-      await getSnftBalance(sbt,account).then(async(res) => {
-        console.log("res: ", res)
-        if(res < 1 ) {
-          await getSnftSupply(sbt).then(async(res1) => {
+      await isRegistered(sbt,account).then(async(res) => {
+        if(!res) {
+          await totalTokenCount(sbt).then(async(res1) => {
             const tokenId = res1 + 1;
             saveTokenDetails(tokenId,username,about,avatarImage,account).on("httpHeaders", async(statusCode, headers) => {
               const  tokenUrl =`https://ipfs.filebase.io/ipfs/${headers["x-amz-meta-cid"]}`
-              await mintSnft(sbt, tokenUrl, account).then((res2) => {
+              await createAccount(sbt, tokenUrl, account).then((res2) => {
                 if(res2) {
                   navigate("/dashboard")
                 }else{
@@ -105,7 +112,6 @@ function Registration() {
         console.log("png: ", avataerImg);
         setAvatarImage(avataerImg);
         setAvatar(null);
-        // profileToMint.img = avataerImg;
       }else{
         window.alert("Error while getting created avatar. Try again later")
       }
@@ -116,7 +122,6 @@ function Registration() {
   //get image when avatar is ready
     useEffect(() => {
       if (avatar) {
-        // setLoading(true);
         (async () => {
           getAvatarImage(avatar);
         })();
@@ -133,7 +138,8 @@ function Registration() {
     }, [avatar]);
 
   return (
-    <div className="w-screen h-screen bg-[#292C31] ">
+    <CivicPassProvider _wallet={signer} >
+      <div className="w-screen h-screen bg-[#292C31] ">
       <Link to={"/"}>
         <img
           src={logo}
@@ -215,6 +221,7 @@ function Registration() {
               </form>
             </div>
           </div>
+          <IdentityButton />
           <div className="flex items-center justify-center gap-[110px] mt-[5.19vh] mb-[5.5vh] ">
             <button
               onClick={() => {navigate("/info")}}
@@ -242,6 +249,7 @@ function Registration() {
         )
       }
     </div>
+    </CivicPassProvider>
   );
 }
 

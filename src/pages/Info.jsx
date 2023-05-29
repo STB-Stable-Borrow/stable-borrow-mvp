@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LandingBody from "../layouts";
 import { useAbout } from "../context/aboutContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
-import { getSnftBalance } from "../lib/sbtContract";
+import { isRegistered } from "../lib/sbtContract";
 import { getAllUserVaults } from "../lib/stbContract";
 
 function Info() {
@@ -40,11 +40,11 @@ function Info() {
 
   //handles earn's onclick event
   const handleEarn = async() => {
-    await getSnftBalance(sbt, account).then((res) => {
-      if(res < 1) {
-        navigate("/register")
-      }else{
+    await isRegistered(sbt, account).then((res) => {
+      if(res) {
         navigate("/dashboard")
+      }else{
+        navigate("/register")
       }
     })
   }

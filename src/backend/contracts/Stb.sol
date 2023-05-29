@@ -18,15 +18,6 @@ interface ISTB {
         uint last_payment_at;
     }
 
-    // struct Auction {
-    //     uint256 id;
-    //     uint start_time;
-    //     address payable reporter;
-    //     uint256 col_amt;
-    //     uint256 highest_bid;
-    //     uint end_time;
-    // }
-
    function getEquivalentSTC(uint256 amount) external view returns (uint);
    function getEquivalentCollateral(uint256 vault_id, uint256 amount) external view returns (uint);
    function getRegulatorFee(uint256 amount) external view returns (uint);
@@ -52,13 +43,7 @@ interface ISTB {
    function inspectVault(uint256 vault_id) external returns(bool);
    function allVaultsInLiquidation() external view returns(Vault [] memory);
    function allHauntedVaults() external view returns(Vault [] memory);
-//    function getAllAuctions() external view returns(Auction [] memory);
-//    function getAuction(uint256 auction_id) external view returns(Auction memory);
-//    function getReporterAuctions(address reporter) external view returns(Auction [] memory);
-//    function totalAuctions() external view returns(uint);
-//    function totalAuctionsCol() external view returns(uint);
-//    function endAuction(uint256 auction_id) external returns(bool);
-//    function updateBid(uint256 auction_id, uint256 highest_bid) external returns(bool);
+
 }
 
 contract STB {
@@ -83,15 +68,6 @@ contract STB {
     uint public interestDuration; // yearly most times(31556926)
     mapping (address => bool) public isAuthorized;
     address public admin;
-    // struct Auction {
-    //     uint256 id;
-    //     uint start_time;
-    //     address payable reporter;
-    //     uint256 col_amt;
-    //     uint256 highest_bid;
-    //     uint end_time;
-    // }
-    // Auction [] Auctions;
     event VaultCreation(address vault_owner, uint256 vault_id, uint indexed time,  address indexed collateral, uint256 amount);
     event VaultClosure(address vault_owner, uint256 vault_id, uint time, address reporter, uint256 indexed commision);
 
@@ -182,12 +158,6 @@ contract STB {
         require(getVault(vault_id).lck_collateral > 0, "STB-ERR_16: vault's locked collateral is lesser than zero(0)");
         _;
     }
-
-    // modifier validateAuction(uint256 auction_id) {
-    //     require(getAuction(auction_id).start_time > 0, "STB-ERR_17: aution with this id does not exist");
-    //     require(getAuction(auction_id).end_time == 0, "STB-ERR_18: aution with this id has ended");
-    //     _;
-    // }
 
     modifier validateNewMaxVault(uint8 new_max) {
         require(new_max >= VaultList.length, "STB-ERR_19: max vault per user cannot be lesser than total vaults");
@@ -481,10 +451,8 @@ contract STB {
 
     function _closeVault(uint256 vault_id) internal {
         uint conv_vault_id = sub(vault_id, 1);
-        // uint new_id = add(Auctions.length, 1);
         address owner = VaultList[conv_vault_id].owner;
         uint prev_lck_collateral = VaultList[conv_vault_id].lck_collateral;
-        // Auctions.push(Auction(new_id, block.timestamp, payable(tx.origin), VaultList[conv_vault_id].lck_collateral, 0, 0 ));
         VaultList[conv_vault_id].lck_collateral = 0;
         VaultList[conv_vault_id].col_ratio = 0;
         VaultList[conv_vault_id].closed_at = block.timestamp;
@@ -534,50 +502,4 @@ contract STB {
         return list;   
 
     }
-
-    // function getAllAuctions() external view returns(Auction [] memory) {
-    //     return Auctions;
-    // }
-
-    // function getAuction(uint256 auction_id) public view returns(Auction memory) {
-    //     uint256 conv_auction_id = sub(auction_id, 1);
-    //     return Auctions[conv_auction_id];
-    // }
-
-    // function getReporterAuctions(address reporter) external view returns(Auction [] memory) {
-    //    Auction[] memory list = new Auction [](Auctions.length);
-    //     for(uint i = 0; i < Auctions.length; i++) {
-    //         if (Auctions[i].reporter == reporter) {
-    //            list[i] = Auctions[i];
-    //         }
-    //     }
-    //     return list;
-    // }
-
-    // function totalAuctions() external view returns(uint) {
-    //     return Auctions.length;
-    // }
-
-    // function totalAuctionsCol() external view returns(uint) {
-    //     uint total = 0;
-    //     for(uint i = 0; i < Auctions.length; i++) {
-    //         if (Auctions[i].end_time == 0 && Auctions[i].col_amt > 0) {
-    //             total += Auctions[i].col_amt;
-    //         }
-    //     }
-    //     return total;
-    // }
-
-    // function endAuction(uint256 auction_id) external validateAuthorization() validateAuction(auction_id) returns(bool) {
-    //     uint conv_auction_id = sub(auction_id, 1);
-    //     Auctions[conv_auction_id].end_time = block.timestamp;
-    //     return true;
-    // }
-
-    // function updateBid(uint256 auction_id, uint256 highest_bid) external validateAuthorization() validateAuction(auction_id) returns(bool) {
-    //     uint conv_auction_id = sub(auction_id, 1);
-    //     Auctions[conv_auction_id].highest_bid = highest_bid;
-    //     return true;
-    // }
-
 }

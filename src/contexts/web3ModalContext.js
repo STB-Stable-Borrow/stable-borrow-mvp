@@ -6,6 +6,7 @@ import { stbContractInit } from "../lib/stbContract";
 import { stcContractInit } from "../lib/stcContract";
 import { Big } from "big.js";
 import { sbtContractInit } from "../lib/sbtContract";
+import { ethers } from "ethers";
 
 export const Web3ModalContext = createContext({
   connect: () => {},
@@ -22,6 +23,7 @@ export const Web3ModalContext = createContext({
   chainId: null,
   networkId: null,
   connected: false,
+  signer: null,
 });
 
 const Web3ModalProvider = ({ children }) => {
@@ -37,6 +39,7 @@ const Web3ModalProvider = ({ children }) => {
   const [chainId, setChainId] = useState(null);
   const [networkId, setNetworkId] = useState(null);
   const [connected, setConnected] = useState(false);
+  const [signer, setSigner] = useState(null);
 
   //create and save new web3Modal onload
   useEffect(() => {
@@ -68,7 +71,8 @@ const Web3ModalProvider = ({ children }) => {
     }
     const _web3 = new Web3(provider);
     setWeb3(_web3);
-    return _web3;
+    const providerEther = new ethers.providers.Web3Provider(window.ethereum);
+    return [_web3, providerEther];
   };
 
   //clear all saved instances
@@ -125,7 +129,9 @@ const Web3ModalProvider = ({ children }) => {
     const _provider = await web3Modal.connect();
     if (_provider === null) return;
     //initialize web3 with provider
-    const _web3 = web3Init(_provider);
+    const web3Res = web3Init(_provider);
+    const _web3 = web3Res[0];
+    const _etherProv = web3Res[1];
     //monitor wallet actions
     await subscribeProvider(_provider, _web3);
     //initialize and save contracts
@@ -146,6 +152,10 @@ const Web3ModalProvider = ({ children }) => {
     setNetworkId(Number(_networkId));
     setChainId(Number(_chainId));
     setConnected(true);
+    // //request wallet from metamask
+    // await _etherProv.send("eth_requestAccounts", []);
+    const signer = _etherProv.getSigner();
+    setSigner(signer);
     return true;
   }, [web3Modal, subscribeProvider]);
 
@@ -200,6 +210,7 @@ const Web3ModalProvider = ({ children }) => {
         networkId,
         chainId,
         connected,
+        signer,
       }}
     >
       {children}

@@ -1,18 +1,18 @@
-import SNFT from "../backend/build/contracts/SNFT.json";
+import SBT from "../backend/build/contracts/SBT.json";
 import { Big } from "big.js";
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //initializes and return sbt contract properties
 const sbtContractInit = (web3) => {
-  const networkKey = Object.keys(SNFT.networks)[0];
-  return new web3.eth.Contract(SNFT.abi, SNFT.networks[networkKey].address);
+  const networkKey = Object.keys(SBT.networks)[0];
+  return new web3.eth.Contract(SBT.abi, SBT.networks[networkKey].address);
 };
 
 //gets snft balance of an account
-const getSnftBalance = async (sbt, account) => {
+const isRegistered = async (sbt, account) => {
   const res = await sbt.methods
-    .balanceOf(account)
+    .isTokenHolder(account)
     .call()
     .then(async (res) => {
       return res;
@@ -30,12 +30,12 @@ const getSnftBalance = async (sbt, account) => {
   return res;
 };
 
-const getSnftSupply = async (sbt) => {
+const totalTokenCount = async (sbt) => {
   const res = await sbt.methods
-    .totalSupply()
+    .totalTokenCount()
     .call()
     .then((res) => {
-      return parseInt(res);
+      return res;
     })
     .catch((err) => {
       if (err.message.includes("Response has no error or result for request")) {
@@ -50,17 +50,12 @@ const getSnftSupply = async (sbt) => {
   return res;
 };
 
-const mintSnft = async (sbt, tokenUrl, userAccount) => {
+const createAccount = async (sbt, tokenUrl, userAccount) => {
   const res = await sbt.methods
-    .createToken(tokenUrl)
+    .mint(tokenUrl)
     .send({ from: userAccount })
-    .then((res) => {
-      if (res > 0) {
-        return true;
-      } else {
-        toast.error("Unable to create profile. Try again later");
-        return false;
-      }
+    .then(() => {
+      return true;
     })
     .catch((err) => {
       if (
@@ -89,4 +84,4 @@ const mintSnft = async (sbt, tokenUrl, userAccount) => {
   return res;
 };
 
-export { sbtContractInit, getSnftBalance, getSnftSupply, mintSnft };
+export { sbtContractInit, isRegistered, totalTokenCount, createAccount };
