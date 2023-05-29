@@ -9,10 +9,10 @@ function LandingBody({ children, _handleConnectWallet }) {
   return (
     <div className="relative min-h-screen">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-[#00000080]"
+        className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${bgImage})` }}
       ></div>
-      <div className="relative flex flex-col justify-between h-[100vh] py-[37px] px-[80px]">
+      <div className="relative flex flex-col justify-between h-[100vh] py-[3.43vh] px-[4.17vw]">
         <Header _handleConnectWallet_={_handleConnectWallet} />
         {children}
       </div>

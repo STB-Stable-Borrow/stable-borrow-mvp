@@ -3,7 +3,7 @@ import bgImage from "../../assets/landing/bg.png";
 import Header from "./Header";
 import { useLocation } from "react-router-dom";
 
-function LandingBody({children, _handleConnectWallet }) {
+function LandingBody({ children, _handleConnectWallet }) {
   const location = useLocation();
 
   return (
