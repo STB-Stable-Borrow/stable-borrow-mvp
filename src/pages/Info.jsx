@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 import borrow from "../assets/info/Borrow.svg";
 import exchange from "../assets/info/Exchange.svg";
 import earn from "../assets/info/Earn.svg";
@@ -6,51 +6,50 @@ import { Link, useNavigate } from "react-router-dom";
 import LandingBody from "../layouts";
 import { useAbout } from "../context/aboutContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
-import { getSnftBalance } from "../lib/sbtContract";
+import { isRegistered } from "../lib/sbtContract";
 import { getAllUserVaults } from "../lib/stbContract";
 
 function Info() {
-  const { sbt, account, stb, connected, chainId } =
-    useContext(Web3ModalContext);
+  const { sbt, account, stb, connected, chainId} = useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
 
   // verify connection status and chainId
   const verifyConnection = () => {
     const acceptIds = [50, 51];
-    if (!connected && !chainId) {
+    if(!connected && !chainId) {
       window.alert("You have to connect your wallet to proceed");
       navigate("/");
     }
-    if (connected && !acceptIds.includes(chainId)) {
+    if(connected && !acceptIds.includes(chainId)) {
       window.alert(
-        "You connected to wrong chain, disconnect and connect to Apothem or Xinfin."
+      "You connected to wrong chain, disconnect and connect to Apothem or Xinfin."
       );
       navigate("/");
     }
   };
 
   //handles borrow's onclick event
-  const handleBorrow = async () => {
+  const handleBorrow = async() => {
     await getAllUserVaults(stb, account).then((res) => {
-      if (res.length < 1) {
-        navigate("/borrow");
-      } else {
-        navigate("/dashboard");
+      if(res.length < 1) {
+        navigate("/borrow")
+      }else{
+        navigate("/dashboard")
       }
-    });
+    })
   };
 
   //handles earn's onclick event
-  const handleEarn = async () => {
-    await getSnftBalance(sbt, account).then((res) => {
-      if (res < 1) {
-        navigate("/register");
-      } else {
-        navigate("/dashboard");
+  const handleEarn = async() => {
+    await isRegistered(sbt, account).then((res) => {
+      if(res) {
+        navigate("/dashboard")
+      }else{
+        navigate("/register")
       }
-    });
-  };
+    })
+  }
 
   return (
     <LandingBody>
@@ -82,7 +81,7 @@ function Info() {
             </button>
           </div>
           <div className="text-xs border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 md:h-[48%]  ">
-            <img src={earn} alt="" className="w-[4.50vw]" />
+          <img src={earn} alt="" className="w-[4.50vw]" />
             <h1 className="font-black border-b-2 border-[#009FBD] text-base ">
               Earn STC
             </h1>
