@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import profile from "../../../assets/dashboard/profileImg.svg";
 import editProfile from "../../../assets/dashboard/editProfile.svg";
 import EditProfile from "./EditProfile";
+import { Big } from "big.js";
 
-function Settings() {
+function Settings({_stcBlnc, _xdcBalance, _xdcPrc, _profile}) {
   const [showSettings, setShowSettings] = useState(true);
 
   const handleEditProfile = () => {
@@ -19,36 +20,79 @@ function Settings() {
       {showSettings ? (
         <div className="flex justify-center">
           <div className="w-[30.94vw]  py-[2.5vh] rounded-[40px] bg-[#202225] flex flex-col items-center ">
-            <h1 className="text-[#B0B0B0] font-semibold text-[1em]  mb-[1.39vh] ">
-              @mohzcrea8me
+            {_profile && (
+              <h1 className="text-[#B0B0B0] font-semibold text-[1em]  mb-[1.39vh] ">
+              @{_profile.username}
             </h1>
-            <div className="h-[28.24vh] w-[28.24vh] rounded-[100%] border border-[#585858] border-dashed flex justify-center mb-[1.85vh] ">
+            )}
+             {!_profile && (
+              <h1 className="text-[#B0B0B0] font-semibold text-[1em]  mb-[1.39vh] ">
+              @username
+            </h1>
+            )}
+            {_profile && (
+              <div className="h-[28.24vh] w-[28.24vh] rounded-[100%] border border-[#585858] border-dashed flex justify-center mb-[1.85vh] ">
+              <img src={_profile.imgUrl} alt="" />
+            </div>
+            )}
+            {!_profile && (
+              <div className="h-[28.24vh] w-[28.24vh] rounded-[100%] border border-[#585858] border-dashed flex justify-center mb-[1.85vh] ">
               <img src={profile} alt="" />
             </div>
+            )}
             <div className="w-[15.89vw]  bg-[#292C31] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between mb-[1.85vh] ">
               <div>
-                <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
-                  100 XDC
+                {_stcBlnc && (
+                  <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                  {_stcBlnc} STC
                 </h1>
-                <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
-                  ~ $200
+                )}
+                {!_stcBlnc && (
+                  <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                  0.0000 STC
+                </h1>
+                )}
+                {_stcBlnc && (
+                  <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                  ~ ${_stcBlnc} 
                 </p>
+                )} 
+                {!_stcBlnc && (
+                  <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                  ~ $0.0000
+                </p>
+                )}     
               </div>
               <div>
+                {_xdcBalance && (
                 <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
-                  100 STC
+                {_xdcBalance} XDC
                 </h1>
-                <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center  ">
-                  ~ $100
+                )}
+                {!_xdcBalance && (
+                <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                0.0000 XDC
+                </h1>
+                )}
+                {_xdcBalance && (
+                  <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                  ~ ${(_xdcPrc * _xdcBalance).toFixed(4)} 
                 </p>
+                )}  
+                {!_xdcBalance && (
+                  <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                  ~ $0.0000
+                </p>
+                )}  
               </div>
             </div>
             <div className="bg-[#B0B0B0] w-[25.8854vw] rounded-[20px] pl-[1.20vw] py-[1.02vh] mb-[3.15vh] ">
-              <p className="text-[0.65em] ">
-                Any information could come up here. Any information could come
-                up here. Any information could come up here. Any information
-                could come up here. Any information could come up here.
-              </p>
+            {_profile && (
+              <p className="text-[0.65em] ">{_profile.about}</p>
+            )}
+            {!_profile && (
+              <p className="text-[0.65em] ">User's About</p>
+            )}
             </div>
             <button
               className="text-white flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 text-sm "
@@ -60,7 +104,7 @@ function Settings() {
           </div>
         </div>
       ) : (
-        <EditProfile onBackClick={handleBack} />
+        <EditProfile prof={_profile} xdcBalance={_xdcBalance} stcBlnc={_stcBlnc} xdcPrc={_xdcPrc}  onBackClick={handleBack} />
       )}
     </>
   );

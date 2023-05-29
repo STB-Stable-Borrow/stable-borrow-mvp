@@ -1,10 +1,10 @@
 import React from "react";
 import HomeIndex from "./HomeIndex";
 
-function Home({_totalLck, _totalDebt, _xdcPrc, _hauntedVlts, _liquidatedVlts, _colRatio}) {
+function Home({_isReg, _totalLck, _totalDebt, _xdcPrc, _hauntedVlts, _liquidatedVlts, _colRatio, _allVaults}) {
   return (
     <div>
-      <HomeIndex totalLck={_totalLck} totalDebt={_totalDebt} xdcPrc={_xdcPrc} hauntedVlts={_hauntedVlts} liquidatedVlts={_liquidatedVlts} colRatio={_colRatio} />
+      <HomeIndex isReg={_isReg} totalLck={_totalLck} totalDebt={_totalDebt} xdcPrc={_xdcPrc} hauntedVlts={_hauntedVlts} liquidatedVlts={_liquidatedVlts} colRatio={_colRatio} allVaults={_allVaults}/>
     </div>
   );
 }

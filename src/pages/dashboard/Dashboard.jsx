@@ -17,6 +17,7 @@ import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
 import { CivicPassProvider } from "../../contexts/civicpassContext";
+import { isRegistered } from "../../lib/sbtContract";
 
 function Dashboard() {
   const {web3, account, address, stb, stc, sbt,  connected, chainId, xdcBalance, xdcBlnc, getXdcBalance, disconnect, connect} = useContext(Web3ModalContext);
@@ -33,12 +34,14 @@ function Dashboard() {
     onExchangeClick,
     onHistoryClick,
     onSettingsClick,
-    resetBorrowSetup,
-    isLoading
+    resetVaultSetup,
+    isLoading,
+    onVaultBackClick
   } = useDashboard();
   const navigate = useNavigate();
-  const {resetVaultSetup} = useBorrow();
+  const {resetVaultBorrowSetup} = useBorrow();
 
+  const [isReg, setIsReg] = useState(false);
   const [profile, setProfile] = useState(null);
   const [allVaults, setAllVaults] = useState(null);
   const [totalLck, setTotalLck] = useState(null);
@@ -54,7 +57,7 @@ function Dashboard() {
   
   //reset vault setup
   useEffect(() => {
-    resetVaultSetup();
+    resetVaultBorrowSetup();
   }, []);
 
    // verify connection status and chainId
@@ -68,6 +71,17 @@ function Dashboard() {
       navigate("/")
      } 
   }
+
+  //get registration status
+  useEffect(() => {
+    (async () => {
+      if(connected && account) {
+      await isRegistered(sbt, account).then((res) => {
+        setIsReg(res);
+      });
+      }
+    })();
+}, [isReg]);
 
   //get profile info
   useEffect(() => {
@@ -174,12 +188,12 @@ useEffect(() => {
           <Navbar _account={account} _address={address} _profile={profile}/>
         </div>
         <div className="mt-[3.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
-          {showHome && <Home _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts} _colRatio={colRatio}/>}
-          {showDashBorrow && <DashBorrow _web3={web3} _resetBorrowSetup={resetBorrowSetup} _stcBlnc={stcBlnc}  _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _colRatio={colRatio} _allVaults={allVaults} _stb={stb} _stc={stc} _xdcBalance={xdcBlnc} _account={account}/>}
+          {showHome && <Home _isReg={isReg} _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts} _colRatio={colRatio} _allVaults={allVaults}/>}
+          {showDashBorrow && <DashBorrow _web3={web3} _onVaultBackClick={onVaultBackClick} _resetVaultSetup={resetVaultSetup} _stcBlnc={stcBlnc}  _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _colRatio={colRatio} _allVaults={allVaults} _stb={stb} _stc={stc} _xdcBalance={xdcBlnc} _account={account}/>}
           {showEarn && <Earn _web3={web3} _stb={stb} _account={account} _colRatio={colRatio} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts}  _xdcPrc={xdcPrc}/>}
           {showExchange && <Exchange />}
           {showHistory && <History />}
-          {showSettings && <Settings />}
+          {showSettings && <Settings _profile={profile} _stcBlnc={stcBlnc} _xdcBalance={xdcBlnc} _xdcPrc={xdcPrc}/>}
         </div>
       </div>
     </div>
