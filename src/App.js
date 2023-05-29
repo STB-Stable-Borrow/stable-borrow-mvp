@@ -15,7 +15,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CivicPassProvider } from "./contexts/civicGatewayContext";
 
-
 function App() {
   return (
     <React.StrictMode>
