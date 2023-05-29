@@ -88,7 +88,7 @@ function Borrow({
       </div>
       <div className="table w-full  text-[#B0B0B0] text-[1rem] ">
         <div className="bg-[#202225] w-full h-[5.76vh] flex justify-between  pl-[21px] items-center  border-b border-[#B0B0B0]  ">
-          <h1 className="w-[5.13vw] bg-red-500">Vault ID</h1>
+          <h1 className="w-[5.13vw] ">Vault ID</h1>
           <h1 className=" w-[7.21vw]  ">Vault Name</h1>
           <h1 className="w-[2.60vw]">Asset</h1>
           <h1 className="w-[10.81vw]    ">Collateral Locked</h1>

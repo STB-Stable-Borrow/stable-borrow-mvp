@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 function HeroSection({ _handleConnectWallet }) {
   return (
-    <div className="flex justify-between w-full items-center ">
+    <div className="flex justify-between w-full items-center mt-[10.15vh] ">
       <div className="">
-        <h1 className="text-[#FFFFFF] text-[3.5rem] font-black font-sans w-[40vw] leading-tight">
+        <h1 className="text-[#FFFFFF] text-[2.5rem] font-black font-sans w-[40vw] leading-tight">
           Borrow STC, Earn as you Play and Exchange Tokens with Ease!
         </h1>
         <div className="mt-[1.30vh] mb-[4.07vh] ">
-          <p className="text-[1rem] text-[#FFFFFF] font-sans w-[35.05vw] leading-tight  ">
+          <p className="text-[0.875rem] text-[#FFFFFF] font-sans w-[35.05vw] leading-tight  ">
             Stable Borrow (STB), a Web3 Platform where users can Borrow $STC,
             Earn and Exchange Tokens at-a-go using our Simple and Swift UI with
             Unique Protocols embedded in our Smart Contracts!...{" "}

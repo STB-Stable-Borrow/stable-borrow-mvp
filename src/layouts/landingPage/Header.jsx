@@ -6,7 +6,7 @@ function Header({ _handleConnectWallet_ }) {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between items-center ">
+    <div className="flex justify-between items-center">
       <div>
         <Link to="/">
           <img

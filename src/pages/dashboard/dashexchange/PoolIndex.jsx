@@ -20,7 +20,7 @@ function PoolIndex() {
     <>
       {showPool ? (
         <div className="flex flex-col items-center">
-          <p className="text-center w-[23.02vw] text-[#585858]  mb-[0.5vh] text-[.75rem] ">
+          <p className="text-center  text-[#585858]  mb-[0.5vh] text-[.75rem] ">
             Click on each Pool to add Liquidity, check your Liquidity overview
             for details.
           </p>

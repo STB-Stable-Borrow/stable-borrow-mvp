@@ -12,7 +12,7 @@ function LandingBody({ children, _handleConnectWallet }) {
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${bgImage})` }}
       ></div>
-      <div className="relative flex flex-col justify-between h-[100vh] py-[3.43vh] px-[4.17vw]">
+      <div className="relative flex flex-col  h-[100vh] py-[3.43vh] px-[4.17vw] ">
         <Header _handleConnectWallet_={_handleConnectWallet} />
         {children}
       </div>

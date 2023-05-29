@@ -28,7 +28,7 @@ function EarnIndex({
       <h1 className="w-full bg-[#202225] flex items-center justify-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[1.48vh] ">
         Overview
       </h1>
-      <div className="flex justify-center items-center gap-[40px] mb-[5.93vh]  ">
+      <div className="flex justify-center items-center gap-[40px] mb-[2.93vh]  ">
         <div className="w-[22.84vw] h-full rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[1.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Total Vaults Haunted:</h1>

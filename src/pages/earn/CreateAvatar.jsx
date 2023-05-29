@@ -1,9 +1,14 @@
-import React, { useEffect, useRef, useState, useContext }  from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import back from "../../assets/borrow/back.svg";
 
-
-function CreateAvatar({ onBackButtonClick, _setAvatartImage, _setLoading, _setAvatar, _avatar, _adr }) {
-
+function CreateAvatar({
+  onBackButtonClick,
+  _setAvatartImage,
+  _setLoading,
+  _setAvatar,
+  _avatar,
+  _adr,
+}) {
   const domainName = "stb";
   const iFrameRef = useRef(null);
 
@@ -28,7 +33,7 @@ function CreateAvatar({ onBackButtonClick, _setAvatartImage, _setLoading, _setAv
     }
     // Get avatar GLB URL
     if (json.eventName === "v1.avatar.exported") {
-      _setAvatartImage(null)
+      _setAvatartImage(null);
       _setAvatar(json.data.url);
       _setLoading(true);
       onBackButtonClick();
@@ -65,7 +70,7 @@ function CreateAvatar({ onBackButtonClick, _setAvatartImage, _setLoading, _setAv
 
   return (
     <div className="mx-[167px]">
-      <div className=" h-[12vh] bg-gradient-to-b from-[#3A3B3D] to-[#202225] py-[2vh] text-center rounded-[15px] mb-[2vh] ">
+      <div className=" h-[10vh] bg-gradient-to-b from-[#3A3B3D] to-[#202225] py-[.5vh] text-center rounded-[15px] mb-[1vh] ">
         <h1 className="font-black text-xl text-[#009FBD] ">
           Welcome to STB Avatar Hub!
         </h1>
@@ -73,19 +78,19 @@ function CreateAvatar({ onBackButtonClick, _setAvatartImage, _setLoading, _setAv
           Customize your Avatar and click Next to Proceed.
         </p>
       </div>
-      <div className="flex justify-between mb-[3vh] ">
+      <div className="flex justify-between mb-[1.5vh] ">
         <button
-          className="border text-white border-[#009FBD] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
+          className="border text-white border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
           onClick={onBackButtonClick}
         >
           <img src={back} alt="" />
           Back
         </button>
-        <div className="h-[6.95vh] rounded-lg bg-[#202225] w-[664px] text-[#B0B0B0] flex items-center pl-[18px] text-sm ">
-          Connected Wallet: {_adr}    ||    Avatar Link: {_avatar}
+        <div className="h-[5.95vh] rounded-lg bg-[#202225] w-[664px] text-[#B0B0B0] flex items-center pl-[18px] text-sm ">
+          Connected Wallet: {_adr} || Avatar Link: {_avatar}
         </div>
       </div>
-      <div className="w-full h-[58vh] bg-[#202225] rounded-[15px]">
+      <div className="w-full h-[68vh] bg-[#202225] rounded-[15px]">
         <iframe
           allow="camera *; microphone *"
           className="iFrame"

@@ -95,7 +95,7 @@ function Settings({_stcBlnc, _xdcBalance, _xdcPrc, _profile}) {
             )}
             </div>
             <button
-              className="text-white flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 "
+              className="text-white flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 text-sm "
               onClick={handleEditProfile}
             >
               <img src={editProfile} alt="" className="w-[1.25vw] h-[2.22vh]" />
