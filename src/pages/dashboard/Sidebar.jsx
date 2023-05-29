@@ -20,9 +20,9 @@ function Sidebar({
   onSettingsClick,
   onHomeClick,
   _verifyConnection,
-  _disconnect
+  _disconnect,
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const navigate = useNavigate();
 
   const handleExpand = () => {
@@ -71,18 +71,28 @@ function Sidebar({
     },
   ];
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     await _disconnect().then(() => {
-      navigate("/")
-    })
-  }
+      navigate("/");
+    });
+  };
 
   return (
     <div className="relative cursor-pointer">
       {isExpanded ? (
-        <img onClick={() => navigate("/")} src={expandLogo} alt="" className="mb-[8.75vh]" />
+        <img
+          onClick={() => navigate("/")}
+          src={expandLogo}
+          alt=""
+          className="mb-[8.75vh]"
+        />
       ) : (
-        <img onClick={() => navigate("/")} src={collapseLogo} alt="" className="mb-[8.75vh]" />
+        <img
+          onClick={() => navigate("/")}
+          src={collapseLogo}
+          alt=""
+          className="mb-[8.75vh]"
+        />
       )}
 
       <div className="flex flex-col gap-[2.4vh]">
