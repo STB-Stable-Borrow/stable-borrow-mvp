@@ -8,6 +8,8 @@ import { useAbout } from "../context/aboutContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
 import { isRegistered } from "../lib/sbtContract";
 import { getAllUserVaults } from "../lib/stbContract";
+import borrowbgone from "../assets/info/borrowbgone.svg";
+import borrowbgtwo from "../assets/info/borrowbgtwo.svg";
 
 function Info() {
   const { sbt, account, stb, connected, chainId } =
@@ -54,14 +56,14 @@ function Info() {
 
   return (
     <LandingBody>
-      <body className="md:mx-[60px] md:mt-[48px] flex justify-between text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
-        <div className=" flex-col flex justify-between md:w-[45%] ">
-          <div className="border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 md:h-[48%]  ">
-            <img src={borrow} alt="" className="w-[80px] " />
-            <h1 className="font-black border-b-2 border-[#009FBD] text-sm ">
-              Borrow STC
+      <body className="md:mx-[60px] md:mt-[48px] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
+        <div className="bg-gradient-to-r from-[#009FBD]/10 to-50% to-[#865DFF]/10 bg-opacity-5  flex-col flex justify-between gap-[2vh]  h-full w-full ">
+          <div className="border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 w-full h-full relative  ">
+            <img src={borrow} alt="" className="w-[9.32vw] h-[11.20vh] " />
+            <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
+              Borrow $STC
             </h1>
-            <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-xs ">
+            <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
               <span className="font-bold text-white">Stable Coin ($STC)</span>{" "}
               is Stable Borrow (STB) Official Token, it’s a fully Decentralized
               and collateral backed token that’s maintains 1usd as it’s price
@@ -75,47 +77,83 @@ function Info() {
               </Link>
             </p>
             <button
-              className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2"
+              className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
               onClick={() => handleBorrow()}
             >
               Borrow now
             </button>
+            <div
+              className=" w-[6.46vw] h-[10.46vh] absolute top-0 left-0"
+              style={{
+                backgroundImage: `url(${borrowbgone})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <div
+              className=" w-[6.46vw] h-[10.46vh] absolute top-0 right-0"
+              style={{
+                backgroundImage: `url(${borrowbgtwo})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
           </div>
-          <div className="text-xs border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 md:h-[48%]  ">
-            <img src={earn} alt="" className="w-[70px] " />
-            <h1 className="font-black border-b-2 border-[#009FBD] text-sm ">
-              Earn STC
+          <div className="bg-gradient-to-r from-[#009FBD]/10 to-50% to-[#865DFF]/10 bg-opacity-5  border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 w-full h-full relative ">
+            <img src={borrow} alt="" className="w-[9.32vw] h-[11.20vh] " />
+            <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
+              Earn $STC
             </h1>
-            <p className="text-center mx-4 mt-2 text-[#FFFFFF] ">
+            <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
               Register as an haunter today to earn as you play by haunting
               vaults in liquidation and regulating prices. Earn various tokens
               that can be exchanged to any token via exchange UI ...
               <Link
                 to="/about"
-                className="text-[#865DFF] underline underline-offset-2 hover:underline "
+                className="text-[#865DFF] underline underline-offset-2 hover:underline cursor-pointer "
                 onClick={() => navigateToAbout("Earn")}
               >
                 learn more
               </Link>
             </p>
             <button
+              className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
               onClick={() => handleEarn()}
-              className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2"
             >
               Earn now
             </button>
+            <div
+              className=" w-[6.46vw] h-[10.46vh] absolute top-0 left-0"
+              style={{
+                backgroundImage: `url(${borrowbgone})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <div
+              className=" w-[6.46vw] h-[10.46vh] absolute top-0 right-0"
+              style={{
+                backgroundImage: `url(${borrowbgtwo})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
           </div>
         </div>
         <div
           onLoad={verifyConnection}
-          className="text-xs border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[10px] py-[6px] px-[20px] w-[45%] "
+          className="bg-gradient-to-r from-[#009FBD]/20 to-50% to-[#865DFF]/20 bg-opacity-5   border  border-[#009FBD] h-full w-full  rounded-[30px] flex flex-col items-center gap-[10px] py-[6px] px-[20px] relative"
         >
           <img src={exchange} alt="" className="w-[80px] " />
-          <h1 className="font-black border-b-2 border-[#009FBD] text-sm ">
+          <h1 className="font-black border-b-2 border-[#009FBD] text-lg">
             Exchange
           </h1>
 
-          <p className="text-center mx-4 mt-2 text-[#FFFFFF] ">
+          <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
             Stable Swap is Stable Borrow Official Exchange, it’s a Decentralized
             Exchange with Unique Protocols that allows users Swap Tokens and
             earn as a Liquidity provider and Pool Creator.
@@ -136,9 +174,27 @@ function Info() {
               learn more
             </Link>
           </p>
-          <button className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2">
+          <button className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]">
             Exchange
           </button>
+          <div
+            className=" w-[6.46vw] h-[10.46vh] absolute top-0 left-0"
+            style={{
+              backgroundImage: `url(${borrowbgone})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+          <div
+            className=" w-[6.46vw] h-[10.46vh] absolute top-0 right-0"
+            style={{
+              backgroundImage: `url(${borrowbgtwo})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
         </div>
       </body>
     </LandingBody>
