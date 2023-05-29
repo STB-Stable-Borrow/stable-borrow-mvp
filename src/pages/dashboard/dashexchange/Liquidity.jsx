@@ -44,7 +44,7 @@ function Liquidity({ assetOne, assetTwo }) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center gap-[0.47vw] font-semibold text-[.825em] mb-[2.13vh] ">
+      <div className="flex items-center justify-center gap-[0.47vw] font-semibold text-[.825em] mb-[1.5vh] ">
         <h1
           className={` ${
             isAddLiquidity ? "text-[#009FBD]" : "text-[#585858] "
@@ -150,7 +150,7 @@ function Liquidity({ assetOne, assetTwo }) {
           </p>
         </div>
       </div>
-      <div className=" w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[2.13vh] flex flex-col justify-center items-center ">
+      <div className=" w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center ">
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1 font-semibold mb-[0.5vh]">
           Slippage Tolerance:
           <img src={question} alt="" className=" " />
@@ -158,21 +158,30 @@ function Liquidity({ assetOne, assetTwo }) {
         {/* */}
         <div className="flex items-center justify-between w-full ">
           <div className="bg-[#202225] w-[9.53vw] h-[3.89vh]  px-[1.15vw] justify-between  flex items-center text-[0.65rem] rounded-[10px] text-[#B0B0B0] ">
-            <p>0.1%</p>
-            <p>0.5%</p>
-            <p>1%</p>
+            {slippage.map((slip, index) => (
+              <p
+                key={index}
+                className={`${
+                  slip.isActive ? "text-[#009FBD]" : "text-gray-500"
+                }`}
+              >
+                {slip.isActive ? inputValue + "%" : slip.value + "%"}
+              </p>
+            ))}
           </div>
           <div className="bg-[#B0B0B0] rounded-[10px] h-[3.89vh]  pl-[.5vw] w-[4.74vw] flex items-center relative text-[0.65rem] ">
             <input
               type="number"
               className="bg-inherit w-[2.74vw]    placeholder:text-black  "
               placeholder="0"
+              value={inputValue}
+              onChange={handleInputChange}
             />
             <p className="absolute  right-1">%</p>
           </div>
         </div>
       </div>
-      <div className="px-[1.8vw]  py-[1.13vh] w-[21.04vw] rounded-[20px] bg-[#292C31] text-[#b0b0b0] mb-[1.22vh] border-[1.5px] border-[#585858] border-dashed  text-[0.75rem] ">
+      <div className="px-[1.8vw]  py-[1.13vh] w-[21.04vw] rounded-[20px] bg-[#292C31] text-[#b0b0b0] mb-[1vh] border-[1.5px] border-[#585858] border-dashed  text-[0.75rem] ">
         <div className="flex items-center  gap-[1.09vw] justify-between">
           <div className="flex items-center gap-[1px]">
             <img src={question} alt="" />

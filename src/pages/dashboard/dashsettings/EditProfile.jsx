@@ -74,8 +74,8 @@ function EditProfile({ onBackClick }) {
             className="bg-[#B0B0B0] py-[1.30vh] pl-[21px] rounded-lg h-[10.65vh] text-[#292C31] text-[0.85em] "
           ></textarea>
         </div>
-        <button className="text-white w-max flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 ">
-          Save Changes
+        <button className="text-white w-max flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 text-sm ">
+          <h1> Save Changes</h1>
           <img src={save} alt="" className="w-[1.25vw] h-[2.22vh]" />
         </button>
       </form>

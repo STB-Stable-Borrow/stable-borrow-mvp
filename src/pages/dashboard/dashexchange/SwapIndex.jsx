@@ -36,7 +36,7 @@ function SwapIndex() {
 
   return (
     <div className="flex flex-col items-center ">
-      <p className="text-center text-[#585858]  mb-[1.22vh] text-[.875rem] ">
+      <p className="text-center text-[#585858]  mb-[1vh] text-[.875rem] ">
         Select Token Pair, input desired amount and select Token Tolerance{" "}
       </p>
       <div
@@ -122,7 +122,7 @@ function SwapIndex() {
         </h6>
       </div>
       {/* h-[8.89vh] */}
-      <div className=" w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[2.13vh] flex flex-col justify-center items-center ">
+      <div className=" w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center ">
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1 font-semibold mb-[0.5vh]">
           Slippage Tolerance:
           <img src={question} alt="" className=" " />
