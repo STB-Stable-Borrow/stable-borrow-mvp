@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Borrow() {
   const navigate = useNavigate();
   const { web3, stb, stc, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
-  const { vault, generateSTC, confirm, handleVaultNext, resetVaultSetup, handleGenerateSTCBack, generateRes } = useBorrow();
+  const { vault, generateSTC, confirm, handleVaultNext, resetVaultBorrowSetup, handleGenerateSTCBack, generateRes,fromDashborrow, setFromDashborrow } = useBorrow();
   const [xdcPrice, setXdcPrice] = useState(null);
   const [xdcPrc, setXdcPrc] = useState(null);
   const [colRt, setColRt] = useState(null);
@@ -83,7 +83,7 @@ const getMaxSTC = () => {
       <div className="mx-[147px]    ">
         <BorrowNav />
         <div className="bg-[#202225] w-full mt-[3.2vh] flex items-center justify-center text-white rounded-[15px] h-[70vh] ">
-          {vault && <VaultMgt _xdcBalance={xdcBlnc} _xdcPrice={xdcPrc} _colRatio={colRt} _maxSTC={getMaxSTC()} _account={account} _stc={stc} _stb={stb} onNextButtonClicked={handleVaultNext} onLoaded={verifyConnection}/>}
+          {vault && <VaultMgt _setFromDashborrow={setFromDashborrow} _fromDashborrow={fromDashborrow} _xdcBalance={xdcBlnc} _xdcPrice={xdcPrc} _colRatio={colRt} _maxSTC={getMaxSTC()} _account={account} _stc={stc} _stb={stb} onNextButtonClicked={handleVaultNext} onLoaded={verifyConnection}/>}
           {generateSTC && (
             <Generate onBackButtonClicked={handleGenerateSTCBack} _xdcPrice={xdcPrc} _colRatio={colRt} _stb={stb} _account={account} _web3={web3}/>
           )}

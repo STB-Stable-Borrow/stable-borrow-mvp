@@ -9,7 +9,7 @@ import { getAllVaults } from "../../../lib/stbContract";
 import Big from "big.js";
 import arrowLeft from "../../../assets/dashboard/arrowLeft.svg";
 
-function EarnPageTwo({ xdcPrc, stb }) {
+function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
   const [allVaults, setAllVaults] = useState(null);
   const [isStar, setIsStar] = useState(false);
 
@@ -25,7 +25,7 @@ function EarnPageTwo({ xdcPrc, stb }) {
   return (
     <div>
       <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
-        <button className="flex items-center gap-2 text-[#009FBD] text-sm ">
+        <button onClick={_onBackClick} className="flex items-center gap-2 text-[#009FBD] text-sm ">
           <img src={arrowLeft} alt="" />
           Back
         </button>
@@ -87,8 +87,8 @@ function EarnPageTwo({ xdcPrc, stb }) {
         <div className="h-[28.8vh] overflow-y-auto">
           {allVaults && (
             <>
-              {allVaults.map((item) => (
-                <div className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
+              {allVaults.map((item, index) => (
+                <div key={index} className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
                   <p className="w-[5.13vw] ">#{item.id}</p>
                   <p className=" w-[8.21vw] text-center ">{item.id}</p>
                   <p className=" w-[6.25vw]   ">

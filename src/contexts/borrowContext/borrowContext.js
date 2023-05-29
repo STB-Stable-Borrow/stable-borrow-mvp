@@ -11,6 +11,8 @@ export const BorrowProvider = ({ children }) => {
   const [totalXdcIn, setTotalXdcIn] = useState(null);
   const [totalStcOut, setTotalStcOut] = useState(null);
   const [generateRes, setGenerateRes] = useState(false);
+  const [fromDashborrow, setFromDashborrow] = useState(false);
+  const [fromDashearn, setFromDashearn] = useState(false);
 
   const handleVaultNext = () => {
     setVault(false);
@@ -37,7 +39,7 @@ export const BorrowProvider = ({ children }) => {
   };
 
   //resets vault setup to initial value; important to ensure vault management are in order(users don't need to refresh)
-  const resetVaultSetup = () => {
+  const resetVaultBorrowSetup = () => {
     setConfirm(false);
     setVault(true);
     setGenerateSTC(false);
@@ -55,6 +57,8 @@ export const BorrowProvider = ({ children }) => {
         totalStcOut,
         totalXdcIn,
         generateRes,
+        fromDashborrow,
+        fromDashearn,
         setVault,
         setGenerateSTC,
         setConfirm,
@@ -64,7 +68,9 @@ export const BorrowProvider = ({ children }) => {
         handleGenerateSTCNext,
         handleGenerateSTCBack,
         calculateAmounts,
-        resetVaultSetup,
+        resetVaultBorrowSetup,
+        setFromDashborrow,
+        setFromDashearn,
       }}
     >
       {children}

@@ -106,10 +106,10 @@ function EarnIndex({
           <h1 className="w-[200px]">Tx Hash</h1>
         </div>
         <div className="h-[20.85vh] bg-[#292C31] overflow-auto ">
-          {vaultsData.map((vault) => (
+          {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] py-[1vh] border-b border-[#B0B0B0]  "
-              key={vault.id}
+              key={index}
             >
               <h1 className="w-[200px]">{vault.activity}</h1>
               <h1 className="w-[200px] ">

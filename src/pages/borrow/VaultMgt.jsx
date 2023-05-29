@@ -8,9 +8,9 @@ import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import {useNavigate } from "react-router-dom";
 import { approveAccount } from "../../lib/stcContract";
 
-function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc, _stb}) {
+function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _colRatio, _maxSTC, _account, _stc, _stb, _fromDashborrow, _setFromDashborrow}) {
   const navigate = useNavigate();
-  const {calculateAmounts, resetVaultSetup} = useBorrow();
+  const {calculateAmounts, resetVaultBorrowSetup} = useBorrow();
   const [xdcIn, setXdcIn] = useState(null);
   const [stcOut, setStcOut] = useState(null);
   const [hntFee, setHntFee] = useState(null);
@@ -202,7 +202,14 @@ function VaultMgt({ onNextButtonClicked, onLoaded , _xdcBalance, _xdcPrice, _col
         </div>
       </div>
       <div className="flex items-center justify-center gap-[110px] mt-[3.19vh] mb-[5.5vh] ">
-        <button onClick={() => {navigate("/")}} className="border border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 ">
+        <button onClick={() => {
+          if(_fromDashborrow) {
+            _setFromDashborrow(false)
+            navigate("/dashboard")
+          }else{
+            navigate("/info")
+          }}
+        } className="border border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 ">
           <img src={back} alt="" />
           Back
         </button>
