@@ -5,7 +5,7 @@ import notif from "../../assets/dashboard/notif.svg";
 
 function Navbar({ _account, _address, _profile }) {
   return (
-    <div className="flex items-center justify-between w-full">
+    <div className="flex items-center justify-between w-full mt-[18.7vh] ">
       <h1 className="font-semibold text-[1.43rem] ">Welcome!</h1>
       <div className="flex gap-[10px] items-center ">
         <div className="text-end">

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function HeroSection({ _handleConnectWallet }) {
   return (
-    <div className="flex justify-between w-full items-center ">
+    <div className="flex justify-between w-full items-center mt-[10.15vh] ">
       <div className="">
         <h1 className="text-[#FFFFFF] text-[2.5rem] font-black font-sans w-[40vw] leading-tight">
           Borrow STC, Earn as you Play and Exchange Tokens with Ease!

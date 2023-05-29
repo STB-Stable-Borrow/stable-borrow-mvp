@@ -13,7 +13,7 @@ function Footer() {
     setCopied(true);
   }
   return (
-    <div className="flex justify-between items-center text-xs">
+    <div className="flex justify-between items-center text-xs mt-auto">
       <div className="flex gap-[1.09vw]">
         <div className="flex gap-[0.68vw]">
           <img src={twitter} alt="twitter" />

@@ -102,7 +102,7 @@ function Info() {
             ></div>
           </div>
           <div className="bg-gradient-to-r from-[#009FBD]/10 to-50% to-[#865DFF]/10 bg-opacity-5  border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 w-full h-full relative ">
-            <img src={borrow} alt="" className="w-[9.32vw] h-[11.20vh] " />
+            <img src={earn} alt="" className="w-[9.32vw] h-[11.20vh] " />
             <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
               Earn $STC
             </h1>
