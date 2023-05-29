@@ -3,11 +3,10 @@ import profile from "../../../assets/dashboard/profileImg.svg";
 import save from "../../../assets/dashboard/save.svg";
 import arrowLeft from "../../../assets/dashboard/arrowLeft.svg";
 
-function EditProfile({ onBackClick }) {
+function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc}) {
   const [data, setData] = useState({
     username: "",
-    about: "",
-    profileImg: "",
+    about: ""
   });
 
   return (
@@ -22,36 +21,78 @@ function EditProfile({ onBackClick }) {
         </button>
         <h1 className="">Settings</h1>
       </div>
-      <div className="flex items-center gap-[23px] mb-[4.35vh]">
-        <img
-          src={profile}
-          alt=""
-          className="h-[8.96vw] w-[8.96vw] rounded-[100%] border border-[#585858] border-dashed"
-        />
-        <div>
-          <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] ">
-            Mohzcrea8me
-          </h1>
-          <div className="w-[15.89vw] border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between mb-[1.85vh] ">
-            <div>
-              <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
-                100 XDC
+      {prof && (
+         <div className="flex items-center gap-[23px] mb-[4.35vh]">
+         <img
+           src={prof.imageUrl}
+           alt=""
+           className="h-[8.96vw] w-[8.96vw] rounded-[100%] border border-[#585858] border-dashed"
+         />
+          <div>
+           <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] ">
+            {prof.username}
+           </h1>
+           <div className="w-[15.89vw] border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between mb-[1.85vh] ">
+             <div>
+               {stcBlnc && (
+                 <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                 {stcBlnc} STC
+                </h1>
+               )}
+               {stcBlnc && (
+                 <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                 ~ ${stcBlnc}
+               </p>
+               )}
+             </div>
+             <div>
+               {xdcBalance && (
+                 <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                 {xdcBalance} XDC
+                 </h1>
+               )}
+               {xdcBalance && (
+               <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center  ">
+                 ~ ${(xdcPrc * xdcBalance).toFixed(4)}
+               </p>
+               )}
+             </div>
+           </div>
+         </div>
+       </div>
+        )}
+        {!prof && (
+            <div className="flex items-center gap-[23px] mb-[4.35vh]">
+            <img
+              src={profile}
+              alt=""
+              className="h-[8.96vw] w-[8.96vw] rounded-[100%] border border-[#585858] border-dashed"
+            />
+             <div>
+              <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] ">
+               @username
               </h1>
-              <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
-                ~ $200
-              </p>
-            </div>
-            <div>
-              <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
-                100 STC
-              </h1>
-              <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center  ">
-                ~ $100
-              </p>
+              <div className="w-[15.89vw] border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between mb-[1.85vh] ">
+                <div>
+                <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                    0 STC
+                </h1>
+                 <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                    ~ $0.0000
+                </p>
+                </div>
+                <div>
+                <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                    0 XDC
+                </h1>
+                 <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                    ~ $0.0000
+                </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
       <form
         action=""
         className="flex flex-col gap-[4.35vh] w-[23.50vw] text-[1rem]"

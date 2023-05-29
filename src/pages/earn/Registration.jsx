@@ -11,10 +11,12 @@ import { isRegistered, totalTokenCount, createAccount } from "../../lib/sbtContr
 import { saveTokenDetails } from "../../lib/filebaseIpfs";
 import { GatewayStatus, IdentityButton, useGateway } from "@civic/ethereum-gateway-react";
 import { CivicPassProvider } from "../../contexts/civicpassContext";
+import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 
 
 function Registration() {
   const { web3, sbt, account, signer, address, connected, chainId} = useContext(Web3ModalContext)
+  const { fromDashearn, setFromDashearn } = useBorrow();
   const { gatewayStatus } = useGateway();
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
@@ -224,7 +226,14 @@ function Registration() {
           <IdentityButton />
           <div className="flex items-center justify-center gap-[110px] mt-[5.19vh] mb-[5.5vh] ">
             <button
-              onClick={() => {navigate("/info")}}
+              onClick={() => {
+                if(fromDashearn) {
+                  setFromDashearn(false)
+                  navigate("/dashboard")
+                }else{
+                  navigate("/info")
+                }
+              }}
               className="border border-[#009FBD] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
             >
               <img src={back} alt="" />

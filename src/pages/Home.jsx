@@ -12,12 +12,14 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { connect, disconnect } = useContext(Web3ModalContext);
-  const { resetVaultSetup } = useBorrow();
+  const { resetVaultBorrowSetup, setFromDashborrow, setFromDashearn } = useBorrow();
   const navigate = useNavigate();
 
   //reset vault setup
   useEffect(() => {
-    resetVaultSetup();
+    resetVaultBorrowSetup();
+    setFromDashborrow(false);
+    setFromDashearn(false);
   }, []);
 
   //handles wallet connection

@@ -13,9 +13,9 @@ function About() {
     <LandingBody>
       <div className="self-center h-[80vh] w-full mt-6  border-[#009FBD50] border-[3px] rounded-lg p-[24px] ">
         <div className="flex justify-between w-full h-[70px] bg-[#01303870] rounded-lg px-[29px] py-4 mb-4">
-          {toggleAbout.map((item) => (
+          {toggleAbout.map((item, index) => (
             <button
-              key={item.name}
+              key={index}
               onClick={() => handleAboutToggle(item.name)}
               className={`text-[#FFFFFF] px-4 rounded-lg text-sm font-bold ${
                 item.name === about
@@ -30,12 +30,12 @@ function About() {
 
         <div className="flex flex-col gap-2 mx-6  text-[#FFFFFF] pr-4 h-[45vh] overflow-y-scroll ">
           {toggleAbout.map(
-            (item) =>
+            (item, index) =>
               item.name === about && (
-                <div key={item.id} className="">
-                  {item.content.map((content) => {
+                <div key={index} className="">
+                  {item.content.map((content, _index) => {
                     return (
-                      <p className="text-justify text-xs mb-4">{content}</p>
+                      <p key={_index} className="text-justify text-xs mb-4">{content}</p>
                     );
                   })}
                 </div>
@@ -43,9 +43,9 @@ function About() {
           )}
         </div>
         {toggleAbout.map(
-          (item) =>
+          (item, index) =>
             item.name === about && (
-              <div className="flex items-center justify-between text-white px-[56px] w-full h-[6vh] mt-[4vh] text-sm">
+              <div key={index} className="flex items-center justify-between text-white px-[56px] w-full h-[6vh] mt-[4vh] text-sm">
                 <button
                   className="w-[182px] border border-white rounded-lg h-full flex items-center justify-center gap-2 hover:opacity-75"
                   onClick={() => handleAboutToggle(item.name)}
