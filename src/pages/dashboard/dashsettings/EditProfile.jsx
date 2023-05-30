@@ -12,6 +12,8 @@ return(
 
     <div className="flex flex-col items-center justify-center">
 
+    <div className="flex flex-col items-center justify-center">
+
       <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
         <button
           className="flex items-center gap-2 text-[#009FBD] text-sm "
