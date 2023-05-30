@@ -7,6 +7,8 @@ import { stcContractInit } from "../lib/stcContract";
 import { Big } from "big.js";
 import { sbtContractInit } from "../lib/sbtContract";
 import { ethers } from "ethers";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Web3ModalContext = createContext({
   connect: () => {},
@@ -55,7 +57,7 @@ const Web3ModalProvider = ({ children }) => {
   //initialize and save web3 from _provider
   const web3Init = (_provider) => {
     if (!_provider) {
-      window.alert(
+      toast.error(
         "Error while connecting to wallet provider. Try again later"
       );
     }
