@@ -96,7 +96,7 @@ function Sidebar({
       )}
 
       <div className="flex flex-col gap-[2.4vh]">
-        {sidebarObj.map((item, index) => (
+        {sidebarObj.map((item) => (
           <div
             className={`${
               isExpanded ? "w-[182px]" : "w-[42px]"
@@ -104,7 +104,7 @@ function Sidebar({
                ${active === item.id && "bg-[#009FBD]"}
             }
              hover:textsb-[#009FBD] cursor-pointer `}
-            key={index}
+            key={item.id}
             onClick={() => {
               item.onClick(item.id);
               setActive(item.id);
