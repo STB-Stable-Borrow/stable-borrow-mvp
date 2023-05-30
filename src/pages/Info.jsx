@@ -56,32 +56,34 @@ function Info() {
 
   return (
     <LandingBody>
-      <body className="md:mx-[60px] md:mt-[48px] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
-        <div className="bg-gradient-to-r from-[#009FBD]/10 to-50% to-[#865DFF]/10 bg-opacity-5  flex-col flex justify-between gap-[2vh]  h-full w-full ">
-          <div className="border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 w-full h-full relative  ">
-            <img src={borrow} alt="" className="w-[9.32vw] h-[11.20vh] " />
-            <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
-              Borrow $STC
-            </h1>
-            <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
-              <span className="font-bold text-white">Stable Coin ($STC)</span>{" "}
-              is Stable Borrow (STB) Official Token, it’s a fully Decentralized
-              and collateral backed token that’s maintains 1usd as it’s price
-              making it a Stable Token ...{" "}
-              <Link
-                to="/about"
-                className="text-[#865DFF] underline underline-offset-2 hover:underline cursor-pointer "
-                onClick={() => navigateToAbout("Borrow")}
+      <body className="md:mx-[60px] md:mt-[4.44vh] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
+        <div className="flex-col flex justify-between gap-[1.5vh]  h-full w-full ">
+          <div className="border-[3px] border-[#009FBD]  rounded-[30px]  w-full h-full relative bg-gradient-to-r from-[#009FBD]  to-[#865DFF] ">
+            <div className="flex flex-col items-center gap-[5px] bg-black/80 w-full h-full rounded-[30px] px-[6px] py-2 ">
+              <img src={borrow} alt="" className="w-[9.32vw] h-[11.20vh] " />
+              <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
+                Borrow $STC
+              </h1>
+              <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
+                <span className="font-bold text-white">Stable Coin ($STC)</span>{" "}
+                is Stable Borrow (STB) Official Token, it’s a fully
+                Decentralized and collateral backed token that’s maintains 1usd
+                as it’s price making it a Stable Token ...{" "}
+                <Link
+                  to="/about"
+                  className="text-[#865DFF] underline underline-offset-2 hover:underline cursor-pointer "
+                  onClick={() => navigateToAbout("Borrow")}
+                >
+                  learn more
+                </Link>
+              </p>
+              <button
+                className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
+                onClick={() => handleBorrow()}
               >
-                learn more
-              </Link>
-            </p>
-            <button
-              className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
-              onClick={() => handleBorrow()}
-            >
-              Borrow now
-            </button>
+                Borrow now
+              </button>
+            </div>
             <div
               className=" w-[6.46vw] h-[10.46vh] absolute top-0 left-0"
               style={{
@@ -101,29 +103,32 @@ function Info() {
               }}
             ></div>
           </div>
-          <div className="bg-gradient-to-r from-[#009FBD]/10 to-50% to-[#865DFF]/10 bg-opacity-5  border border-[#009FBD]  rounded-[30px] flex flex-col items-center gap-[5px] px-[6px] py-2 w-full h-full relative ">
-            <img src={earn} alt="" className="w-[9.32vw] h-[11.20vh] " />
-            <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
-              Earn $STC
-            </h1>
-            <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
-              Register as an haunter today to earn as you play by haunting
-              vaults in liquidation and regulating prices. Earn various tokens
-              that can be exchanged to any token via exchange UI ...
-              <Link
-                to="/about"
-                className="text-[#865DFF] underline underline-offset-2 hover:underline cursor-pointer "
-                onClick={() => navigateToAbout("Earn")}
+          <div className="bg-gradient-to-r from-[#009FBD]  to-[#865DFF]  border-[3px] border-[#009FBD]  rounded-[30px] w-full h-full relative ">
+            <div className="flex flex-col items-center gap-[5px] bg-black/80 w-full h-full rounded-[30px] px-[6px] py-2 ">
+              <img src={earn} alt="" className="w-[9.32vw] h-[11.20vh] " />
+              <h1 className="font-black border-b-2 border-[#009FBD] text-lg ">
+                Earn $STC
+              </h1>
+              <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
+                Register as an haunter today to earn as you play by haunting
+                vaults in liquidation and regulating prices. Earn various tokens
+                that can be exchanged to any token via exchange UI ...
+                <Link
+                  to="/about"
+                  className="text-[#865DFF] underline underline-offset-2 hover:underline cursor-pointer "
+                  onClick={() => navigateToAbout("Earn")}
+                >
+                  learn more
+                </Link>
+              </p>
+              <button
+                className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
+                onClick={() => handleEarn()}
               >
-                learn more
-              </Link>
-            </p>
-            <button
-              className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
-              onClick={() => handleEarn()}
-            >
-              Earn now
-            </button>
+                Earn now
+              </button>
+            </div>
+
             <div
               className=" w-[6.46vw] h-[10.46vh] absolute top-0 left-0"
               style={{
@@ -146,37 +151,40 @@ function Info() {
         </div>
         <div
           onLoad={verifyConnection}
-          className="bg-gradient-to-r from-[#009FBD]/20 to-50% to-[#865DFF]/20 bg-opacity-5   border  border-[#009FBD] h-full w-full  rounded-[30px] flex flex-col items-center gap-[10px] py-[6px] px-[20px] relative"
+          className="bg-gradient-to-r from-[#013038] to-[#013139]  border-[3px] border-[#009FBD] h-full w-full rounded-[30px] relative"
         >
-          <img src={exchange} alt="" className="w-[80px] " />
-          <h1 className="font-black border-b-2 border-[#009FBD] text-lg">
-            Exchange
-          </h1>
+          <div className="flex flex-col items-center gap-[5px] bg-black/30 w-full h-full rounded-[30px] px-[6px] py-2 ">
+            <img src={exchange} alt="" className="w-[80px] " />
+            <h1 className="font-black border-b-2 border-[#009FBD] text-lg">
+              Exchange
+            </h1>
 
-          <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
-            Stable Swap is Stable Borrow Official Exchange, it’s a Decentralized
-            Exchange with Unique Protocols that allows users Swap Tokens and
-            earn as a Liquidity provider and Pool Creator.
-            <br />
-            <br /> Our unique automatic market maker protocol allows users
-            exchange Tokens instantly without waiting for orders to be filled
-            and automatically determine the exchange rate on each transaction
-            and at same time makes both interest earned and tokens deposited
-            available for liquidity providers. <br />
-            <br /> Stable Swap keeps it’s users safe through unique security on
-            and off chain to screen each token listed by project owners and take
-            damage deposit in advance to keep scam tokens away ...
-            <Link
-              to="/about"
-              className="text-[#009FBD] hover:underline "
-              onClick={() => navigateToAbout("Exchange")}
-            >
-              learn more
-            </Link>
-          </p>
-          <button className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]">
-            Exchange
-          </button>
+            <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
+              Stable Swap is Stable Borrow Official Exchange, it’s a
+              Decentralized Exchange with Unique Protocols that allows users
+              Swap Tokens and earn as a Liquidity provider and Pool Creator.
+              <br />
+              <br /> Our unique automatic market maker protocol allows users
+              exchange Tokens instantly without waiting for orders to be filled
+              and automatically determine the exchange rate on each transaction
+              and at same time makes both interest earned and tokens deposited
+              available for liquidity providers. <br />
+              <br /> Stable Swap keeps it’s users safe through unique security
+              on and off chain to screen each token listed by project owners and
+              take damage deposit in advance to keep scam tokens away ...
+              <Link
+                to="/about"
+                className="text-[#009FBD] hover:underline "
+                onClick={() => navigateToAbout("Exchange")}
+              >
+                learn more
+              </Link>
+            </p>
+            <button className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]">
+              Exchange
+            </button>
+          </div>
+
           <div
             className=" w-[6.46vw] h-[10.46vh] absolute top-0 left-0"
             style={{

@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <>
+    <div className=" " id="App">
       <Web3ModalProvider>
         <Router>
           <AboutProvider>
@@ -49,7 +49,7 @@ function App() {
           />
         </Router>
       </Web3ModalProvider>
-    </>
+    </div>
   );
 }
 export default App;
