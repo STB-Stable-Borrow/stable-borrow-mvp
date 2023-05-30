@@ -12,7 +12,7 @@ root.render(
     {isSmallAndMedium ? (
       <div className="lg:hidden md:flex flex items-center justify-center ">
         <h1 className=" text-center mt-[20vh] text-2xl w-[70vw] h-[6vh] ">
-          Hello user! We currently do not support small screens at the moment.
+          Hello user! We currently do not support mobile screens at the moment.
         </h1>
       </div>
     ) : (

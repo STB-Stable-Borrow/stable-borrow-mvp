@@ -11,7 +11,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
 return(
 
 
-    <div className="flex flex-col items-center justify-center">
+    <div className="w-full">
 
 
     <div className="flex flex-col items-center justify-center">
@@ -129,6 +129,7 @@ return(
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 }
