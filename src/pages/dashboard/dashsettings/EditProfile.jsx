@@ -24,7 +24,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
       {prof && (
         <div className="flex items-center gap-[23px] mb-[4.35vh]">
           <img
-            src={prof.imageUrl}
+            src={prof.imgUrl}
             alt=""
             className="h-[8.96vw] w-[8.96vw] rounded-[100%] border border-[#585858] border-dashed"
           />
