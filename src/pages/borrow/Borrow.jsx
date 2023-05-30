@@ -9,7 +9,7 @@ import Confirmations from "./Confirmations";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { getCurrentPrice } from "../../lib/coingecko";
 import { getColRatio, getRegFee } from "../../lib/stbContract";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -25,11 +25,11 @@ function Borrow() {
   const verifyConnection = () => {
     const acceptIds = [50, 51]
     if(!connected && !chainId) {
-      window.alert("You have to connect your wallet to proceed")
+      toast.error("You have to connect your wallet to proceed")
       navigate("/")
      }
      if(connected && !acceptIds.includes(chainId)){
-      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      toast.error("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
       navigate("/")
      } 
   }
