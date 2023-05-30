@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import haunt from "../../../assets/dashboard/haunt.svg";
 import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import dashBorrowData from "../../../data/vaultsData";
@@ -11,34 +12,54 @@ import arrowLeft from "../../../assets/dashboard/arrowLeft.svg";
 
 function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
   const [allVaults, setAllVaults] = useState(null);
-  const [isStar, setIsStar] = useState(false);
+  const [isStar, setIsStar] = useState([]);
 
   //get all vaults
   useEffect(() => {
     (async () => {
       await getAllVaults(stb).then((res) => {
         setAllVaults(res);
+        setIsStar(res.map((item) => ({ id: item.id, status: false })));
       });
     })();
   }, []);
 
+  const handleStarClick = (itemId) => {
+    setIsStar((prevStars) =>
+      prevStars.map((star) =>
+        star.id === itemId ? { ...star, status: !star.status } : star
+      )
+    );
+  };
+
   return (
     <div>
-      <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
-        <button onClick={_onBackClick} className="flex items-center gap-2 text-[#009FBD] text-sm ">
+      <div className="w-full bg-[#202225] text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
+        <button
+          onClick={_onBackClick}
+          className="flex items-center gap-2 text-[#009FBD] text-sm "
+        >
           <img src={arrowLeft} alt="" />
           Back
         </button>
         <h1 className=" ">Overview</h1>
       </div>
-      <div className="flex justify-center items-center gap-[230px] mb-[5.93vh]  ">
+      <div className="flex justify-evenly items-center  mb-[5.93vh]  ">
         <div className="w-[22.84vw] rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">XDC Price:</h1>
             <p className="mt-[-5px] text-[1.875em] font-medium ">${xdcPrc}</p>
           </div>
         </div>
-
+        <div
+          className="bg-[#202225] rounded-[20px] h-[16.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD] cursor-pointer"
+        >
+          <img
+            src={haunt}
+            alt=""
+            className={`w-[4.48vw] h-[9.9vh] cursor-pointer`}
+          />
+        </div>
         <div className="w-[22.84vw] rounded-[20px] bg-[#C16E08] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Active Haunters:</h1>
@@ -85,13 +106,17 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
           <h1 className="w-[1.25vw] "> </h1>
         </div>
         <div className="h-[28.8vh] overflow-y-auto">
-          {allVaults && (
-            <>
-              {allVaults.map((item, index) => (
-                <div key={index} className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
+          {allVaults &&
+            allVaults.map((item, index) => {
+              const isCurrentStar = isStar.find((star) => star.id === item.id);
+              return (
+                <div
+                  key={index}
+                  className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0]"
+                >
                   <p className="w-[5.13vw] ">#{item.id}</p>
-                  <p className=" w-[8.21vw] text-center ">{item.id}</p>
-                  <p className=" w-[6.25vw]   ">
+                  <p className="w-[8.21vw] text-center ">{item.id}</p>
+                  <p className="w-[6.25vw]   ">
                     {new Big(item.lck_collateral).div("10e17").toFixed(4)}
                   </p>
                   <p className="w-[6.25vw]">
@@ -99,21 +124,28 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
                   </p>
                   <p className="w-[5.21vw] ">$100</p>
                   <p className="w-[3.13vw] text-center ">3</p>
-                  <div className="w-[1.25vw] ">
+                  <div className="w-[1.25vw] cursor-pointer ">
                     <img
-                      onClick={() => setIsStar(!isStar)}
-                      src={isStar ? star : unstar}
+                      onClick={() => {
+                        setIsStar((prevState) =>
+                          prevState.map((star) =>
+                            star.id === item.id
+                              ? { ...star, status: !star.status }
+                              : star
+                          )
+                        );
+                      }}
+                      src={isCurrentStar?.status ? star : unstar}
                       alt=""
-                      className=" h-[2.34vh]"
+                      className="h-[2.34vh]"
                     />
                   </div>
-                  <div className=" w-[1.25vw]">
-                    <img src={haunter} alt="" className=" h-[2.34vh]" />
+                  <div className="w-[1.25vw]">
+                    <img src={haunter} alt="" className="h-[2.34vh]" />
                   </div>
                 </div>
-              ))}
-            </>
-          )}
+              );
+            })}
           {!allVaults && <></>}
         </div>
       </div>
