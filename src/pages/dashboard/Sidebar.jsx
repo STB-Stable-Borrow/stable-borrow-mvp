@@ -19,8 +19,10 @@ function Sidebar({
   onHistoryClick,
   onSettingsClick,
   onHomeClick,
+  activeTab,
   _verifyConnection,
   _disconnect,
+  active,
 }) {
   const [isExpanded, setIsExpanded] = useState(true);
   const navigate = useNavigate();
@@ -28,8 +30,6 @@ function Sidebar({
   const handleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
-
-  const [active, setActive] = useState(1);
 
   const sidebarObj = [
     {
@@ -107,7 +107,7 @@ function Sidebar({
             key={item.id}
             onClick={() => {
               item.onClick(item.id);
-              setActive(item.id);
+              activeTab(item.id);
             }}
           >
             <img src={item.icon} alt="" />

@@ -3,9 +3,19 @@ import profile from "../../../assets/dashboard/profileImg.svg";
 import editProfile from "../../../assets/dashboard/editProfile.svg";
 import EditProfile from "./EditProfile";
 import { Big } from "big.js";
+import { useDashboard } from "../../../contexts/dashboardContext";
+import { useEffect } from "react";
 
 function Settings({ _stcBlnc, _xdcBalance, _xdcPrc, _profile }) {
   const [showSettings, setShowSettings] = useState(true);
+
+  const { active, activeTab } = useDashboard();
+
+  useEffect(() => {
+    if (active === 1) {
+      activeTab(6);
+    }
+  }, []);
 
   const handleEditProfile = () => {
     setShowSettings(!showSettings);

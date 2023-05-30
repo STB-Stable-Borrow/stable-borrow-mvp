@@ -180,7 +180,7 @@ function HomeIndex({
           <h1 className="w-[300px]">Date and Time</h1>
           <h1 className="w-[300px]">Tx Hash</h1>
         </div>
-        <div className="max-h-[21.85vh] border border-[#B0B0B0] bg-[#292C31] overflow-auto ">
+        <div className="max-h-[21.85vh] border-dashed border border-[#009fbd] bg-[#292C31] overflow-auto ">
           {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] pr-2 py-[1.94vh] border-b border-[#B0B0B0]  "

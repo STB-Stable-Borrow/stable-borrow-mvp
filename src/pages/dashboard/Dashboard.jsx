@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useDashboard } from "../../contexts/dashboardContext";
@@ -12,7 +12,14 @@ import { Web3ModalContext } from "../../contexts/web3ModalContext";
 import { useNavigate } from "react-router-dom";
 import { getTokenDetails } from "../../lib/filebaseIpfs";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
-import { getAllHauntedVaults, getAllLiquidatedVaults, getAllUserVaults, getColRatio, getUserTotalDebt, getUserTotalLockedCol } from "../../lib/stbContract";
+import {
+  getAllHauntedVaults,
+  getAllLiquidatedVaults,
+  getAllUserVaults,
+  getColRatio,
+  getUserTotalDebt,
+  getUserTotalLockedCol,
+} from "../../lib/stbContract";
 import { getStcBalance } from "../../lib/stcContract";
 import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
@@ -24,7 +31,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function Dashboard() {
-  const {web3, account, address, stb, stc, sbt,  connected, chainId, xdcBalance, xdcBlnc, getXdcBalance, disconnect, connect} = useContext(Web3ModalContext);
+  const {
+    web3,
+    account,
+    address,
+    stb,
+    stc,
+    sbt,
+    connected,
+    chainId,
+    xdcBalance,
+    xdcBlnc,
+    getXdcBalance,
+    disconnect,
+    connect,
+  } = useContext(Web3ModalContext);
   const {
     showHome,
     showDashBorrow,
@@ -40,10 +61,12 @@ function Dashboard() {
     onSettingsClick,
     resetVaultSetup,
     isLoading,
-    onVaultBackClick
+    onVaultBackClick,
+    active,
+    activeTab,
   } = useDashboard();
   const navigate = useNavigate();
-  const {resetVaultBorrowSetup} = useBorrow();
+  const { resetVaultBorrowSetup } = useBorrow();
 
   const [isReg, setIsReg] = useState(false);
   const [profile, setProfile] = useState(null);
@@ -57,18 +80,18 @@ function Dashboard() {
   const [xdcPrc, setXdcPrc] = useState(null);
   const [hauntedVlts, setHauntedVlts] = useState(null);
   const [liquidatedVlts, setLiquidatedVlts] = useState(null);
-  
-  
+
   //reset vault setup
   useEffect(() => {
     resetVaultBorrowSetup();
   }, []);
 
-   // verify connection status and chainId
-   const verifyConnection = () => {
-    const acceptIds = [50, 51]
-    if(!connected && !chainId) {
+  // verify connection status and chainId
+  const verifyConnection = () => {
+    const acceptIds = [50, 51];
+    if (!connected && !chainId) {
       connect();
+
      }
      if(connected && !acceptIds.includes(chainId)){
       toast.error("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
@@ -76,107 +99,107 @@ function Dashboard() {
      } 
   }
 
+
   //get registration status
   useEffect(() => {
     (async () => {
-      if(connected && account) {
-      await isRegistered(sbt, account).then((res) => {
-        setIsReg(res);
-      });
+      if (connected && account) {
+        await isRegistered(sbt, account).then((res) => {
+          setIsReg(res);
+        });
       }
     })();
-}, [isReg]);
+  }, [isReg]);
 
   //get profile info
   useEffect(() => {
     (async () => {
-      if(connected && account) {
-      getTokenDetails(account).on("success", (res) => {
-        const profileinfo = Buffer.from(res.data.Body, "utf8").toString();
-        const profileFormatted = profileinfo.replaceAll("\n", " ");
-        const json = JSON.parse(profileFormatted);
-        const _profile = {
-          tokenId: json.id,
-          username: json.name,
-          about: json.description,
-          imgUrl: json.image,
-          creationDate: json.date,
-        };
-        setProfile(_profile);
-      });
+      if (connected && account) {
+        getTokenDetails(account).on("success", (res) => {
+          const profileinfo = Buffer.from(res.data.Body, "utf8").toString();
+          const profileFormatted = profileinfo.replaceAll("\n", " ");
+          const json = JSON.parse(profileFormatted);
+          const _profile = {
+            tokenId: json.id,
+            username: json.name,
+            about: json.description,
+            imgUrl: json.image,
+            creationDate: json.date,
+          };
+          setProfile(_profile);
+        });
       }
     })();
-}, [profile]);
+  }, [profile]);
 
-//get vaults, total locked and total debt
-useEffect(() => {
-  (async () => {
-    if(connected && account) {
-    await getAllUserVaults(stb, account).then((res) => {
-      setAllVaults(res)
-    });
-    await getUserTotalDebt(stb, account).then((res) => {
-      setTotalDebt(res)
-    });
-    await getUserTotalLockedCol(stb, account).then((res) => {
-      setTotalLck(res)
-    });
-    await getColRatio(stb).then((res) => {
-      setColRatio(res);
-    })
-    }
-  })();
-}, );
-  
-  
-//get balances
+  //get vaults, total locked and total debt
   useEffect(() => {
     (async () => {
-      if(connected && account) {
+      if (connected && account) {
+        await getAllUserVaults(stb, account).then((res) => {
+          setAllVaults(res);
+        });
+        await getUserTotalDebt(stb, account).then((res) => {
+          setTotalDebt(res);
+        });
+        await getUserTotalLockedCol(stb, account).then((res) => {
+          setTotalLck(res);
+        });
+        await getColRatio(stb).then((res) => {
+          setColRatio(res);
+        });
+      }
+    })();
+  });
+
+  //get balances
+  useEffect(() => {
+    (async () => {
+      if (connected && account) {
         getXdcBalance(web3, account);
         await getStcBalance(stc, account).then((res) => {
           setStcBalance(res[0]);
           setStcBlnc(res[1]);
-        })
+        });
       }
     })();
-}, [xdcBalance, stcBalance]);
+  }, [xdcBalance, stcBalance]);
 
-//get prices
-useEffect(() => {
-  (async () => {
-    if(connected && account) {
-      getCurrentPrice("xdce-crowd-sale").then((price) => {
-        if(price) {
-          setXdcPrice(price[0]);
-          setXdcPrc(price[1])
-        }
-      })
-    }
-  })();
-}, );
+  //get prices
+  useEffect(() => {
+    (async () => {
+      if (connected && account) {
+        getCurrentPrice("xdce-crowd-sale").then((price) => {
+          if (price) {
+            setXdcPrice(price[0]);
+            setXdcPrc(price[1]);
+          }
+        });
+      }
+    })();
+  });
 
-//get haunter info
-useEffect(() => {
-  (async () => {
-    if(connected && account) {
-      await getAllHauntedVaults(stb).then((res) => {
-        setHauntedVlts(res);
-      });
-      await getAllLiquidatedVaults(stb).then((res) => {
-        setLiquidatedVlts(res);
-      })
-    }
-  })();
-}, );
-
-
+  //get haunter info
+  useEffect(() => {
+    (async () => {
+      if (connected && account) {
+        await getAllHauntedVaults(stb).then((res) => {
+          setHauntedVlts(res);
+        });
+        await getAllLiquidatedVaults(stb).then((res) => {
+          setLiquidatedVlts(res);
+        });
+      }
+    })();
+  });
 
   return (
     <div className="flex w-screen h-screen overflow-none bg-[#292C31] px-[80px] ">
-      {isLoading && <LoadingSpinner/>}
+      {isLoading && <LoadingSpinner />}
       <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] ">
         <Sidebar
+          active={active}
+          activeTab={activeTab}
           onDashBorrowClick={onDashBorrowClick}
           onEarnClick={onEarnClick}
           onExchangeClick={onExchangeClick}
@@ -189,15 +212,59 @@ useEffect(() => {
       </div>
       <div className="flex flex-col w-full ml-[43px] ">
         <div className=" mt-[7.6vh] text-[#B0B0B0]   ">
-          <Navbar _account={account} _address={address} _profile={profile}/>
+          <Navbar _account={account} _address={address} _profile={profile} />
         </div>
         <div className="mt-[3.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
-          {showHome && <Home _isReg={isReg} _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts} _colRatio={colRatio} _allVaults={allVaults}/>}
-          {showDashBorrow && <DashBorrow _web3={web3} _onVaultBackClick={onVaultBackClick} _resetVaultSetup={resetVaultSetup} _stcBlnc={stcBlnc}  _totalLck={totalLck} _totalDebt={totalDebt} _xdcPrc={xdcPrc} _colRatio={colRatio} _allVaults={allVaults} _stb={stb} _stc={stc} _xdcBalance={xdcBlnc} _account={account}/>}
-          {showEarn && <Earn _web3={web3} _stb={stb} _account={account} _colRatio={colRatio} _hauntedVlts={hauntedVlts} _liquidatedVlts={liquidatedVlts}  _xdcPrc={xdcPrc}/>}
+          {showHome && (
+            <Home
+              _isReg={isReg}
+              _totalLck={totalLck}
+              _totalDebt={totalDebt}
+              _xdcPrc={xdcPrc}
+              _hauntedVlts={hauntedVlts}
+              _liquidatedVlts={liquidatedVlts}
+              _colRatio={colRatio}
+              _allVaults={allVaults}
+            />
+          )}
+          {showDashBorrow && (
+            <DashBorrow
+              _web3={web3}
+              _onVaultBackClick={onVaultBackClick}
+              _resetVaultSetup={resetVaultSetup}
+              _stcBlnc={stcBlnc}
+              _totalLck={totalLck}
+              _totalDebt={totalDebt}
+              _xdcPrc={xdcPrc}
+              _colRatio={colRatio}
+              _allVaults={allVaults}
+              _stb={stb}
+              _stc={stc}
+              _xdcBalance={xdcBlnc}
+              _account={account}
+            />
+          )}
+          {showEarn && (
+            <Earn
+              _web3={web3}
+              _stb={stb}
+              _account={account}
+              _colRatio={colRatio}
+              _hauntedVlts={hauntedVlts}
+              _liquidatedVlts={liquidatedVlts}
+              _xdcPrc={xdcPrc}
+            />
+          )}
           {showExchange && <Exchange />}
           {showHistory && <History />}
-          {showSettings && <Settings _profile={profile} _stcBlnc={stcBlnc} _xdcBalance={xdcBlnc} _xdcPrc={xdcPrc}/>}
+          {showSettings && (
+            <Settings
+              _profile={profile}
+              _stcBlnc={stcBlnc}
+              _xdcBalance={xdcBlnc}
+              _xdcPrc={xdcPrc}
+            />
+          )}
         </div>
       </div>
     </div>
