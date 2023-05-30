@@ -151,9 +151,9 @@ function Info() {
         </div>
         <div
           onLoad={verifyConnection}
-          className="bg-gradient-to-r from-[#009FBD]/20 to-50% to-[#865DFF]    border-[3px] border-[#009FBD] h-full w-full  rounded-[30px] relative"
+          className="bg-gradient-to-r from-[#013038] to-[#013139]  border-[3px] border-[#009FBD] h-full w-full rounded-[30px] relative"
         >
-          <div className="flex flex-col items-center gap-[5px] bg-black/80 w-full h-full rounded-[30px] px-[6px] py-2 ">
+          <div className="flex flex-col items-center gap-[5px] bg-black/30 w-full h-full rounded-[30px] px-[6px] py-2 ">
             <img src={exchange} alt="" className="w-[80px] " />
             <h1 className="font-black border-b-2 border-[#009FBD] text-lg">
               Exchange
