@@ -8,7 +8,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
     username: "",
     about: "",
   });
-
+return(
 
     <div className="flex flex-col items-center justify-center">
 
