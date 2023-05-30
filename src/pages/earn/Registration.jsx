@@ -21,9 +21,9 @@ import {
 import { CivicPassProvider } from "../../contexts/civicpassContext";
 
 function Registration() {
+  const { gatewayStatus } = useGateway();
   const { web3, sbt, account, signer, address, connected, chainId } =
     useContext(Web3ModalContext);
-  const { gatewayStatus } = useGateway();
   const [createAvatar, setCreateAvatar] = useState(false);
   const [showRegistration, setShowRegistration] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -32,9 +32,10 @@ function Registration() {
   const [username, setUsername] = useState(null);
   const [about, setAbout] = useState(null);
   const [avatar, setAvatar] = useState(null);
+  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const registerBtn = document.getElementById("register-btn");
-  const captchaBtn = document.getElementsByClassName("sc-gTRrQi czsvEU");
+  const captchaBtn = document.querySelector('[data-testid="CIVIC_IDENTITY_BUTTON"]');
 
   // verify connection status and chainId
   const verifyConnection = () => {
@@ -51,6 +52,7 @@ function Registration() {
     }
   };
 
+
   const handleCreateAvatar = () => {
     setCreateAvatar(true);
     setShowRegistration(false);
@@ -63,9 +65,9 @@ function Registration() {
 
   //handles register button colour behaviour
   const handleRegisterButtonColour = () => {
-    if (registerBtn && captchaBtn) {
+    if (registerBtn) {
       if (
-        captchaBtn[0].children[1].textContent == "Active" &&
+        captchaBtn.textContent == "Active" &&
         avatarImage &&
         username &&
         about
@@ -77,7 +79,9 @@ function Registration() {
     }
   };
 
-  handleRegisterButtonColour();
+/// since gatewayStatus keeps returning 2 even when pass is active
+///get the content of the identityButton to track if pass is active or not
+handleRegisterButtonColour();
 
   //handles profile creation
   const handleMintProfile = async () => {

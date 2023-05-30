@@ -17,7 +17,7 @@ function Header({ _handleConnectWallet_ }) {
         </Link>
       </div>
       <div className="flex justify-betweeen items-center gap-[2.14vw] text-[#FFFFFF] font-semibold  ">
-        <ul className="flex gap-[2.14vw] font-sans  text-sm cursor-pointer">
+        <ul className="flex gap-[2.14vw]   text-sm cursor-pointer">
           <li className="hover:opacity-75">
             <Link
               to="/about"
