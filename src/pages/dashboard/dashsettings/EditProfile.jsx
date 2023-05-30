@@ -10,7 +10,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
   });
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
         <button
           className="flex items-center gap-2 text-[#009FBD] text-sm "
@@ -62,7 +62,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
         </div>
       )}
       {!prof && (
-        <div className="flex items-center gap-[23px] mb-[4.35vh]">
+        <div className="flex items-center  gap-[23px] mb-[4.35vh]">
           <img
             src={profile}
             alt=""
@@ -72,7 +72,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
             <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] ">
               @username
             </h1>
-            <div className="border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between gap-[4.47vw]  mb-[1.85vh ">
+            <div className="w-[15.89vw] border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between mb-[1.85vh] ">
               <div className="flex item-center flex-col ">
                 <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
                   0 STC
