@@ -99,9 +99,12 @@ function Borrow({
         </div>
         <div>
           {allVaults && (
-            <div className="h-[25.8vh] overflow-y-auto">
+            <div className="max-h-[25.8vh] overflow-y-auto border border-[#B0B0B0]">
               {allVaults.map((item, index) => (
-                <div key={index} className="bg-[#292C31] w-full  h-[5.76vh] flex justify-between pl-[21px] items-center  border-b border-[#B0B0B0]  ">
+                <div
+                  key={index}
+                  className="bg-[#292C31] w-full  h-[5.76vh] flex justify-between pl-[21px] items-center  border-b border-[#B0B0B0]  "
+                >
                   <h1 className="w-[5.13vw]">#{item.id}</h1>
                   <h1 className="w-[7.21vw] text-center ">{item.id}</h1>
                   <h1 className="w-[2.60vw]   ">XDC</h1>

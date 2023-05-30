@@ -8,25 +8,39 @@ import remove from "../../../assets/dashboard/remove.svg";
 import add from "../../../assets/dashboard/add.svg";
 
 function Liquidity({ assetOne, assetTwo }) {
-  const [inputValue, setInputValue] = useState("");
   const [slippage, setSlippage] = useState([
-    { value: 0.1, isActive: false },
-    { value: 0.5, isActive: false },
-    { value: 1, isActive: false },
+    {
+      id: 1,
+      value: 0.1,
+      isActive: false,
+    },
+    {
+      id: 2,
+      value: 0.5,
+      isActive: false,
+    },
+    {
+      id: 3,
+      value: 1,
+      isActive: false,
+    },
   ]);
 
-  const [isAddLiquidity, setIsAddLiquidity] = useState(true);
+  const [isSwapped, setIsSwapped] = useState(false);
 
-  const handleLiquidityToggle = () => {
-    setIsAddLiquidity((prev) => !prev);
+  const handleSwap = () => {
+    setIsSwapped((prev) => !prev);
   };
+
+  const [inputValue, setInputValue] = useState("");
+  const [activeSlippage, setActiveSlippage] = useState(0);
 
   const handleInputChange = (e) => {
     const value = parseFloat(e.target.value);
     setInputValue(value);
 
     const updatedSlippage = slippage.map((slip) => ({
-      value: slip.value,
+      ...slip,
       isActive:
         (slip.value === 0.1 && value >= 0 && value <= 0.49) ||
         (slip.value === 0.5 && value >= 0.5 && value <= 0.99) ||
@@ -36,10 +50,22 @@ function Liquidity({ assetOne, assetTwo }) {
     setSlippage(updatedSlippage);
   };
 
-  const [isSwapped, setIsSwapped] = useState(false);
+  const handleSlippageClick = (id) => {
+    setActiveSlippage(id);
 
-  const handleSwap = () => {
-    setIsSwapped((prev) => !prev);
+    const updatedSlippage = slippage.map((slip) => ({
+      ...slip,
+      isActive: slip.id === id,
+    }));
+
+    setSlippage(updatedSlippage);
+    setInputValue("");
+  };
+
+  const [isAddLiquidity, setIsAddLiquidity] = useState(true);
+
+  const handleLiquidityToggle = () => {
+    setIsAddLiquidity((prev) => !prev);
   };
 
   return (
@@ -158,14 +184,15 @@ function Liquidity({ assetOne, assetTwo }) {
         {/* */}
         <div className="flex items-center justify-between w-full ">
           <div className="bg-[#202225] w-[9.53vw] h-[3.89vh]  px-[1.15vw] justify-between  flex items-center text-[0.65rem] rounded-[10px] text-[#B0B0B0] ">
-            {slippage.map((slip, index) => (
+            {slippage.map((slip) => (
               <p
-                key={index}
-                className={`${
+                key={slip.id}
+                className={`cursor-pointer ${
                   slip.isActive ? "text-[#009FBD]" : "text-gray-500"
                 }`}
+                onClick={() => handleSlippageClick(slip.id)}
               >
-                {slip.isActive ? inputValue + "%" : slip.value + "%"}
+                {slip.value + "%"}
               </p>
             ))}
           </div>
