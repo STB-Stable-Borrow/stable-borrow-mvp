@@ -24,7 +24,7 @@ function BorrowNav() {
       </div>
       <div
         className={`w-[135px] h-[2px]  ${
-          !generate ? "bg-white" : "bg-[#8B8E94]"
+          generateSTC ? "bg-white" : "bg-[#8B8E94]"
         }`}
       ></div>
       <div className="flex items-center gap-2 justify-between">
