@@ -105,7 +105,7 @@ function EarnIndex({
           <h1 className="w-[200px]">Date and Time</h1>
           <h1 className="w-[200px]">Tx Hash</h1>
         </div>
-        <div className="h-[20.85vh] bg-[#292C31] overflow-auto ">
+        <div className="max-h-[20.85vh] border border-[#B0B0B0] bg-[#292C31] overflow-auto ">
           {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] py-[1vh] border-b border-[#B0B0B0]  "
