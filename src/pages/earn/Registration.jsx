@@ -19,6 +19,9 @@ import {
   useGateway,
 } from "@civic/ethereum-gateway-react";
 import { CivicPassProvider } from "../../contexts/civicpassContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Registration() {
   const { gatewayStatus } = useGateway();
@@ -41,11 +44,11 @@ function Registration() {
   const verifyConnection = () => {
     const acceptIds = [50, 51];
     if (!connected && !chainId) {
-      window.alert("You have to connect your wallet to proceed");
+     toast.info("You have to connect your wallet to proceed");
       navigate("/");
     }
     if (connected && !acceptIds.includes(chainId)) {
-      window.alert(
+      toast.error(
         "You connected to wrong chain, disconnect and connect to Apothem or Xinfin."
       );
       navigate("/");
@@ -109,7 +112,7 @@ handleRegisterButtonColour();
             );
           });
         } else {
-          window.alert(
+          toast.success(
             "You are a registered user, you will be redirected to your dashbaord."
           );
           navigate("/dashboard");
@@ -137,7 +140,7 @@ handleRegisterButtonColour();
         setAvatarImage(avataerImg);
         setAvatar(null);
       } else {
-        window.alert("Error while getting created avatar. Try again later");
+        toast.error("Error while getting created avatar. Try again later");
       }
     };
   };

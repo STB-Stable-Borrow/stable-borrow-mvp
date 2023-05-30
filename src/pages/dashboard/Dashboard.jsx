@@ -18,6 +18,10 @@ import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
 import { CivicPassProvider } from "../../contexts/civicpassContext";
 import { isRegistered } from "../../lib/sbtContract";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function Dashboard() {
   const {web3, account, address, stb, stc, sbt,  connected, chainId, xdcBalance, xdcBlnc, getXdcBalance, disconnect, connect} = useContext(Web3ModalContext);
@@ -67,7 +71,7 @@ function Dashboard() {
       connect();
      }
      if(connected && !acceptIds.includes(chainId)){
-      window.alert("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
+      toast.error("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
       navigate("/")
      } 
   }
