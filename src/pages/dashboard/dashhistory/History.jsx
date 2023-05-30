@@ -1,10 +1,19 @@
-import React,{useState} from "react";
+import React,{useState,useEffect } from "react";
 import haunt from "../../../assets/dashboard/haunt.svg";
 import filter from "../../../assets/dashboard/filter.svg";
 import search from "../../../assets/dashboard/search.svg";
 import vaultsData from "../../../data/vaultsData";
+import { useDashboard } from "../../../contexts/dashboardContext";
+  
 
 function History() {
+    const { active, activeTab } = useDashboard();
+
+  useEffect(() => {
+    if (active === 1) {
+      activeTab(4);
+    }
+  }, []);
   return(
     <div>
          <h1 className="w-full bg-[#202225] flex items-center justify-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[2.73vh] ">
@@ -58,6 +67,7 @@ function History() {
 
     </div>
   )
+
 }
 
 export default History;

@@ -22,6 +22,12 @@ export const DashboardProvider = ({ children }) => {
   const [paybackRes, setPaybackRes] = useState(null);
   const [isLoading, setIsloading] = useState(false);
 
+  const [active, setActive] = useState(1);
+
+  const activeTab = (id) => {
+    setActive(id);
+  };
+
   const onHomeClick = () => {
     setShowHome(true);
     setShowDashBorrow(false);
@@ -186,6 +192,8 @@ export const DashboardProvider = ({ children }) => {
         handleLoading,
         isLoading,
         onVaultBackClick,
+        active,
+        activeTab,
       }}
     >
       {children}
