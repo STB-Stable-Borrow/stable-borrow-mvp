@@ -25,13 +25,16 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
   return (
     <div>
       <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
-        <button onClick={_onBackClick} className="flex items-center gap-2 text-[#009FBD] text-sm ">
+        <button
+          onClick={_onBackClick}
+          className="flex items-center gap-2 text-[#009FBD] text-sm "
+        >
           <img src={arrowLeft} alt="" />
           Back
         </button>
         <h1 className=" ">Overview</h1>
       </div>
-      <div className="flex justify-center items-center gap-[230px] mb-[5.93vh]  ">
+      <div className="flex justify-center items-center gap-[230px] mb-[2.93vh]  ">
         <div className="w-[22.84vw] rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">XDC Price:</h1>
@@ -84,11 +87,14 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
           <h1 className="w-[1.25vw]  "> </h1>
           <h1 className="w-[1.25vw] "> </h1>
         </div>
-        <div className="h-[28.8vh] overflow-y-auto">
+        <div className="max-h-[28.8vh] overflow-y-auto  border border-[#B0B0B0] ">
           {allVaults && (
             <>
               {allVaults.map((item, index) => (
-                <div key={index} className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] ">
+                <div
+                  key={index}
+                  className="bg-[#292C31] h-[5.76vh] flex justify-around items-center pl-[22px] border-b border-[#B0B0B0] "
+                >
                   <p className="w-[5.13vw] ">#{item.id}</p>
                   <p className=" w-[8.21vw] text-center ">{item.id}</p>
                   <p className=" w-[6.25vw]   ">

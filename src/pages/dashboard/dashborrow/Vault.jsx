@@ -18,7 +18,7 @@ function Vault({
   _onWithdrawClick,
   _onPaybackClick,
   resetVaultSetup,
-  onVaultBackClick
+  onVaultBackClick,
 }) {
   const [vaultInfo, setVaultInfo] = useState(null);
 
@@ -39,7 +39,10 @@ function Vault({
   return (
     <div>
       <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
-        <button onClick={onVaultBackClick} className="flex items-center gap-2 text-[#009FBD] text-sm ">
+        <button
+          onClick={onVaultBackClick}
+          className="flex items-center gap-2 text-[#009FBD] text-sm "
+        >
           <img src={arrowLeft} alt="" />
           Back
         </button>
@@ -210,7 +213,7 @@ function Vault({
           <h1 className="w-[300px]">Date and Time</h1>
           <h1 className="w-[300px]">Tx Hash</h1>
         </div>
-        <div className="h-[13.85vh] bg-[#292C31] overflow-auto  ">
+        <div className="max-h-[10.85vh] bg-[#292C31] overflow-auto  border border-[#b0b0b0] ">
           {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] py-[1vh] border-b border-[#B0B0B0]  "

@@ -86,9 +86,9 @@ function Settings({ _stcBlnc, _xdcBalance, _xdcPrc, _profile }) {
                 )}
               </div>
             </div>
-            <div className="bg-[#B0B0B0] w-[25.8854vw] rounded-[20px] pl-[1.20vw] py-[1.02vh] mb-[3.15vh] ">
-              {_profile && <p className="text-[0.65em] ">{_profile.about}</p>}
-              {!_profile && <p className="text-[0.65em] ">User's About</p>}
+            <div className="bg-[#B0B0B0] w-[25.8854vw] rounded-[20px] pl-[1.20vw] max-h-[10.5vh] py-[1.02vh] mb-[3.15vh] overflow-y-auto ">
+              {_profile && <p className="text-[0.875em] ">{_profile.about}</p>}
+              {!_profile && <p className="text-[0.875em] ">User's About</p>}
             </div>
             <button
               className="text-white flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 text-sm "
