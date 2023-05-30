@@ -28,12 +28,12 @@ function Footer() {
         <div className="flex gap-[0.47vw] items-center">
           <img src={phone} alt="phone" />
           <p className="cursor-pointer" onClick={copyToClipboard}>
-            +1 (202) 555 0156
+            +234 (815) 433 5363
           </p>
         </div>
         <div className="flex gap-[0.47vw] items-center">
           <img src={chat} alt="chat" />
-          <p>info@stableborrow.com</p>
+          <p>stableborrow.org@gmail.com</p>
         </div>
       </div>
     </div>
