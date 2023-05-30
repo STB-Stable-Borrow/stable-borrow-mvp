@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import drag from "../../../assets/dashboard/drag.svg";
 import SwapIndex from "./SwapIndex";
 import PoolIndex from "./PoolIndex";
+import { useDashboard } from "../../../contexts/dashboardContext";
 
 function Exchange() {
   const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
@@ -14,6 +14,14 @@ function Exchange() {
   const handlePoolToggle = () => {
     setIsSwapToggleOn(!isSwapToggleOn);
   };
+
+  const { active, activeTab } = useDashboard();
+
+  useEffect(() => {
+    if (active === 1) {
+      activeTab(5);
+    }
+  }, [active]);
 
   return (
     <div className="flex items-center gap-[2.60vw] h-full w-full ">
