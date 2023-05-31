@@ -45,10 +45,9 @@ function Earn({
           _onHauntClick={onHauntClick}
         />
       )}
-      {/* {pageTwo && (
+      {pageTwo && (
         <EarnPageTwo xdcPrc={_xdcPrc} stb={_stb} _onBackClick={onBackClick} />
-      )} */}
-      {pageTwo && <EarnFailed />}
+      )}
     </div>
   );
 }
