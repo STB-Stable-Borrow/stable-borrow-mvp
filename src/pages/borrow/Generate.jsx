@@ -3,6 +3,9 @@ import back from "../../assets/borrow/back.svg";
 import gen from "../../assets/borrow/gen.svg";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import { createVault } from "../../lib/stbContract";
+import { useDashboard } from "../../contexts/dashboardContext";
+
+
 
 function Generate({
   onNextButtonClicked,
@@ -12,13 +15,17 @@ function Generate({
   _stb,
   _account,
   _web3,
+
 }) {
   const { totalStcOut, totalXdcIn, handleGenerateSTCNext } = useBorrow();
 
+  const { handleLoading } = useDashboard()
   //handles generate click event
   const handleGenerate = async () => {
     const amt = _web3.utils.toWei(String(totalXdcIn), "ether");
+    handleLoading()
     await createVault(_stb, _account, amt).then((res) => {
+      handleLoading()
       handleGenerateSTCNext(res);
     });
   };

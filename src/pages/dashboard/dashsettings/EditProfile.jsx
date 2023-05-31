@@ -8,6 +8,14 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
     username: "",
     about: "",
   });
+
+return(
+
+
+   
+
+
+=======
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex flex-col items-center justify-center">
@@ -123,6 +131,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

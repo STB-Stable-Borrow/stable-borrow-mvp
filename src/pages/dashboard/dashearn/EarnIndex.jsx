@@ -61,7 +61,7 @@ function EarnIndex({
           className={`w-[4.48vw] h-[9.9vh] ${isBouncing ? 'animate-bounce' : ''}`}
           initial={{ y: 0 }}
           animate={{ y: isBouncing ? [-10, 0] : 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5}}
         />
       </AnimatePresence>
     </div>

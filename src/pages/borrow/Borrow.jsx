@@ -11,17 +11,21 @@ import { getCurrentPrice } from "../../lib/coingecko";
 import { getColRatio, getRegFee } from "../../lib/stbContract";
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDashboard } from "../../contexts/dashboardContext";
+import LoadingSpinner from "../../utils/spinner";
 
 
 
 function Borrow() {
   const navigate = useNavigate();
+  const {isLoading} = useDashboard()
   const { web3, stb, stc, account, address, connected, chainId, xdcBalance, xdcBlnc,  getXdcBalance } = useContext(Web3ModalContext)
   const { vault, generateSTC, confirm, handleVaultNext, resetVaultBorrowSetup, handleGenerateSTCBack, generateRes,fromDashborrow, setFromDashborrow } = useBorrow();
   const [xdcPrice, setXdcPrice] = useState(null);
   const [xdcPrc, setXdcPrc] = useState(null);
   const [colRt, setColRt] = useState(null);
 
+console.log("orroe")
   const verifyConnection = () => {
     const acceptIds = [50, 51]
     if(!connected && !chainId) {
@@ -73,6 +77,7 @@ const getMaxSTC = () => {
 
   return (
     <div className="w-screen h-screen bg-[#292C31] ">
+      {isLoading && <LoadingSpinner />}
       <Link to={"/"}>
         <img
           src={logo}
