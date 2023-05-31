@@ -34,7 +34,9 @@ function Earn({
     if (active === 1) {
       activeTab(3);
     }
-    setPageOne(true);
+    if (!pageOne && !pageTwo ) {
+      setPageOne(true);
+    }
   }, [active]);
 
   const handleStatus = (value) => {
