@@ -28,6 +28,8 @@ export const DashboardProvider = ({ children }) => {
     setActive(id);
   };
 
+
+
   const onHomeClick = () => {
     setShowHome(true);
     setShowDashBorrow(false);
@@ -194,6 +196,7 @@ export const DashboardProvider = ({ children }) => {
         onVaultBackClick,
         active,
         activeTab,
+        setShowDashBorrow
       }}
     >
       {children}

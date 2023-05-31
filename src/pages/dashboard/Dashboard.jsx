@@ -25,10 +25,8 @@ import { getCurrentPrice } from "../../lib/coingecko";
 import LoadingSpinner from "../../utils/spinner";
 import { CivicPassProvider } from "../../contexts/civicpassContext";
 import { isRegistered } from "../../lib/sbtContract";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Dashboard() {
   const {
@@ -91,14 +89,14 @@ function Dashboard() {
     const acceptIds = [50, 51];
     if (!connected && !chainId) {
       connect();
-
-     }
-     if(connected && !acceptIds.includes(chainId)){
-      toast.error("You connected to wrong chain, disconnect and connect to Apothem or Xinfin.")
-      navigate("/")
-     } 
-  }
-
+    }
+    if (connected && !acceptIds.includes(chainId)) {
+      toast.error(
+        "You connected to wrong chain, disconnect and connect to Apothem or Xinfin."
+      );
+      navigate("/");
+    }
+  };
 
   //get registration status
   useEffect(() => {
@@ -215,7 +213,7 @@ function Dashboard() {
           <Navbar _account={account} _address={address} _profile={profile} />
         </div>
         <div className="mt-[3.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
-          {showHome && (
+          {showHome && (activeTab === 1 || showHome) && (
             <Home
               _isReg={isReg}
               _totalLck={totalLck}
@@ -227,7 +225,7 @@ function Dashboard() {
               _allVaults={allVaults}
             />
           )}
-          {showDashBorrow && (
+          {showDashBorrow && (activeTab === 2 || showDashBorrow)  && (
             <DashBorrow
               _web3={web3}
               _onVaultBackClick={onVaultBackClick}
@@ -244,7 +242,7 @@ function Dashboard() {
               _account={account}
             />
           )}
-          {showEarn && (
+          {showEarn  && (activeTab === 3 || showEarn) &&  (
             <Earn
               _web3={web3}
               _stb={stb}
@@ -255,9 +253,9 @@ function Dashboard() {
               _xdcPrc={xdcPrc}
             />
           )}
-          {showExchange && <Exchange />}
-          {showHistory && <History />}
-          {showSettings && (
+          {showExchange && (activeTab === 5 || showExchange) && <Exchange />}
+          {showHistory && (activeTab === 4 || showHistory) && <History />}
+          {showSettings &&  (activeTab === 6 || showSettings) && (
             <Settings
               _profile={profile}
               _stcBlnc={stcBlnc}
