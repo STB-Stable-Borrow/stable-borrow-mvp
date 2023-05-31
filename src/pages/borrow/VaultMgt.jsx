@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDashboard } from "../../contexts/dashboardContext";
 
+
 function VaultMgt({
   onNextButtonClicked,
   onLoaded,
@@ -65,23 +66,35 @@ function VaultMgt({
     if (_account && _stc && nextBtn) {
       const stbAddress = _stb.options.address;
 
-      await _stc.methods.allowance(_account, stbAddress).call().then((res) => {
-        if (res == maxU256 && nextBtn && stcOut > 0) {
-          nextBtn.style.backgroundColor = "#009FBD"
-          setIsApproved(true);
-        }else{
-          nextBtn.style.backgroundColor = "#585858"
-          setIsApproved(false);
-        }
-    }).catch((err) => {
-      if (err.message.includes("Response has no error or result for request")){
-        toast.info("You are offline due to internet connection. check your connection and try again"); 
-      }else{
-        console.log("Error while getting allowance between user and STB :", err)
-        toast.error("Error while getting allowance between user and STB. Try again later")
-      }   
-    })
-
+      await _stc.methods
+        .allowance(_account, stbAddress)
+        .call()
+        .then((res) => {
+          if (res == maxU256 && nextBtn && stcOut > 0) {
+            nextBtn.style.backgroundColor = "#009FBD";
+            setIsApproved(true);
+          } else {
+            nextBtn.style.backgroundColor = "#585858";
+            setIsApproved(false);
+          }
+        })
+        .catch((err) => {
+          if (
+            err.message.includes("Response has no error or result for request")
+          ) {
+            toast.info(
+              "You are offline due to internet connection. check your connection and try again"
+            );
+          } else {
+            console.log(
+              "Error while getting allowance between user and STB :",
+              err
+            );
+            toast.error(
+              "Error while getting allowance between user and STB. Try again later"
+            );
+          }
+        });
     }
   };
 

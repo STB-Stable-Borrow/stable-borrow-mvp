@@ -41,9 +41,11 @@ function HomeIndex({
   return (
     <div className=" overflow-hidden ">
       <div className=" text-[#D9D9D9] flex justify-around mb-[5.09vh]   ">
-
-        <div className={`${!isBorrowOverview && "opacity-10 cursor-not-allowed"} border-[2px] border-dashed border-[#585858] px-[1.04vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#009fbd] -52.27 to-[#344e53] 127.2% flex flex-col gap-[2.78vh] items-center `}>
-
+        <div
+          className={`${
+            !isBorrowOverview && "opacity-10 cursor-not-allowed"
+          } border-[2px] border-dashed border-[#585858] px-[1.04vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#009fbd] -52.27 to-[#344e53] 127.2% flex flex-col gap-[2.78vh] items-center `}
+        >
           <h1 className="font-semibold">Borrow Overview</h1>
           <div className="flex justify-between gap-[19px] h-[16.20vh] ">
             <div className="bg-[#12A92A]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center ">
@@ -95,8 +97,11 @@ function HomeIndex({
           )}
         </div>
 
-        <div className={`${!isEarnOverview && "opacity-10 cursor-not-allowed"} border-[2px] border-dashed border-[#585858] px-[1.04vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#865DFF] -52.27 to-[#344e53] 127.2%  flex flex-col gap-[2.78vh] items-center`}>
-
+        <div
+          className={`${
+            !isEarnOverview && "opacity-10 cursor-not-allowed"
+          } border-[2px] border-dashed border-[#585858] px-[1.04vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#865DFF] -52.27 to-[#344e53] 127.2%  flex flex-col gap-[2.78vh] items-center`}
+        >
           <h1 className="font-semibold">Earn Overview</h1>
           <div className="flex justify-between gap-[19px] h-[16.20vh] ">
             <div className="bg-[#12A92A] h-[16.20vh] py-[0.81vh]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-between ">
@@ -180,7 +185,7 @@ function HomeIndex({
           <h1 className="w-[300px]">Date and Time</h1>
           <h1 className="w-[300px]">Tx Hash</h1>
         </div>
-        <div className="max-h-[21.85vh] border-dashed border border-[#009fbd] bg-[#292C31] overflow-auto ">
+        <div className="max-h-[21.85vh] bg-[#292C31] overflow-auto ">
           {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] pr-2 py-[1.94vh] border-b border-[#B0B0B0]  "

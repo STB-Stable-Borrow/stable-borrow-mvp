@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import EarnIndex from "./EarnIndex";
 import EarnPageTwo from "./EarnPageTwo";
 import { useDashboard } from "../../../contexts/dashboardContext";
+import EarnSuccess from "./EarnSuccess";
+import EarnFailed from "./EarnFailed";
 
 function Earn({
   _web3,
