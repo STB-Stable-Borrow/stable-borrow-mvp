@@ -24,14 +24,14 @@ function BorrowNav() {
       </div>
       <div
         className={`w-[135px] h-[2px]  ${
-          !generate ? "bg-white" : "bg-[#8B8E94]"
+          generateSTC ? "bg-white" : "bg-[#8B8E94]"
         }`}
       ></div>
       <div className="flex items-center gap-2 justify-between">
         <img
           src={generate}
           alt=""
-          className={`w-[20px]  ${!generate ? "" : "opacity-75"} `}
+          className={`w-[20px]  ${generateSTC ? "" : "opacity-75"} `}
         />
         <p className={` ${generateSTC ? "text-white" : "text-[#8B8E94]"}`}>
           Generate STC

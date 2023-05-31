@@ -8,6 +8,8 @@ import Phone from "../src/assets/landing/smartphone.svg";
 
 const isSmallAndMedium = window.matchMedia("(max-width: 1024px)").matches;
 
+const isSmallAndMedium = window.matchMedia("(max-width: 1024px)").matches;
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <div>
@@ -33,7 +35,6 @@ root.render(
             Thank you for your understanding and we appreciate your patience.
           </h4>
           </div>
-        
         </div>
       </div>
     ) : (
