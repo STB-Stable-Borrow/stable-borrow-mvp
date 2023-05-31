@@ -46,31 +46,31 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
         <h1 className=" ">Overview</h1>
       </div>
 
-      <div className="flex justify-evenly items-center  mb-[5.93vh]  ">
+      <div className="flex justify-evenly items-center  mb-[2.93vh]  ">
         <div className="w-[22.84vw] rounded-[20px] bg-[#12A92A] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">XDC Price:</h1>
             <p className="mt-[-5px] text-[1.875em] font-medium ">${xdcPrc}</p>
           </div>
         </div>
-        <div className="bg-[#202225] rounded-[20px] h-[16.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD] cursor-pointer">
-      <motion.div
-        animate={{
-          rotate: 360, 
-        }}
-        transition={{
-          duration: 8, 
-          repeatType: "loop", 
-          repeat:true
-        }}
-      >
-        <img
-          src={refresh}
-          alt=""
-          className="w-[4.48vw] h-[9.9vh] cursor-pointer"
-        />
-      </motion.div>
-    </div>
+        <div className="bg-[#202225] rounded-[20px] h-[10.61vh] w-[6.56vw] flex items-center justify-center haunt border-[3px] border-[#009FBD] cursor-pointer">
+          <motion.div
+            animate={{
+              rotate: 360,
+            }}
+            transition={{
+              duration: 8,
+              repeatType: "loop",
+              repeat: true,
+            }}
+          >
+            <img
+              src={refresh}
+              alt=""
+              className="w-[4.48vw] h-[6.9vh] cursor-pointer"
+            />
+          </motion.div>
+        </div>
         <div className="w-[22.84vw] rounded-[20px] bg-[#C16E08] flex flex-col items-center justify-center text-[#D9D9D9] py-[2.3vh] gap-[2.59vh]  ">
           <div className="flex flex-col items-center">
             <h1 className="font-bold">Active Haunters:</h1>
