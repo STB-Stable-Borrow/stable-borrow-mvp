@@ -19,7 +19,7 @@ function Info() {
     useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
-  const { setShowEarn, setShowDashBorrow,setShowExchange } = useDashboard();
+  const { setShowEarn, setShowDashBorrow,setShowExchange,setShowHome } = useDashboard();
 
   // verify connection status and chainId
   const verifyConnection = () => {
@@ -44,6 +44,8 @@ function Info() {
       } else {
         navigate("/dashboard");
         setShowDashBorrow(true);
+        setShowHome(false);
+
       }
     });
   };
@@ -54,6 +56,7 @@ function Info() {
       if (res) {
         navigate("/dashboard");
         setShowEarn(true);
+        setShowHome(false);
       } else {
         navigate("/register");
       }
@@ -62,6 +65,8 @@ function Info() {
   const handleExchange = () => {  
         navigate("/dashboard");
         setShowExchange(true);
+        setShowHome(false);
+
      
   };
 
