@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import borrow from "../assets/info/Borrow.svg";
 import exchange from "../assets/info/Exchange.svg";
 import earn from "../assets/info/Earn.svg";
@@ -10,15 +10,23 @@ import { isRegistered } from "../lib/sbtContract";
 import { getAllUserVaults } from "../lib/stbContract";
 import borrowbgone from "../assets/info/borrowbgone.svg";
 import borrowbgtwo from "../assets/info/borrowbgtwo.svg";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDashboard } from "../../src/contexts/dashboardContext";
 
 function Info() {
   const { sbt, account, stb, connected, chainId } =
     useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
+
+  const { active, activeTab, showExchange, onExchangeClick } = useDashboard();
+
+  useEffect(() => {
+    if (active === 1) {
+      activeTab(5);
+    }
+  }, [active]);
 
   // verify connection status and chainId
   const verifyConnection = () => {
@@ -59,7 +67,10 @@ function Info() {
 
   return (
     <LandingBody>
-      <div style={{font: "TT Firs Neue Trl", fontFamily: "TT Firs Neue Trl"}} className="md:mx-[60px] md:mt-[4.44vh] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
+      <div
+        style={{ font: "TT Firs Neue Trl", fontFamily: "TT Firs Neue Trl" }}
+        className="md:mx-[60px] md:mt-[4.44vh] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  "
+      >
         <div className="flex-col flex justify-between gap-[1.5vh]  h-full w-full ">
           <div className="border-[3px] border-[#009FBD]  rounded-[30px]  w-full h-full relative bg-gradient-to-r from-[#009FBD]  to-[#865DFF] ">
             <div className="flex flex-col items-center gap-[5px] bg-black/80 w-full h-full rounded-[30px] px-[6px] py-2 ">
@@ -68,7 +79,10 @@ function Info() {
                 Borrow $STC
               </h1>
               <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-sm ">
-                <span className=" font-bold text-white"> Stable Coin ($STC) </span>{" "}
+                <span className=" font-bold text-white">
+                  {" "}
+                  Stable Coin ($STC){" "}
+                </span>{" "}
                 is Stable Borrow (STB) Official Token, it’s a fully
                 Decentralized and collateral backed token that’s maintains 1usd
                 as it’s price making it a Stable Token ...{" "}
@@ -183,7 +197,10 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]">
+            <button
+              className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]"
+              onClick={() => navigate("/dashboard")}
+            >
               Exchange
             </button>
           </div>
