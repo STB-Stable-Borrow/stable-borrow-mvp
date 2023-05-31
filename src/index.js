@@ -10,7 +10,7 @@ const isSmallAndMedium = window.matchMedia("(max-width: 1024px)").matches;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <div>
+  <div className="bg-black">
     {isSmallAndMedium ? (
       <div className="lg:hidden md:flex flex items-center justify-center bg-[#1E1E1E] h-[100vh] ">
         <div className="flex flex-col justify-evenly items-center h-[100vh]">

@@ -19,7 +19,7 @@ function Info() {
     useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
-  const { setShowEarn, setShowDashBorrow } = useDashboard();
+  const { setShowEarn, setShowDashBorrow,setShowExchange } = useDashboard();
 
   // verify connection status and chainId
   const verifyConnection = () => {
@@ -58,6 +58,11 @@ function Info() {
         navigate("/register");
       }
     });
+  };
+  const handleExchange = () => {  
+        navigate("/dashboard");
+        setShowExchange(true);
+     
   };
 
   return (
@@ -192,7 +197,7 @@ function Info() {
                 learn more
               </Link>
             </p>
-            <button className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]">
+            <button  onClick={() => handleExchange()} className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[8.8vw]">
               Exchange
             </button>
           </div>
