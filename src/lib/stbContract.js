@@ -34,6 +34,8 @@ const getColRatio = async (stb) => {
   return colRt;
 };
 
+
+
 //gets regulator fee from STB contract
 const getRegFee = async (stb, amount) => {
   const regFee = await stb.methods
@@ -269,9 +271,7 @@ const payDebt = async (stb, vaultId, userAccount, amount) => {
           toast.error(
             "You are offline due to internet connection. check your connection and try again"
           );
-        } else {
-          console.log("Error while withdrawing collateral to vault :", err);
-        }
+        } 
         return false;
       }
     });
@@ -311,6 +311,45 @@ const getAllVaults = async (stb) => {
   return res;
 };
 
+//regulate vault through inspection
+const hauntVaults = async (stb, vaultId, userAccount) => {
+  const res = await stb.methods
+    .inspectVault(vaultId)
+    .send({ from: userAccount })
+    .then(async (res) => {
+      if (res) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((err) => {
+      if (
+        err.message.includes(
+          `Given address "xdc0000000000000000000000000000000000000000" is not a valid Ethereum address`
+        ) ||
+        err.message.includes(`Failed to check for transaction receipt`)
+      ) {
+        return true;
+      } else {
+        if (
+          err.message.includes("Response has no error or result for request")
+        ) {
+          toast.error(
+            "You are offline due to internet connection. check your connection and try again"
+          );
+        } else {
+          toast.error("Error while inspecting vault");
+        }
+        return false;
+      }
+    });
+  return res;
+};
+
+
+
+
 export {
   stbContractInit,
   getRegFee,
@@ -327,4 +366,5 @@ export {
   getAllHauntedVaults,
   getAllLiquidatedVaults,
   getAllVaults,
+  hauntVaults,
 };

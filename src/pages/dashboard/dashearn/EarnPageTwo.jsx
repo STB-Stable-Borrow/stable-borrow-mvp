@@ -6,12 +6,13 @@ import dashBorrowData from "../../../data/vaultsData";
 import star from "../../../assets/dashboard/star.svg";
 import unstar from "../../../assets/dashboard/unstar.svg";
 import haunter from "../../../assets/dashboard/haunter.svg";
-import { getAllVaults } from "../../../lib/stbContract";
+import { getAllVaults, hauntVaults } from "../../../lib/stbContract";
 import Big from "big.js";
 import arrowLeft from "../../../assets/dashboard/arrowLeft.svg";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
-function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
+function EarnPageTwo({ xdcPrc, stb, _onBackClick, account, handleStatus, handleLoading }) {
   const [allVaults, setAllVaults] = useState(null);
   const [isStar, setIsStar] = useState([]);
 
@@ -25,12 +26,25 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
     })();
   }, []);
 
-  const handleStarClick = (itemId) => {
-    setIsStar((prevStars) =>
-      prevStars.map((star) =>
-        star.id === itemId ? { ...star, status: !star.status } : star
-      )
-    );
+
+
+  const handleHauntVault = async (e) => {
+    try {
+      handleLoading()
+        const vaults = await hauntVaults(stb, parseInt(e.target.id), account);
+        handleLoading()
+        if (vaults) {
+          handleStatus(true)
+        }else if (!vaults) {
+          handleStatus(false)
+        }
+
+    }catch(err){
+      console.log("something went wrong",err)
+      toast.error("something went wrong")
+    }
+
+    
   };
 
   return (
@@ -152,8 +166,14 @@ function EarnPageTwo({ xdcPrc, stb, _onBackClick }) {
                       className="h-[2.34vh]"
                     />
                   </div>
-                  <div className="w-[1.25vw]">
-                    <img src={haunter} alt="" className="h-[2.34vh]" />
+                  <div className="w-[1.25vw] cursor-pointer">
+                    <img
+                      id={item.id}
+                      onClick={(e) => handleHauntVault(e)}
+                      src={haunter}
+                      alt=""
+                      className="h-[2.34vh]"
+                    />
                   </div>
                 </div>
               );
