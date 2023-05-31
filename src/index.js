@@ -8,8 +8,6 @@ import Phone from "../src/assets/landing/smartphone.svg";
 
 const isSmallAndMedium = window.matchMedia("(max-width: 1024px)").matches;
 
-const isSmallAndMedium = window.matchMedia("(max-width: 1024px)").matches;
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <div>
@@ -22,18 +20,18 @@ root.render(
             We apologize for any<br></br> inconvenience caused!
           </h4>
           <div className="flex flex-col justify-center items-center gap-2">
-          <h4 className="text-center justify-center text-xs  text-white px-[12vh]">
-            The web app is currently not available on Mobile Screens.
-          </h4>
+            <h4 className="text-center justify-center text-xs  text-white px-[12vh]">
+              The web app is currently not available on Mobile Screens.
+            </h4>
 
-          <h4 className="text-center justify-center text-xs  text-white px-[12vh]">
-            For the best User Experience, we recommend accessing the app on a
-            Computer.
-          </h4>
+            <h4 className="text-center justify-center text-xs  text-white px-[12vh]">
+              For the best User Experience, we recommend accessing the app on a
+              Computer.
+            </h4>
 
-          <h4 className="text-center justify-center text-xs  text-white px-[10vh]">
-            Thank you for your understanding and we appreciate your patience.
-          </h4>
+            <h4 className="text-center justify-center text-xs  text-white px-[10vh]">
+              Thank you for your understanding and we appreciate your patience.
+            </h4>
           </div>
         </div>
       </div>
