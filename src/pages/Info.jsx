@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import borrow from "../assets/info/Borrow.svg";
 import exchange from "../assets/info/Exchange.svg";
 import earn from "../assets/info/Earn.svg";
@@ -19,7 +19,7 @@ function Info() {
     useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
-  const { setShowEarn, setShowDashBorrow,setShowExchange,setShowHome } = useDashboard();
+  const { setShowEarn, setShowDashBorrow,setShowExchange,setShowHome,activeTab} = useDashboard();
 
   // verify connection status and chainId
   const verifyConnection = () => {
@@ -45,6 +45,7 @@ function Info() {
         navigate("/dashboard");
         setShowDashBorrow(true);
         setShowHome(false);
+        activeTab(2);
 
       }
     });
@@ -57,6 +58,7 @@ function Info() {
         navigate("/dashboard");
         setShowEarn(true);
         setShowHome(false);
+        activeTab(3);
       } else {
         navigate("/register");
       }
@@ -66,9 +68,11 @@ function Info() {
         navigate("/dashboard");
         setShowExchange(true);
         setShowHome(false);
+        activeTab(5);
 
      
   };
+  
 
   return (
     <LandingBody>
