@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import EarnIndex from "./EarnIndex";
 import EarnPageTwo from "./EarnPageTwo";
 import { useDashboard } from "../../../contexts/dashboardContext";
+import EarnSuccess from "./EarnSuccess";
+import EarnFailed from "./EarnFailed";
 
 function Earn({
   _web3,
@@ -43,9 +45,10 @@ function Earn({
           _onHauntClick={onHauntClick}
         />
       )}
-      {pageTwo && (
+      {/* {pageTwo && (
         <EarnPageTwo xdcPrc={_xdcPrc} stb={_stb} _onBackClick={onBackClick} />
-      )}
+      )} */}
+      {pageTwo && <EarnFailed />}
     </div>
   );
 }
