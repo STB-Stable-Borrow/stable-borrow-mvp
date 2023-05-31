@@ -35,7 +35,7 @@ function About() {
                 <div key={index} className="">
                   {item.content.map((content, _index) => {
                     return (
-                      <p key={_index} className="text-justify text-sm mb-4">{content}</p>
+                      <p key={_index} className="text-justify text-base mb-4">{content}</p>
                     );
                   })}
                 </div>
