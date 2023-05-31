@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { approveAccount } from "../../lib/stcContract";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDashboard } from "../../contexts/dashboardContext";
 
 function VaultMgt({
   onNextButtonClicked,
@@ -22,8 +23,11 @@ function VaultMgt({
   _stb,
   _fromDashborrow,
   _setFromDashborrow,
+
+
 }) {
   const navigate = useNavigate();
+  const {handleLoading} = useDashboard()
   const { calculateAmounts, resetVaultBorrowSetup } = useBorrow();
   const [xdcIn, setXdcIn] = useState(null);
   const [stcOut, setStcOut] = useState(null);
@@ -91,8 +95,10 @@ function VaultMgt({
         onNextButtonClicked();
       } else {
         const stbAddress = _stb.options.address;
+        // handleLoading();
         await approveAccount(_stc, _account, stbAddress).then((res) => {
           if (res) {
+            // handleLoading();
             nextBtn.style.backgroundColor = "#009FBD";
             setIsApproved(true);
           } else {

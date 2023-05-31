@@ -7,7 +7,7 @@ import {Big} from "big.js";
 
 function WithdrawXDCIndex({ _web3, _xdcPrc, _xdcBalance, _stb, _account}) {
 
-  const {vaultId, onVaultClick, saveWithdrawRes} = useDashboard();
+  const {vaultId, onVaultClick, saveWithdrawRes,handleLoading} = useDashboard();
   const [xdcIn, setXdcIn] = useState(null);
   const [vaultInfo, setVaultInfo] = useState(null);
   const withdrawBtn = document.getElementById("withdraw-btn");
@@ -25,7 +25,9 @@ function WithdrawXDCIndex({ _web3, _xdcPrc, _xdcBalance, _stb, _account}) {
     if(withdrawBtn && withdrawBtn.style.backgroundColor === "rgb(0, 159, 189)" && xdcIn && parseFloat(xdcIn) > 0.0)
     {
       const amount = _web3.utils.toWei(String(xdcIn), "ether")
+      handleLoading()
       await withdrawCollateral(_stb, vaultId,_account, amount ).then((res) => {
+        handleLoading()
         saveWithdrawRes(res);
       })
     }

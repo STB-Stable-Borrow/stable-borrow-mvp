@@ -6,7 +6,7 @@ import { getVault, payDebt } from "../../../lib/stbContract";
 import { Big } from "big.js";
 
 function PaybackSTCIndex({_web3, _stcBalance, _stb, _account}) {
-  const {vaultId, onVaultClick, savePaybackRes} = useDashboard();
+  const {vaultId, onVaultClick, savePaybackRes,handleLoading} = useDashboard();
 
   const [xdcIn, setXdcIn] =useState(null);
   const [vaultInfo, setVaultInfo] =useState(null);
@@ -26,7 +26,9 @@ function PaybackSTCIndex({_web3, _stcBalance, _stb, _account}) {
     if(paybackBtn && paybackBtn.style.backgroundColor === "rgb(0, 159, 189)" && xdcIn && parseFloat(xdcIn) > 0.0)
     {
       const amount = _web3.utils.toWei(String(xdcIn), "ether")
+      handleLoading()
       await payDebt(_stb, vaultId, _account, amount ).then((res) => {
+        handleLoading()
         savePaybackRes(res);
       })
     }
