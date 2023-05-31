@@ -5,7 +5,6 @@ import edit from "../../../assets/dashboard/edit.svg";
 import dashBorrowData from "../../../data/vaultsData";
 import set from "../../../assets/dashboard/set.svg";
 import { Big } from "big.js";
-import { useDashboard } from "../../../contexts/dashboardContext";
 
 function Borrow({
   totalLck,
@@ -38,6 +37,7 @@ function Borrow({
 
   return (
     <div>
+ 
       <h1 className="w-full bg-[#202225] text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] py-[0.5vh] mb-[1.56vh] flex items-center  justify-center ">
         Overview
       </h1>

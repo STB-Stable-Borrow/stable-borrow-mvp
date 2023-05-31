@@ -10,6 +10,9 @@ import { isRegistered } from "../lib/sbtContract";
 import { getAllUserVaults } from "../lib/stbContract";
 import borrowbgone from "../assets/info/borrowbgone.svg";
 import borrowbgtwo from "../assets/info/borrowbgtwo.svg";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Info() {
   const { sbt, account, stb, connected, chainId } =
@@ -21,11 +24,11 @@ function Info() {
   const verifyConnection = () => {
     const acceptIds = [50, 51];
     if (!connected && !chainId) {
-      window.alert("You have to connect your wallet to proceed");
+      toast.error("You have to connect your wallet to proceed");
       navigate("/");
     }
     if (connected && !acceptIds.includes(chainId)) {
-      window.alert(
+      toast.error(
         "You connected to wrong chain, disconnect and connect to Apothem or Xinfin."
       );
       navigate("/");
@@ -56,7 +59,7 @@ function Info() {
 
   return (
     <LandingBody>
-      <body style={{font: "TT Firs Neue Trl", fontFamily: "TT Firs Neue Trl"}} className="md:mx-[60px] md:mt-[4.44vh] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
+      <div style={{font: "TT Firs Neue Trl", fontFamily: "TT Firs Neue Trl"}} className="md:mx-[60px] md:mt-[4.44vh] flex  gap-[5.52vw] text-white  min-h-[calc(100vh-180px)] overflow-hidden  ">
         <div className="flex-col flex justify-between gap-[1.5vh]  h-full w-full ">
           <div className="border-[3px] border-[#009FBD]  rounded-[30px]  w-full h-full relative bg-gradient-to-r from-[#009FBD]  to-[#865DFF] ">
             <div className="flex flex-col items-center gap-[5px] bg-black/80 w-full h-full rounded-[30px] px-[6px] py-2 ">
@@ -204,7 +207,7 @@ function Info() {
             }}
           ></div>
         </div>
-      </body>
+      </div>
     </LandingBody>
   );
 }
