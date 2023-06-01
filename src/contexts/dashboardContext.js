@@ -143,14 +143,10 @@ export const DashboardProvider = ({ children }) => {
     setWithdraw(false);
     setDeposit(false);
     setPayback(false);
-    setBorrow(true);
-    setShowEarn(false)
-    setShowExchange(false)
-    setShowDashBorrow(false)
+    setBorrow(false);
     setDepositRes(null);
     setWithdrawRes(null);
     setPaybackRes(null);
-
   };
 
   const handleLoading = () => {
