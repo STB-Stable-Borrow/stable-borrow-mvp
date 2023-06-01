@@ -2,7 +2,7 @@
 
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.5.11 < 0.9.0;
-import "./Stc.sol";
+import {ISTC} from "./Stc.sol";
 
 interface ISTB {
     struct Vault{
