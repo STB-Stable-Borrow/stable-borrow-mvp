@@ -8,12 +8,22 @@ import Header from "../layouts/landingPage/Header";
 import { useBorrow } from "../contexts/borrowContext/borrowContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
 import { useNavigate } from "react-router-dom";
+import { useDashboard } from "../contexts/dashboardContext";
 
 
 function Home() {
   const { connect, disconnect } = useContext(Web3ModalContext);
   const { resetVaultBorrowSetup, setFromDashborrow, setFromDashearn } = useBorrow();
   const navigate = useNavigate();
+  const {
+    setShowHome,
+    setShowDashBorrow,
+    setShowEarn,
+    setShowExchange,
+    setShowHistory,
+    setShowSettings,
+  } = useDashboard()
+
 
   //reset vault setup
   useEffect(() => {
@@ -35,6 +45,17 @@ function Home() {
   const handleDisconnectWallet = () => {
     disconnect();
   };
+
+  useEffect(() => {
+    setShowHome(true)
+    setShowDashBorrow(false)
+    setShowEarn(false)
+    setShowExchange(false)
+    setShowHistory(false)
+    setShowSettings(false)
+
+
+  },[])
 
   return (
     <div className=" h-screen">
