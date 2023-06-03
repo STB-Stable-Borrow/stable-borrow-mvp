@@ -38,7 +38,7 @@ function PoolIndex() {
           <div className="w-full h-[15.46vh] pr-[0.52vw] overflow-y-auto flex flex-col gap-[0.93vh]   ">
             {liquidityData.map((data) => (
               <div
-                className="flex items-center w-full justify-between text-[.75rem] text-[#B0B0B0] py-[0.93vh] pl-[0.7vw] bg-[#292C31] rounded-[10px] liquidity "
+                className="flex items-center w-full justify-between text-xs text-[#B0B0B0] py-[0.93vh] pl-[0.7vw] bg-[#292C31] rounded-[10px] liquidity "
                 key={data.id}
                 onClick={() => handleItemClick(data.id)}
               >
