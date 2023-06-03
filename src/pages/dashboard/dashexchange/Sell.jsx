@@ -51,7 +51,7 @@ function Sell() {
             </div>
           ))}
         </div>
-        <div className="bg-[#292C31] px-[1.25vw] py-[0.75vh] rounded-[10px] w-full ">
+        <div className="bg-[#292C31] px-[1.25vw] py-[0.75vh] rounded-[10px] w-full border-[1px] border-dashed border-[#585858] ">
           {sellTokenDetails2.map((data, index) => (
             <div className="flex justify-between items-center italic w-full ">
               <h3 className="text-[#515152] ">{data.title}</h3>
