@@ -2,7 +2,7 @@ import React from "react";
 import tokenizationData from "../../../data/tokenizationData";
 import buyTokenDetails, { buyTokenDetails2 } from "../../../data/tokenDetails";
 
-import xdc from "../../../assets/dashboard/xdc-d.png";
+import xdc from "../../../assets/dashboard/xdc-w.png";
 import stc from "../../../assets/dashboard/stc-w.svg";
 import mark from "../../../assets/dashboard/mark.svg";
 
