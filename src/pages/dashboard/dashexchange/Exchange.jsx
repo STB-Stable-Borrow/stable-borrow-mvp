@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDashboard } from "../../../contexts/dashboardContext";
 import ExchangeIndex from "./ExchangeIndex";
 import Tokenization from "./Tokenization";
-import TokenizationSuccessModal from "./TokenizationSuccessModal";
-import TokenizationFailedModal from "./TokenizationFailedModal";
+import TransactionConfirmations from "./TransactionConfirmations";
 
 function Exchange() {
   const { active, activeTab } = useDashboard();
@@ -23,8 +22,6 @@ function Exchange() {
       <div className="w-full h-full">
         <Tokenization />
       </div>
-      {/* <TokenizationSuccessModal /> */}
-      {/* <TokenizationFailedModal /> */}
     </div>
   );
 }
