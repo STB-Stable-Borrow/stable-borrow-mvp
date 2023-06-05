@@ -102,7 +102,7 @@ function Liquidity({ assetOne, assetTwo }) {
           <p className="text-[#B0B0B0] text-center text-[0.85rem] ">
             Balance: 24,333.2213 {assetOne}
           </p>
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[17.45vw] px-[.83vw] py-[.56vh] flex items-center  ">
+          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[22vw] px-[.83vw] py-[.56vh] flex items-center  ">
             <img
               src={xdc}
               alt=""
@@ -122,7 +122,7 @@ function Liquidity({ assetOne, assetTwo }) {
                 type="number"
                 name=""
                 id=""
-                className="bg-inherit w-[6.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold "
+                className="bg-inherit text-xs w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold "
                 placeholder="0"
               />
               <button className="absolute right-[-2.26vw] top-[0.58vh] text-[.75rem] ">
@@ -143,7 +143,7 @@ function Liquidity({ assetOne, assetTwo }) {
             isSwapped ? "flex-col-reverse" : "flex-col"
           }`}
         >
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[17.45vw] px-[.83vw] py-[.56vh] flex items-center  ">
+          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[22vw] px-[.83vw] py-[.56vh] flex items-center  ">
             <img
               src={stc}
               alt=""
@@ -163,7 +163,7 @@ function Liquidity({ assetOne, assetTwo }) {
                 type="number"
                 name=""
                 id=""
-                className="bg-inherit w-[6.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold "
+                className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] text-xs placeholder:font-semibold  font-semibold "
                 placeholder="0"
               />
               <button className="absolute right-[-2.26vw] top-[0.58vh] text-[.75rem] ">
@@ -176,7 +176,7 @@ function Liquidity({ assetOne, assetTwo }) {
           </p>
         </div>
       </div>
-      <div className=" w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center ">
+      <div className=" w-[22vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center ">
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1 font-semibold mb-[0.5vh]">
           Slippage Tolerance:
           <img src={question} alt="" className=" " />
@@ -196,11 +196,11 @@ function Liquidity({ assetOne, assetTwo }) {
               </p>
             ))}
           </div>
-          <div className="bg-[#B0B0B0] rounded-[10px] h-[3.89vh]  pl-[.5vw] w-[4.74vw] flex items-center relative text-[0.65rem] ">
+          <div className="bg-[#B0B0B0] rounded-[10px] h-[3.89vh]  pl-[.5vw] w-[8.74vw] flex items-center relative text-[0.65rem] ">
             <input
               type="number"
-              className="bg-inherit w-[2.74vw]    placeholder:text-black  "
-              placeholder="0"
+              className="bg-inherit w-[6.74vw]    placeholder:text-black text-xs  "
+              placeholder="input slippage"
               value={inputValue}
               onChange={handleInputChange}
             />
