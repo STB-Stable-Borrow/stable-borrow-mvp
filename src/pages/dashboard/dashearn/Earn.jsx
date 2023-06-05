@@ -26,6 +26,7 @@ function Earn({
 
   const onBackClick = () => {
     setPageTwo(false);
+    setPageOne(true);
   };
 
   const { active, activeTab, handleLoading} = useDashboard();

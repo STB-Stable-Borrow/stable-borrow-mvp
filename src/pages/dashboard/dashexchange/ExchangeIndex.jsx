@@ -3,7 +3,7 @@ import drag from "../../../assets/dashboard/drag.svg";
 import SwapIndex from "./SwapIndex";
 import PoolIndex from "./PoolIndex";
 
-function ExchangeIndex() {
+function ExchangeIndex({ web3, stc, stb, xdcBlnc, stcBlnc, xdcPrc}) {
   const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
 
   const handleSwapToggle = () => {
@@ -40,7 +40,7 @@ function ExchangeIndex() {
           Pool{" "}
         </button>
       </div>
-      {isSwapToggleOn ? <SwapIndex /> : <PoolIndex />}
+      {isSwapToggleOn ? <SwapIndex  _web3={web3} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  /> : <PoolIndex _web3={web3} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  />}
     </div>
   );
 }

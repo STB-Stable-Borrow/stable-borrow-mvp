@@ -253,7 +253,7 @@ function Dashboard() {
               _xdcPrc={xdcPrc}
             />
           )}
-          {showExchange && (activeTab === 5 || showExchange) && <Exchange />}
+          {showExchange && (activeTab === 5 || showExchange) && <Exchange _web3={web3} _stc={stc} _stb={stb} _colRatio={colRatio} _xdcBln={xdcBlnc} _stcBln={stcBlnc} _xdcPrc={xdcPrc} />}
           {showHistory && (activeTab === 4 || showHistory) && <History />}
           {showSettings && (activeTab === 6 || showSettings) && (
             <Settings
