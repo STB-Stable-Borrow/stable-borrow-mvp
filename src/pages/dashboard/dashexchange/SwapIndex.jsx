@@ -62,7 +62,7 @@ function SwapIndex() {
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-center text-[#585858] mb-[1vh] text-[.875rem]">
+      <p className="text-center text-[#585858] mb-[.75vh] text-xs">
         Select Token Pair, input the desired amount, and select Token Tolerance
       </p>
       <p className="text-[#B0B0B0] text-[0.85rem] text-center mt-[1.5vh]">
@@ -190,7 +190,7 @@ function SwapIndex() {
           <p>0.00% / 0.000 XDC </p>
         </div>
       </div>
-      <button className="py-[1.20vh] px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2">
+      <button className="py-[.75vh] px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2">
         <img src={swapBtn} alt="" className="w-[1.25vw] h-[1.25vw]" />
         Swap
       </button>

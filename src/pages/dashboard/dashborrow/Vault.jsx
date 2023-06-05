@@ -213,7 +213,7 @@ function Vault({
           <h1 className="w-[300px]">Date and Time</h1>
           <h1 className="w-[300px]">Tx Hash</h1>
         </div>
-        <div className="max-h-[10.85vh] bg-[#292C31] overflow-auto  border border-[#b0b0b0] ">
+        <div className="max-h-[10.85vh] bg-[#292C31] overflow-auto  ">
           {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] py-[1vh] border-b border-[#B0B0B0]  "
