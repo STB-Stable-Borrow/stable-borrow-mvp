@@ -108,10 +108,10 @@ function VaultMgt({
         onNextButtonClicked();
       } else {
         const stbAddress = _stb.options.address;
-        // handleLoading();
+        handleLoading();
         await approveAccount(_stc, _account, stbAddress).then((res) => {
           if (res) {
-            // handleLoading();
+            handleLoading();
             nextBtn.style.backgroundColor = "#009FBD";
             setIsApproved(true);
           } else {

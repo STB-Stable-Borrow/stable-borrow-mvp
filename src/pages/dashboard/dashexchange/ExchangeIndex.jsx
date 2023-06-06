@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import drag from "../../../assets/dashboard/drag.svg";
 import SwapIndex from "./SwapIndex";
 import PoolIndex from "./PoolIndex";
+import ExchangeConfirmations from "./ExchangeConfirmations";
+import TokenizationFailedModal from "./FailedModal";
+import TokenizationSuccessModal from "./SuccessModal";
 
-function ExchangeIndex({ web3, stc, stb, xdcBlnc, stcBlnc, xdcPrc}) {
+function ExchangeIndex({account, handleLoading, web3, stbSwap, stc, stb, xdcBlnc, stcBlnc, xdcPrc}) {
   const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
-
+  const [confirmationRes, setConfirmationRes] = useState(null);
+  
   const handleSwapToggle = () => {
     setIsSwapToggleOn(!isSwapToggleOn);
   };
@@ -40,7 +44,18 @@ function ExchangeIndex({ web3, stc, stb, xdcBlnc, stcBlnc, xdcPrc}) {
           Pool{" "}
         </button>
       </div>
-      {isSwapToggleOn ? <SwapIndex  _web3={web3} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  /> : <PoolIndex _web3={web3} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  />}
+      {confirmationRes === null && isSwapToggleOn && (
+        <SwapIndex _setConfirmationRes={setConfirmationRes} _account={account} _handleLoading={handleLoading}  _web3={web3} _stbSwap={stbSwap} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  />
+      )}
+      {confirmationRes === null && !isSwapToggleOn && (
+        <PoolIndex _setConfirmationRes={setConfirmationRes} _account={account} _handleLoading={handleLoading}  _web3={web3} _stbSwap={stbSwap} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  />
+      )}
+      {confirmationRes === false && (
+        <TokenizationFailedModal _setConfirmationRes={setConfirmationRes} />
+      )}
+      {confirmationRes === true && (
+        <TokenizationSuccessModal _setConfirmationRes={setConfirmationRes} />
+      )}
     </div>
   );
 }

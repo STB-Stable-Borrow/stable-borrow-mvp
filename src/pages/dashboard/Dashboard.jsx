@@ -36,6 +36,7 @@ function Dashboard() {
     stb,
     stc,
     sbt,
+    stbSwap,
     connected,
     chainId,
     xdcBalance,
@@ -62,6 +63,7 @@ function Dashboard() {
     onVaultBackClick,
     active,
     activeTab,
+    handleLoading
   } = useDashboard();
   const navigate = useNavigate();
   const { resetVaultBorrowSetup } = useBorrow();
@@ -161,7 +163,7 @@ function Dashboard() {
         });
       }
     })();
-  }, [xdcBalance, stcBalance]);
+  }, );
 
   //get prices
   useEffect(() => {
@@ -253,7 +255,7 @@ function Dashboard() {
               _xdcPrc={xdcPrc}
             />
           )}
-          {showExchange && (activeTab === 5 || showExchange) && <Exchange _web3={web3} _stc={stc} _stb={stb} _colRatio={colRatio} _xdcBln={xdcBlnc} _stcBln={stcBlnc} _xdcPrc={xdcPrc} />}
+          {showExchange && (activeTab === 5 || showExchange) && <Exchange _account={account} _handleLoading={handleLoading} _web3={web3} _stbSwap={stbSwap} _stc={stc} _stb={stb} _colRatio={colRatio} _xdcBln={xdcBlnc} _stcBln={stcBlnc} _xdcPrc={xdcPrc} />}
           {showHistory && (activeTab === 4 || showHistory) && <History />}
           {showSettings && (activeTab === 6 || showSettings) && (
             <Settings

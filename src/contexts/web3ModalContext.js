@@ -7,8 +7,9 @@ import { stcContractInit } from "../lib/stcContract";
 import { Big } from "big.js";
 import { sbtContractInit } from "../lib/sbtContract";
 import { ethers } from "ethers";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { stbSwapContractInit } from "../lib/stbSwapContract";
 
 export const Web3ModalContext = createContext({
   connect: () => {},
@@ -18,6 +19,7 @@ export const Web3ModalContext = createContext({
   stb: null,
   stc: null,
   sbt: null,
+  stbSwap: null,
   account: null,
   address: "",
   xdcBalance: null,
@@ -34,6 +36,7 @@ const Web3ModalProvider = ({ children }) => {
   const [stb, setStb] = useState(null);
   const [stc, setStc] = useState(null);
   const [sbt, setSbt] = useState(null);
+  const [stbSwap, setStbSwap] = useState(null);
   const [account, setAccount] = useState(null);
   const [address, setAddress] = useState("");
   const [xdcBalance, setXdcBalance] = useState(null);
@@ -57,9 +60,7 @@ const Web3ModalProvider = ({ children }) => {
   //initialize and save web3 from _provider
   const web3Init = (_provider) => {
     if (!_provider) {
-      toast.error(
-        "Error while connecting to wallet provider. Try again later"
-      );
+      toast.error("Error while connecting to wallet provider. Try again later");
     }
     let provider;
     if (typeof _provider === "string") {
@@ -140,9 +141,11 @@ const Web3ModalProvider = ({ children }) => {
     const stc = await stcContractInit(_web3);
     const stb = await stbContractInit(_web3);
     const sbt = await sbtContractInit(_web3);
+    const stbSwap = await stbSwapContractInit(_web3);
     setStc(stc);
     setStb(stb);
     setSbt(sbt);
+    setStbSwap(stbSwap);
     //get and save needed instances/variables
     const accounts = await _web3.eth.getAccounts(); //first account connected
     const _account = _web3.utils.toChecksumAddress(accounts[0]); //get address
@@ -205,6 +208,7 @@ const Web3ModalProvider = ({ children }) => {
         stb,
         stc,
         sbt,
+        stbSwap,
         account,
         address,
         xdcBalance,

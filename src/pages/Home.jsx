@@ -9,10 +9,11 @@ import { useBorrow } from "../contexts/borrowContext/borrowContext";
 import { Web3ModalContext } from "../contexts/web3ModalContext";
 import { useNavigate } from "react-router-dom";
 import { useDashboard } from "../contexts/dashboardContext";
+import { getXdcContract } from "../lib/stbSwapContract";
 
 
 function Home() {
-  const { connect, disconnect } = useContext(Web3ModalContext);
+  const {connect, disconnect } = useContext(Web3ModalContext);
   const { resetVaultBorrowSetup, setFromDashborrow, setFromDashearn } = useBorrow();
   const navigate = useNavigate();
   const {

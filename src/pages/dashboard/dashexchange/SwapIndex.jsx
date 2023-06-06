@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import xdc from "../../../assets/dashboard/xdc.svg";
 import swapImg from "../../../assets/dashboard/swap.svg";
 import stc from "../../../assets/dashboard/stc.svg";
 import question from "../../../assets/dashboard/question.svg";
 import swapBtn from "../../../assets/dashboard/swapBtn.svg";
+import { getAmountOut, getPriceFromPool, swap } from "../../../lib/stbSwapContract";
+import { approveAccount } from "../../../lib/stcContract";
 
-function SwapIndex({_web3,_stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
+function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSwap, _stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
   const [slippage, setSlippage] = useState([
     {
       id: 1,
@@ -33,9 +35,26 @@ function SwapIndex({_web3,_stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
   const [minRcv, setMinRcv] = useState(0);
   const [_disable, setDisable] = useState(true);
   const [poolFee, setPoolFee] = useState(0.3);
+  const [poolId, setPoolId] = useState(1);
+  const [rate, setRate] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      if (_stbSwap) {
+        await getPriceFromPool(_stbSwap, poolId, _stb.options.address).then((res) => {
+          setRate(res);
+        })
+      }
+    })();
+  }, );
+
+  
 
   const handleSwap = () => {
-    if(document.getElementById("swap-input1") || document.getElementById("swap-input2") || document.getElementById("swap-input2a") || document.getElementById("swap-btn")) {
+    if(document.getElementById("swap-input1") || 
+    document.getElementById("swap-input2") || 
+    document.getElementById("swap-input2a") || 
+    document.getElementById("swap-btn")) {
       setAmtOutSTC(null);
       setAmtOutXDC(null);
       if(token == "XDC") {
@@ -135,51 +154,131 @@ function SwapIndex({_web3,_stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
     }
   };
 
-  const calculateAmtOutXDC = (amt) => {
-    return amt/ 2;
+  const calculateAmtOutXDC = async(stbSwap, poolId, xdcAddr, amount) => {
+    const res = await getAmountOut(stbSwap, poolId, xdcAddr, amount).then((res) => {
+      return res;
+    });
+    return res;
   }
 
-  const calculateAmtOutSTC = (amt) => {
-    return amt * 2;
+  const calculateAmtOutSTC = async(stbSwap, poolId, stcAddr, amount) => {
+    const res = await getAmountOut(stbSwap, poolId, stcAddr, amount).then((res) => {
+      return res;
+    });
+    return res;
   }
 
-  const calculateMinRcv = (amt) => {
-    const perOut = amt * (actSlippage / 100);
-    return amt - perOut;
+
+  const calculateMinRcv = (amount) => {
+    const perOut = amount * (actSlippage / 100);
+    return amount - perOut;
   }
 
   const handleSwapInputXDC = async(e) => {
     const value = parseFloat(e.target.value);
-    setAmtInXDC(value);
-    const amtOut = calculateAmtOutXDC(value);
-    if(document.getElementById("swap-btn")) {
-      if(amtOut > 0) {
-        document.getElementById("swap-btn").style.backgroundColor = "#009FBD";
-      }else{
+    if(value > 0.0 && value <= _xdcBlnc) {
+      const amt = _web3.utils.toWei(String(value), "ether");
+      setAmtInXDC(value);
+      calculateAmtOutXDC(_stbSwap, poolId, _stb.options.address, amt).then(async(res) => {
+      setAmtOutXDC(res);
+      if(document.getElementById("swap-btn")) {
+        if(res > 0) {
+          document.getElementById("swap-btn").style.backgroundColor = "#009FBD";
+        }else{
+          document.getElementById("swap-btn").style.backgroundColor = "#585858";
+        }
+      }
+      const minRcv = calculateMinRcv(res)
+      setMinRcv(minRcv);
+    });
+    }else{
+      setAmtOutXDC(0)
+      setMinRcv(0);
+      if(document.getElementById("swap-btn")) {
         document.getElementById("swap-btn").style.backgroundColor = "#585858";
       }
     }
-    setAmtOutXDC(amtOut);
-    const minRcv = calculateMinRcv(amtOut)
-    setMinRcv(minRcv);
   }
 
   const handleSwapInputSTC = async(e) => {
     const value = parseFloat(e.target.value);
-    setAmtInSTC(value);
-    const amtOut = calculateAmtOutSTC(value);
-    if(document.getElementById("swap-btn")) {
-      if(amtOut > 0) {
-        document.getElementById("swap-btn").style.backgroundColor = "#009FBD";
-      }else{
+    if(value > 0.0 && value <= _stcBlnc) {
+      const amt = _web3.utils.toWei(String(value), "ether");
+      setAmtInSTC(value);
+      calculateAmtOutSTC(_stbSwap, poolId, _stc.options.address, amt).then(async(res) => {
+        setAmtOutSTC(res);
+        if(document.getElementById("swap-btn")) {
+          if(res > 0) {
+            document.getElementById("swap-btn").style.backgroundColor = "#009FBD";
+          }else{
+            document.getElementById("swap-btn").style.backgroundColor = "#585858";
+          }
+        }
+        const minRcv = calculateMinRcv(res)
+        setMinRcv(minRcv);
+      });
+    }else{
+      setAmtOutSTC(0)
+      setMinRcv(0);
+      if(document.getElementById("swap-btn")) {
         document.getElementById("swap-btn").style.backgroundColor = "#585858";
       }
     }
-    setAmtOutSTC(amtOut);
-    const minRcv = calculateMinRcv(amtOut)
-    setMinRcv(minRcv);
   }
 
+  const handleSwapToken = async() => {
+    if(document.getElementById("swap-btn").style.backgroundColor === "rgb(0, 159, 189)") {
+      if(token === "XDC") {
+        if(amtInXDC > 0.0) {
+          const amt = _web3.utils.toWei(String(amtInXDC), "ether");
+          const minTol = _web3.utils.toWei(String(minRcv), "ether");
+          console.log("amt: ", amt, "min: ", minTol);
+          _handleLoading();
+          await swap(_stbSwap, poolId, _stb.options.address, _stc.options.address, amt, minTol, _account, amt).then((res) => {
+            _handleLoading();
+            _setConfirmationRes(res);
+          })
+        }
+      }else{
+        if(token === "STC") {
+          if(amtInSTC > 0.0) {
+            const maxU256 =
+            115792089237316195423570985008687907853269984665640564039457584007913129639935n;
+            const amt = _web3.utils.toWei(String(amtInSTC), "ether");
+            const minTol = _web3.utils.toWei(String(minRcv), "ether");
+            console.log("amt: ", amt, "min: ", minTol);
+          await _stc.methods
+        .allowance(_account, _stbSwap.options.address)
+        .call()
+        .then(async(res) => {
+          if (res == maxU256) {
+            _handleLoading();
+            await swap(_stbSwap, poolId, _stc.options.address, _stb.options.address, amt, minTol, _account, 0).then((res) => {
+              _handleLoading();
+              _setConfirmationRes(res);
+            })
+          } else {
+            _handleLoading();
+            await approveAccount(_stc, _account, _stbSwap.options.address).then(async(res) => {
+              if(res){
+                await swap(_stbSwap, poolId, _stc.options.address, _stb.options.address, amt, minTol, _account, 0).then((res) => {
+                  _handleLoading();
+                  _setConfirmationRes(res);
+                })
+              }else{
+                _handleLoading();
+                _setConfirmationRes(res)
+              }
+            })
+          }
+        })
+            
+          }
+        }
+      }
+    }
+    
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -296,7 +395,7 @@ function SwapIndex({_web3,_stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
           Exchange Rate: <img src={question} alt="" />
         </h4>
         <h6 className="font-semibold text-[#865DFF] text-[0.75rem]">
-          1 XDC $({_xdcPrc}) ~ 1.584 STC
+          1 STC $(1.0000) ~ {rate} XDC
         </h6>
       </div>
       <div className="w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center">
@@ -346,7 +445,7 @@ function SwapIndex({_web3,_stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
           <p>{poolFee}% / {token} </p>
         </div>
       </div>
-      <button id="swap-btn" className="py-[.75vh] px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2">
+      <button onClick={(e) => {handleSwapToken(e)}} id="swap-btn" className="py-[.75vh] px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2">
         <img src={swapBtn} alt="" className="w-[1.25vw] h-[1.25vw]" />
         Swap
       </button>

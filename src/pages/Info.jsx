@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDashboard } from "../contexts/dashboardContext";
 
 function Info() {
-  const { sbt, account, stb, connected, chainId } =
+  const {stbSwap, sbt, account, stb, connected, chainId } =
     useContext(Web3ModalContext);
   const { navigateToAbout } = useAbout();
   const navigate = useNavigate();
