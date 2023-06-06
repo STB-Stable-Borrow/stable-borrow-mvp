@@ -3,7 +3,7 @@ import failed from "../../../assets/dashboard/failed.svg";
 
 function TokenizationFailedModal() {
   return (
-    <div className="bg-[#202225] w-[39.58vw] rounded-[30px] flex flex-col items-center font-semibold pt-[14.746vh] pb-[10.156vh] mx-auto ">
+    <div className="bg-[#202225] w-full rounded-[30px] flex flex-col items-center font-semibold pt-[14.746vh] pb-[10.156vh] mx-auto ">
       <img
         src={failed}
         alt=""

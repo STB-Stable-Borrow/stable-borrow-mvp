@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import drag from "../../../assets/dashboard/drag.svg";
 import SwapIndex from "./SwapIndex";
 import PoolIndex from "./PoolIndex";
+import FailedModal from "./FailedModal";
+import SuccessModal from "./SuccessModal";
 
 function ExchangeIndex() {
   const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
@@ -41,6 +43,8 @@ function ExchangeIndex() {
         </button>
       </div>
       {isSwapToggleOn ? <SwapIndex /> : <PoolIndex />}
+      {/* <FailedModal /> */}
+      {/* <SuccessModal /> */}
     </div>
   );
 }
