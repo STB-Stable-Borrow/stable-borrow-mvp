@@ -12,7 +12,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
     {
       id: 1,
       value: 0.1,
-      isActive: true,
+      isActive: false,
     },
     {
       id: 2,
@@ -47,8 +47,6 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
       }
     })();
   }, );
-
-  
 
   const handleSwap = () => {
     if(document.getElementById("swap-input1") || 
@@ -291,7 +289,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
         Balance: {_stcBlnc} STC
       </p>}
       <div
-        className={`flex flex-col pb-[1.5vh] ${
+        className={`flex  items-center pb-[1.5vh] ${
           isSwapped ? "flex-col-reverse" : "flex-col"
         }`}
       >
@@ -300,7 +298,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
             isSwapped ? "flex-col-reverse" : "flex-col"
           }`}
         >
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-full px-[.83vw] py-[.56vh] flex items-center">
+          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[22vw] px-[.83vw] py-[.56vh] flex items-center">
             <img src={xdc} alt="" className="w-[3.2vh] h-[3.2vh] mr-[0.52vw]" />
             <select
               name=""
@@ -317,7 +315,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
                 type="number"
                 name=""
                 id="swap-input1"
-                className="bg-inherit w-[6.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold"
+                className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs"
                 placeholder="0"
                 onInput={(e) => {handleSwapInputXDC(e)}}
               />
@@ -328,7 +326,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
                 disabled
                 type="number"
                 name=""
-                className="bg-inherit w-[6.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold"
+                className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs"
                 placeholder="0"
               />
               )}
@@ -365,7 +363,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
              type="number"
              name=""
              id="swap-input2"
-             className="bg-inherit w-[6.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold"
+             className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
              placeholder="0"
              onInput={(e) => {handleSwapInputSTC(e)}}
            />
@@ -377,7 +375,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
              value={amtOutXDC}
              type="number"
              name=""
-             className="bg-inherit w-[6.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold"
+             className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
              placeholder="0"
              onInput={(e) => {handleSwapInputSTC(e)}}
            />
@@ -398,7 +396,7 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
           1 STC $(1.0000) ~ {rate} XDC
         </h6>
       </div>
-      <div className="w-[17.45vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center">
+      <div className="w-[22vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center">
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1 font-semibold mb-[0.5vh]">
           Slippage Tolerance:
           <img src={question} alt="" className=" " />
@@ -417,11 +415,11 @@ function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSw
               </p>
             ))}
           </div>
-          <div className="bg-[#B0B0B0] rounded-[10px] h-[3.89vh] pl-[.5vw] w-[4.74vw] flex items-center relative text-[0.65rem]">
+          <div className="bg-[#B0B0B0] rounded-[10px] h-[3.89vh] pl-[.5vw] w-[8.74vw] flex items-center relative text-[0.65rem]">
             <input
               id="slip-input"
               type="number"
-              className="bg-inherit w-[2.74vw] placeholder:text-black"
+              className="bg-inherit w-[6.74vw] placeholder:text-black text-xs"
               placeholder="Input slip"
               onInput={handleInputChange}
             />

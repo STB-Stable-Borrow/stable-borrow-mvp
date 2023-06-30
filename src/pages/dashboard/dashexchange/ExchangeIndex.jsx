@@ -5,6 +5,8 @@ import PoolIndex from "./PoolIndex";
 import ExchangeConfirmations from "./ExchangeConfirmations";
 import TokenizationFailedModal from "./FailedModal";
 import TokenizationSuccessModal from "./SuccessModal";
+import FailedModal from "./FailedModal";
+import SuccessModal from "./SuccessModal";
 
 function ExchangeIndex({account, handleLoading, web3, stbSwap, stc, stb, xdcBlnc, stcBlnc, xdcPrc}) {
   const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
