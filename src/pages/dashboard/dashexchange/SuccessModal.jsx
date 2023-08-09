@@ -1,9 +1,13 @@
 import React from "react";
 import success from "../../../assets/dashboard/success.svg";
 
-function TokenizationSuccessModal() {
+function TokenizationSuccessModal({_setConfirmationRes}) {
   return (
-    <div className="bg-[#202225] w-full rounded-[30px] flex flex-col items-center font-semibold pt-[14.746vh] pb-[10.156vh] mx-auto ">
+    <div onLoad={() => {
+      setTimeout(() => {
+        _setConfirmationRes(null);
+      }, 5000);
+    }} className="bg-[#202225] w-full rounded-[30px] flex flex-col items-center font-semibold pt-[14.746vh] pb-[10.156vh] mx-auto ">
       <img
         src={success}
         alt=""

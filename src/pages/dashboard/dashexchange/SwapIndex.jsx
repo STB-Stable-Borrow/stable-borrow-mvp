@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import xdc from "../../../assets/dashboard/xdc.svg";
 import swapImg from "../../../assets/dashboard/swap.svg";
 import stc from "../../../assets/dashboard/stc.svg";
 import question from "../../../assets/dashboard/question.svg";
 import swapBtn from "../../../assets/dashboard/swapBtn.svg";
+import { getAmountOut, getPriceFromPool, swap } from "../../../lib/stbSwapContract";
+import { approveAccount } from "../../../lib/stcContract";
 
-function SwapIndex() {
+function SwapIndex({_setConfirmationRes, _account, _handleLoading, _web3, _stbSwap, _stc,_stb, _xdcBlnc, _stcBlnc, _xdcPrc }) {
   const [slippage, setSlippage] = useState([
     {
       id: 1,
@@ -25,49 +27,267 @@ function SwapIndex() {
   ]);
 
   const [isSwapped, setIsSwapped] = useState(false);
+  const [token, setToken] = useState("XDC");
+  const [amtInXDC, setAmtInXDC] = useState(0);
+  const [amtInSTC, setAmtInSTC] = useState(0);
+  const [amtOutXDC, setAmtOutXDC] = useState(null);
+  const [amtOutSTC, setAmtOutSTC] = useState(null);
+  const [minRcv, setMinRcv] = useState(0);
+  const [_disable, setDisable] = useState(true);
+  const [poolFee, setPoolFee] = useState(0.3);
+  const [poolId, setPoolId] = useState(1);
+  const [rate, setRate] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      if (_stbSwap) {
+        await getPriceFromPool(_stbSwap, poolId, _stb.options.address).then((res) => {
+          setRate(res);
+        })
+      }
+    })();
+  }, );
 
   const handleSwap = () => {
-    setIsSwapped((prev) => !prev);
+    if(document.getElementById("swap-input1") || 
+    document.getElementById("swap-input2") || 
+    document.getElementById("swap-input2a") || 
+    document.getElementById("swap-btn")) {
+      setAmtOutSTC(null);
+      setAmtOutXDC(null);
+      if(token == "XDC") {
+        setToken("STC");
+        if(document.getElementById("swap-input2")){
+          document.getElementById("swap-input2").disabled = false;
+          document.getElementById("swap-input2").value = null;
+        }
+        if(document.getElementById("swap-input2a")){
+          setDisable(false);
+        }
+        if(document.getElementById("swap-input1")) {
+          document.getElementById("swap-input1").disabled = true;
+          document.getElementById("swap-input1").value = null;
+        }
+      }else{
+        setToken("XDC")
+        if(document.getElementById("swap-input2")){
+          document.getElementById("swap-input2").disabled = true;
+          document.getElementById("swap-input2").value = null;
+        }
+        if(document.getElementById("swap-input1")) {
+          document.getElementById("swap-input1").disabled = false;
+          document.getElementById("swap-input1").value = null;
+        }
+      }
+      setIsSwapped((prev) => !prev);
+      if(document.getElementById("swap-btn")) {
+        document.getElementById("swap-btn").style.backgroundColor = "#585858";
+      }
+    }
   };
 
   const [inputValue, setInputValue] = useState("");
-  const [activeSlippage, setActiveSlippage] = useState(0);
+  const [actSlippage, setActSlippage] = useState(0.1);
 
   const handleInputChange = (e) => {
     const value = parseFloat(e.target.value);
-    setInputValue(value);
-
-    const updatedSlippage = slippage.map((slip) => ({
-      ...slip,
-      isActive:
-        (slip.value === 0.1 && value >= 0 && value <= 0.49) ||
-        (slip.value === 0.5 && value >= 0.5 && value <= 0.99) ||
-        (slip.value === 1 && value >= 1),
-    }));
-
-    setSlippage(updatedSlippage);
+    if(value > 0.0) {
+      setInputValue(value);
+      setSlippage([{
+        id: 1,
+        value: 0.1,
+        isActive: false,
+      },
+      {
+        id: 2,
+        value: 0.5,
+        isActive: false,
+      },
+      {
+        id: 3,
+        value: value,
+        isActive: true,
+      }]);
+      setActSlippage(value);
+      if(amtOutSTC) {
+        const perOut = amtOutSTC * (value / 100);
+        setMinRcv(amtOutSTC - perOut);
+      }
+      if(amtOutXDC) {
+        const perOut = amtOutXDC * (value / 100);
+        setMinRcv(amtOutXDC - perOut);
+      }
+    }
   };
 
   const handleSlippageClick = (id) => {
-    setActiveSlippage(id);
-
-    const updatedSlippage = slippage.map((slip) => ({
-      ...slip,
-      isActive: slip.id === id,
-    }));
-
-    setSlippage(updatedSlippage);
-    setInputValue("");
+    let newSlipList = [{
+      id: 1,
+      value: 0.1,
+      isActive: false,
+    },
+    {
+      id: 2,
+      value: 0.5,
+      isActive: false,
+    },
+    {
+      id: 3,
+      value: 1,
+      isActive: false,
+    }];
+    newSlipList[id- 1].isActive = true;
+    setSlippage(newSlipList);
+    setActSlippage(newSlipList[id- 1].value);
+    if(amtOutSTC) {
+      const perOut = amtOutSTC * (newSlipList[id- 1].value / 100);
+      setMinRcv(amtOutSTC - perOut);
+    }
+    if(amtOutXDC) {
+      const perOut = amtOutXDC * (newSlipList[id- 1].value / 100);
+      setMinRcv(amtOutXDC - perOut);
+    }
+    if(document.getElementById("slip-input")) {
+      document.getElementById("slip-input").value = null;
+    }
   };
+
+  const calculateAmtOutXDC = async(stbSwap, poolId, xdcAddr, amount) => {
+    const res = await getAmountOut(stbSwap, poolId, xdcAddr, amount).then((res) => {
+      return res;
+    });
+    return res;
+  }
+
+  const calculateAmtOutSTC = async(stbSwap, poolId, stcAddr, amount) => {
+    const res = await getAmountOut(stbSwap, poolId, stcAddr, amount).then((res) => {
+      return res;
+    });
+    return res;
+  }
+
+
+  const calculateMinRcv = (amount) => {
+    const perOut = amount * (actSlippage / 100);
+    return amount - perOut;
+  }
+
+  const handleSwapInputXDC = async(e) => {
+    const value = parseFloat(e.target.value);
+    if(value > 0.0 && value <= _xdcBlnc) {
+      const amt = _web3.utils.toWei(String(value), "ether");
+      setAmtInXDC(value);
+      calculateAmtOutXDC(_stbSwap, poolId, _stb.options.address, amt).then(async(res) => {
+      setAmtOutXDC(res);
+      if(document.getElementById("swap-btn")) {
+        if(res > 0) {
+          document.getElementById("swap-btn").style.backgroundColor = "#009FBD";
+        }else{
+          document.getElementById("swap-btn").style.backgroundColor = "#585858";
+        }
+      }
+      const minRcv = calculateMinRcv(res)
+      setMinRcv(minRcv);
+    });
+    }else{
+      setAmtOutXDC(0)
+      setMinRcv(0);
+      if(document.getElementById("swap-btn")) {
+        document.getElementById("swap-btn").style.backgroundColor = "#585858";
+      }
+    }
+  }
+
+  const handleSwapInputSTC = async(e) => {
+    const value = parseFloat(e.target.value);
+    if(value > 0.0 && value <= _stcBlnc) {
+      const amt = _web3.utils.toWei(String(value), "ether");
+      setAmtInSTC(value);
+      calculateAmtOutSTC(_stbSwap, poolId, _stc.options.address, amt).then(async(res) => {
+        setAmtOutSTC(res);
+        if(document.getElementById("swap-btn")) {
+          if(res > 0) {
+            document.getElementById("swap-btn").style.backgroundColor = "#009FBD";
+          }else{
+            document.getElementById("swap-btn").style.backgroundColor = "#585858";
+          }
+        }
+        const minRcv = calculateMinRcv(res)
+        setMinRcv(minRcv);
+      });
+    }else{
+      setAmtOutSTC(0)
+      setMinRcv(0);
+      if(document.getElementById("swap-btn")) {
+        document.getElementById("swap-btn").style.backgroundColor = "#585858";
+      }
+    }
+  }
+
+  const handleSwapToken = async() => {
+    if(document.getElementById("swap-btn").style.backgroundColor === "rgb(0, 159, 189)") {
+      if(token === "XDC") {
+        if(amtInXDC > 0.0) {
+          const amt = _web3.utils.toWei(String(amtInXDC), "ether");
+          const minTol = _web3.utils.toWei(String(minRcv), "ether");
+          console.log("amt: ", amt, "min: ", minTol);
+          _handleLoading();
+          await swap(_stbSwap, poolId, _stb.options.address, _stc.options.address, amt, minTol, _account, amt).then((res) => {
+            _handleLoading();
+            _setConfirmationRes(res);
+          })
+        }
+      }else{
+        if(token === "STC") {
+          if(amtInSTC > 0.0) {
+            const maxU256 =
+            115792089237316195423570985008687907853269984665640564039457584007913129639935n;
+            const amt = _web3.utils.toWei(String(amtInSTC), "ether");
+            const minTol = _web3.utils.toWei(String(minRcv), "ether");
+            console.log("amt: ", amt, "min: ", minTol);
+          await _stc.methods
+        .allowance(_account, _stbSwap.options.address)
+        .call()
+        .then(async(res) => {
+          if (res == maxU256) {
+            _handleLoading();
+            await swap(_stbSwap, poolId, _stc.options.address, _stb.options.address, amt, minTol, _account, 0).then((res) => {
+              _handleLoading();
+              _setConfirmationRes(res);
+            })
+          } else {
+            _handleLoading();
+            await approveAccount(_stc, _account, _stbSwap.options.address).then(async(res) => {
+              if(res){
+                await swap(_stbSwap, poolId, _stc.options.address, _stb.options.address, amt, minTol, _account, 0).then((res) => {
+                  _handleLoading();
+                  _setConfirmationRes(res);
+                })
+              }else{
+                _handleLoading();
+                _setConfirmationRes(res)
+              }
+            })
+          }
+        })
+            
+          }
+        }
+      }
+    }
+    
+  }
 
   return (
     <div className="flex flex-col items-center">
       <p className="text-center text-[#585858] mb-[.75vh] text-xs">
         Select Token Pair, input the desired amount, and select Token Tolerance
       </p>
-      <p className="text-[#B0B0B0] text-[0.85rem] text-center mt-[1.5vh]">
-        Balance: 24,333.2213 XDC
-      </p>
+      {token === "XDC"? <p className="text-[#B0B0B0] text-[0.85rem] text-center mt-[1.5vh]">
+        Balance: {_xdcBlnc} XDC
+      </p> : <p className="text-[#B0B0B0] text-[0.85rem] text-center mt-[1.5vh]">
+        Balance: {_stcBlnc} STC
+      </p>}
       <div
         className={`flex  items-center pb-[1.5vh] ${
           isSwapped ? "flex-col-reverse" : "flex-col"
@@ -90,14 +310,29 @@ function SwapIndex() {
             </select>
             <div className="h-[3.43vh] w-[2px] bg-[#292C31] mx-[.73vw]"></div>
             <div className="relative">
-              <input
+              {!amtOutSTC && (
+                <input
                 type="number"
                 name=""
-                id=""
+                id="swap-input1"
+                className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs"
+                placeholder="0"
+                onInput={(e) => {handleSwapInputXDC(e)}}
+              />
+              )}
+              {amtOutSTC && (
+                <input
+                value={amtOutSTC}
+                disabled
+                type="number"
+                name=""
                 className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs"
                 placeholder="0"
               />
-              <button className="absolute right-[-2.26vw] top-[0.58vh] text-[.75rem]">
+              )}
+              <button onClick={() => {if(token === "XDC") {
+                document.getElementById("swap-input1").value = _xdcBlnc
+              }}} className="absolute right-[-2.26vw] top-[0.58vh] text-[.75rem]">
                 Max
               </button>
             </div>
@@ -122,16 +357,34 @@ function SwapIndex() {
           </select>
           <div className="h-[3.43vh] w-[2px] bg-[#292C31] mx-[.73vw]"></div>
           <div className="relative">
-            <input
-              type="number"
-              name=""
-              id=""
-              className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
-              placeholder="0"
-            />
-            <button className="absolute right-[-2.26vw] top-[0.58vh] text-[.75rem]">
-              Max
-            </button>
+           {!amtOutXDC && (
+             <input
+             disabled={_disable}
+             type="number"
+             name=""
+             id="swap-input2"
+             className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
+             placeholder="0"
+             onInput={(e) => {handleSwapInputSTC(e)}}
+           />
+           )}
+            {amtOutXDC && (
+             <input
+             id="swap-input2a"
+             disabled
+             value={amtOutXDC}
+             type="number"
+             name=""
+             className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
+             placeholder="0"
+             onInput={(e) => {handleSwapInputSTC(e)}}
+           />
+           )}
+            <button onClick={() => {if(token === "STC") {
+                document.getElementById("swap-input2").value = _stcBlnc
+              }}} className="absolute right-[-2.26vw] top-[0.58vh] text-[.75rem]">
+                Max
+              </button>
           </div>
         </div>
       </div>
@@ -140,7 +393,7 @@ function SwapIndex() {
           Exchange Rate: <img src={question} alt="" />
         </h4>
         <h6 className="font-semibold text-[#865DFF] text-[0.75rem]">
-          1 XDC ($1.00) ~ 1.584 STC
+          1 STC $(1.0000) ~ {rate} XDC
         </h6>
       </div>
       <div className="w-[22vw] py-[0.59vh] px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center">
@@ -164,11 +417,11 @@ function SwapIndex() {
           </div>
           <div className="bg-[#B0B0B0] rounded-[10px] h-[3.89vh] pl-[.5vw] w-[8.74vw] flex items-center relative text-[0.65rem]">
             <input
+              id="slip-input"
               type="number"
               className="bg-inherit w-[6.74vw] placeholder:text-black text-xs"
-              placeholder="input slippage"
-              value={inputValue}
-              onChange={handleInputChange}
+              placeholder="Input slip"
+              onInput={handleInputChange}
             />
             <p className="absolute right-1">%</p>
           </div>
@@ -180,17 +433,17 @@ function SwapIndex() {
             <img src={question} alt="" />
             <h4>Minimum Received:</h4>
           </div>
-          <p className="">0</p>
+          <p className="">{minRcv}</p>
         </div>
         <div className="flex items-center gap-[1.09vw] justify-between">
           <div className="flex items-center gap-[1px]">
             <img src={question} alt="" />
             <h4>Pool Fee:</h4>
           </div>
-          <p>0.00% / 0.000 XDC </p>
+          <p>{poolFee}% / {token} </p>
         </div>
       </div>
-      <button className="py-[.75vh] px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2">
+      <button onClick={(e) => {handleSwapToken(e)}} id="swap-btn" className="py-[.75vh] px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2">
         <img src={swapBtn} alt="" className="w-[1.25vw] h-[1.25vw]" />
         Swap
       </button>
