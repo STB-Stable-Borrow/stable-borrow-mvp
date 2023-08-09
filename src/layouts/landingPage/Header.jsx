@@ -6,7 +6,7 @@ function Header({ _handleConnectWallet_ }) {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center bg-red-500">
       <div>
         <Link to="/">
           <img
@@ -16,7 +16,7 @@ function Header({ _handleConnectWallet_ }) {
           />
         </Link>
       </div>
-      <div className="flex justify-betweeen items-center gap-[2.14vw] text-[#FFFFFF] font-semibold  ">
+      <div className="hidden lg:flex justify-betweeen items-center gap-[2.14vw] text-[#FFFFFF] font-semibold  ">
         <ul className="flex gap-[2.14vw]   text-sm cursor-pointer">
           <li className="hover:opacity-75">
             <Link

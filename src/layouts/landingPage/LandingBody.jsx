@@ -7,12 +7,12 @@ function LandingBody({ children, _handleConnectWallet }) {
   const location = useLocation();
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-full lg:h-screen">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-[#00000080]"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        // style={{ backgroundImage: `url(${bgImage})` }}
       ></div>
-      <div className="relative flex flex-col justify-between h-[100vh] z-10 py-[1.85vh] px-[4.17vw] ">
+      <div className="relative flex flex-col justify-between h-full lg:h-[100vh] z-10 py-[1.85vh] px-[4.17vw] bg-red-500 ">
         <Header _handleConnectWallet_={_handleConnectWallet} />
         {children}
       </div>

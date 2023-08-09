@@ -26,11 +26,9 @@ function App() {
                   <Route exact path="/" element={<Home />} />
                   <Route path="/info" element={<Info />} />
                   <Route path="/about" element={<About />} />
-
                   <Route path="/borrow" element={<Borrow />} />
                   <Route path="/register" element={<Registration />} />
                   <Route path="/dashboard" element={<Dashboard />} />
-
                   <Route path="/borrow" element={<Borrow />} />
                   <Route path="/register" element={<Registration />} />
                   <Route path="/vault" element={<Vault />} />
