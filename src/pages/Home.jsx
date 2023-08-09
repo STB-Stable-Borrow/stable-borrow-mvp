@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { useDashboard } from "../contexts/dashboardContext";
 import { getXdcContract } from "../lib/stbSwapContract";
 
-
 function Home() {
-  const {connect, disconnect } = useContext(Web3ModalContext);
-  const { resetVaultBorrowSetup, setFromDashborrow, setFromDashearn } = useBorrow();
+
+  const { connect, disconnect } = useContext(Web3ModalContext);
+  const { resetVaultBorrowSetup, setFromDashborrow, setFromDashearn } =
+    useBorrow();
+
   const navigate = useNavigate();
   const {
     setShowHome,
@@ -23,8 +25,7 @@ function Home() {
     setShowExchange,
     setShowHistory,
     setShowSettings,
-  } = useDashboard()
-
+  } = useDashboard();
 
   //reset vault setup
   useEffect(() => {
@@ -48,25 +49,22 @@ function Home() {
   };
 
   useEffect(() => {
-    setShowHome(true)
-    setShowDashBorrow(false)
-    setShowEarn(false)
-    setShowExchange(false)
-    setShowHistory(false)
-    setShowSettings(false)
-
-
-  },[])
+    setShowHome(true);
+    setShowDashBorrow(false);
+    setShowEarn(false);
+    setShowExchange(false);
+    setShowHistory(false);
+    setShowSettings(false);
+  }, []);
 
   return (
-    <div className=" h-screen">
+    <div className="h-full lg:h-screen">
       <LandingBody _handleConnectWallet={handleConnectWallet}>
         <Web3ModalProvider></Web3ModalProvider>
         <div className="">
           <HeroSection _handleConnectWallet={handleConnectWallet} />
         </div>
         <Footer />
-        
       </LandingBody>
     </div>
   );
