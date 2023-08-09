@@ -4,12 +4,14 @@ import xdc from "../../../assets/dashboard/xdcA.svg";
 import stc from "../../../assets/dashboard/stcA.png";
 import liquidityData from "../../../data/liquidityData";
 
-function PoolIndex() {
+function PoolIndex({_setConfirmationRes, _account, _handleLoading,  _web3, _stbSwap, _stc, _stb, _xdcBlnc, _stcBlnc, _xdcPrc}) {
   const [showPool, setShowPool] = useState(true);
   const [selectedLiquidity, setSelectedLiquidity] = useState(null);
   const selectedData = liquidityData.find(
     (data) => data.id === selectedLiquidity
   );
+  const [allPools, setAllPools] = useState(null);
+
 
   const handleItemClick = (id) => {
     setSelectedLiquidity(id);

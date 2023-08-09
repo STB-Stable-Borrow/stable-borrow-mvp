@@ -1,8 +1,7 @@
 import STC from "../backend/build/contracts/STC.json";
 import { Big } from "big.js";
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //initializes and return stc contract properties
 const stcContractInit = (web3) => {
@@ -14,15 +13,14 @@ const maxU256 =
   115792089237316195423570985008687907853269984665640564039457584007913129639935n;
 
 //calls approve function on STC contract
-const approveAccount = async (stc, userAccount, stbAddress) => {
+const approveAccount = async (stc, userAccount, contractAddrs) => {
   const approveRes = await stc.methods
-    .approve(stbAddress, maxU256)
+    .approve(contractAddrs, maxU256)
     .send({ from: userAccount })
     .then((res) => {
       if (res) {
         return true;
       } else {
-        toast.error("Unexpected Error occured. Try again later");
         return false;
       }
     })
@@ -38,12 +36,11 @@ const approveAccount = async (stc, userAccount, stbAddress) => {
         if (
           err.message.includes("Response has no error or result for request")
         ) {
-          toast.error("You are offline due to internet connection. check your connection and try again")
-
+          toast.error(
+            "You are offline due to internet connection. check your connection and try again"
+          );
         } else {
-          toast.error("Error while approving STB. Try again later")
           console.log("Error while approving STB :", err);
-          
         }
         return false;
       }

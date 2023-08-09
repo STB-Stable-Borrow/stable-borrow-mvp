@@ -235,13 +235,13 @@ contract SBT is Gated, SbtGated {
     }
 
     function _getIndex(address [] memory array, address account) internal pure returns(uint) {
-        uint256 index = type(uint256).max;
+        uint256 index;
         for(uint i = 0; i < array.length; i++) {
            if(array[i] == account) {
                index = i;
            }
         }
-        if(index == type(uint256).max) {
+        if(index == 0) {
             revert("SBT_ERR12: can't blacklist an unverified account");
         }else{
             return index;
