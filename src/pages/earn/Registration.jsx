@@ -19,9 +19,8 @@ import {
   useGateway,
 } from "@civic/ethereum-gateway-react";
 import { CivicPassProvider } from "../../contexts/civicpassContext";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Registration() {
   const { gatewayStatus } = useGateway();
@@ -38,13 +37,15 @@ function Registration() {
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const registerBtn = document.getElementById("register-btn");
-  const captchaBtn = document.querySelector('[data-testid="CIVIC_IDENTITY_BUTTON"]');
+  const captchaBtn = document.querySelector(
+    '[data-testid="CIVIC_IDENTITY_BUTTON"]'
+  );
 
   // verify connection status and chainId
   const verifyConnection = () => {
     const acceptIds = [50, 51];
     if (!connected && !chainId) {
-     toast.info("You have to connect your wallet to proceed");
+      toast.info("You have to connect your wallet to proceed");
       navigate("/");
     }
     if (connected && !acceptIds.includes(chainId)) {
@@ -54,7 +55,6 @@ function Registration() {
       navigate("/");
     }
   };
-
 
   const handleCreateAvatar = () => {
     setCreateAvatar(true);
@@ -82,9 +82,9 @@ function Registration() {
     }
   };
 
-/// since gatewayStatus keeps returning 2 even when pass is active
-///get the content of the identityButton to track if pass is active or not
-handleRegisterButtonColour();
+  /// since gatewayStatus keeps returning 2 even when pass is active
+  ///get the content of the identityButton to track if pass is active or not
+  handleRegisterButtonColour();
 
   //handles profile creation
   const handleMintProfile = async () => {
@@ -165,7 +165,7 @@ handleRegisterButtonColour();
 
   return (
     <CivicPassProvider _wallet={signer}>
-      <div className="w-screen h-screen bg-[#292C31] ">
+      <div className="w-screen md:h-screen h-full pb-[19.06rem] md:pb-0 bg-[#292C31] ">
         <Link to={"/"}>
           <img
             src={logo}
@@ -174,7 +174,7 @@ handleRegisterButtonColour();
           />
         </Link>
         {showRegistration && (
-          <div className="bg-[#202225]  text-white rounded-[15px] h-[80vh] mx-[253px] px-[1.51vh] py-[1.39vh] ">
+          <div className="bg-[#202225] text-white rounded-[15px] md:h-[80vh] md:mx-[253px] mx-[1.25rem] px-[1.51vh] py-[1.39vh] mt-[5rem] md:mt-0 ">
             <div className="text-center mb-[2.3vh]">
               <h1 className="mb-[10px] text-[#009FBD] font-black text-xl ">
                 Registration
@@ -188,12 +188,12 @@ handleRegisterButtonColour();
                 </h1>
                 <IdentityButton />
               </div>
-              <div className="gap-[25px] flex items-center justify-between h-[35.03vh]  ">
-                <div className="w-[30.81vw] h-full flex flex-col items-center rounded-[15px] bg-[#202225] pt-[1.6vh] ">
+              <div className="gap-[25px] flex flex-col items-center justify-between md:h-[35.03vh] md:flex-row   ">
+                <div className="md:w-[30.81vw] w-full h-[15rem] flex flex-col items-center rounded-[15px] bg-[#202225] pt-[1.6vh] ">
                   <h1 className="text-center text-[0.875rem] font-semibold text-[#009FBD] mb-[2.4vh] ">
                     Step 2 - Create your avatar
                   </h1>
-                  <div className="w-[10.81vw] h-[10.81vw] rounded-full border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
+                  <div className="md:w-[10.81vw] w-[9.68rem] md:h-[10.81vw] h-[9.68rem] rounded-full border border-dashed border-[#585858] flex justify-center items-center flex-col relative  ">
                     {loading && (
                       <div>
                         <h1 className="text-xs">Loading...</h1>
@@ -221,10 +221,14 @@ handleRegisterButtonColour();
                   </div>
                   {avatarImage && (
                     <button className="flex justify-center items-center text-xs mt-2 gap-1 relative">
-                      <img src={editAvatar} alt="" className="w-[20px]" />
+                      <img
+                        src={editAvatar}
+                        alt=""
+                        className="md:w-[20px] w-[10px]"
+                      />
                       <p
                         onClick={handleCreateAvatar}
-                        className="text-[#B0B0B0] hover:underline "
+                        className="text-[#B0B0B0] text-xs md:text-base  hover:underline "
                       >
                         Edit Avatar
                       </p>
@@ -255,20 +259,20 @@ handleRegisterButtonColour();
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-[110px] mt-[1.19vh] mb-[1.5vh] ">
+              <div className="flex items-center justify-between md:justify-center md:gap-[110px] mt-[1.19vh] mb-[1.5vh] md:text-base text-sm ">
                 <button
                   onClick={() => {
                     navigate("/info");
                   }}
-                  className="border border-[#009FBD] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
+                  className="border border-[#009FBD] w-[8rem] h-[2.19rem] md:w-[164px] md:h-[6.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
                 >
                   <img src={back} alt="" />
                   Back
                 </button>
                 <button
                   id="register-btn"
-                  onLoad={verifyConnection}
-                  className="bg-[#585858] w-[164px] h-[6.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
+                  // onLoad={verifyConnection}
+                  className="bg-[#585858] w-[8rem] h-[2.19rem] md:w-[164px] md:h-[6.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
                   onClick={handleMintProfile}
                 >
                   Register
