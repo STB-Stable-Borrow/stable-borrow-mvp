@@ -7,7 +7,6 @@ import set from "../../../assets/dashboard/set.svg";
 import { Big } from "big.js";
 import collapse from "../../../assets/mobile/collapse.svg";
 import expand from "../../../assets/mobile/expand.svg";
-// import set from "../../../assets/mobile/set.svg";
 
 function Borrow({
   totalLck,

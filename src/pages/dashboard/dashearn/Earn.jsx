@@ -50,7 +50,7 @@ function Earn({
       const timer = setTimeout(() => {
         setPageTwo(true);
         setStatus(null);
-      }, 4000);
+      }, 50000);
       return () => clearTimeout(timer);
     }
   }, [status]);
