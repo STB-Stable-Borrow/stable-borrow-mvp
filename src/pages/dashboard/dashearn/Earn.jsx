@@ -29,13 +29,13 @@ function Earn({
     setPageOne(true);
   };
 
-  const { active, activeTab, handleLoading} = useDashboard();
+  const { active, activeTab, handleLoading } = useDashboard();
 
   useEffect(() => {
     if (active === 1) {
       activeTab(3);
     }
-    if (!pageOne && !pageTwo ) {
+    if (!pageOne && !pageTwo) {
       setPageOne(true);
     }
   }, [active]);
@@ -56,7 +56,7 @@ function Earn({
   }, [status]);
 
   return (
-    <div>
+    <div className="px-[4.83vw] md:px-0 pb-[15.62vh]">
       {pageOne && (
         <EarnIndex
           web3={_web3}

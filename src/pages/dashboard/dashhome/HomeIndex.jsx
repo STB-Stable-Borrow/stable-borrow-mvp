@@ -39,22 +39,27 @@ function HomeIndex({
   }, [totalLck, totalDebt, hauntedVlts]);
 
   return (
-    <div className=" overflow-hidden ">
-      <div className=" text-[#D9D9D9] flex justify-around mb-[5.09vh]   ">
+    <div className=" overflow-hidden px-[4.83vw] md:px-0 pb-[15.62vh] ">
+      <div className=" text-[#D9D9D9] flex flex-col justify-around mb-[5.09vh] md:flex-row gap-[3.34vh] md:gap-0   ">
+        <h1 className="md:hidden mt-[3.34vh] mb-[8.48vh] text-[#B0B0B0] font-bold ">
+          Welcome!
+        </h1>
         <div
-          className={`${
+          className={` ${
             !isBorrowOverview && "opacity-10 cursor-not-allowed"
-          } border-[2px] border-dashed border-[#585858] px-[1.04vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#009fbd] -52.27 to-[#344e53] 127.2% flex flex-col gap-[2.78vh] items-center `}
+          } border-[2px] border-dashed border-[#585858] px-[4.83vw] md:px-[1.04vw] h-[28.79vh]  md:h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#009fbd] -52.27 to-[#344e53] 127.2% flex flex-col gap-[2.78vh] items-center  `}
         >
-          <h1 className="font-semibold">Borrow Overview</h1>
-          <div className="flex justify-between gap-[19px] h-[16.20vh] ">
-            <div className="bg-[#12A92A]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center ">
+          <h1 className="font-semibold md:text-base text-xl">
+            Borrow Overview
+          </h1>
+          <div className="flex justify-between gap-[1.93vw] md:gap-[19px] md:h-[16.20vh] h-[10.15vh] w-full md:w-auto">
+            <div className="bg-[#12A92A]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center w-full md:w-auto ">
               <h1 className="text-[0.675rem] font-bold ">Total Locked</h1>
               <p className="text-[1.25rem] font-medium">
                 ${(xdcPrc * totalLck).toFixed(4)}
               </p>
             </div>
-            <div className="bg-[#FF1F1F] px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center ">
+            <div className="bg-[#FF1F1F] px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center w-full md:w-auto  ">
               <h1 className="text-[0.675rem] font-bold ">Total Debt</h1>
               <p className="text-[1.25rem] font-medium">${1 * totalDebt}</p>
             </div>
@@ -65,9 +70,7 @@ function HomeIndex({
                 setFromDashborrow(true);
                 navigate("/borrow");
               }}
-              className={`${
-                !isBorrowOverview && "cursor-not-allowed"
-              } bg-[#009FBD] w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75`}
+              className={` bg-[#009FBD] w-full md:w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75`}
             >
               Borrow Now{" "}
               <img src={arrow} alt="" className="w-[2.22vh] h-[2.22vh] " />
@@ -78,7 +81,7 @@ function HomeIndex({
               disabled={true}
               className={`${
                 !isBorrowOverview && "cursor-not-allowed"
-              } bg-[#009FBD] w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75`}
+              } bg-[#009FBD] w-full md:w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75`}
             >
               Borrow Now{" "}
               <img src={arrow} alt="" className="w-[2.22vh] h-[2.22vh] " />
@@ -89,7 +92,7 @@ function HomeIndex({
               disabled={true}
               className={`${
                 !isBorrowOverview && "cursor-not-allowed"
-              } bg-[#009FBD] w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75`}
+              } bg-[#009FBD] w-full md:w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75`}
             >
               Borrow Now{" "}
               <img src={arrow} alt="" className="w-[2.22vh] h-[2.22vh] " />
@@ -99,18 +102,18 @@ function HomeIndex({
 
         <div
           className={`${
-            !isEarnOverview && "opacity-10 cursor-not-allowed"
-          } border-[2px] border-dashed border-[#585858] px-[1.04vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#865DFF] -52.27 to-[#344e53] 127.2%  flex flex-col gap-[2.78vh] items-center`}
+            !isBorrowOverview && "cursor-not-allowed"
+          } border-[2px] border-dashed border-[#585858] md:px-[1.04vw] px-[4.83vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#865DFF] -52.27 to-[#344e53] 127.2%  flex flex-col gap-[2.78vh] items-center`}
         >
-          <h1 className="font-semibold">Earn Overview</h1>
-          <div className="flex justify-between gap-[19px] h-[16.20vh] ">
-            <div className="bg-[#12A92A] h-[16.20vh] py-[0.81vh]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-between ">
-              <div className="flex flex-col items-center">
+          <h1 className="font-semibold  md:text-base text-xl">Earn Overview</h1>
+          <div className="flex justify-between gap-[1.93vw] md:gap-[19px] h-[18.08vh] md:h-[16.20vh] w-full md:w-auto ">
+            <div className="bg-[#12A92A] h-full py-[0.81vh]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-between ">
+              <div className="flex flex-col md:h-auto h-full items-center">
                 <h1 className="text-[0.675rem] font-bold ">
                   Total Vaults Haunted:
                 </h1>
                 {hauntedVlts && (
-                  <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
+                  <p className="md:text-[1.25rem] text-base mt-[-0.74vh] font-medium">
                     {getArrayLength(hauntedVlts)}
                   </p>
                 )}
@@ -118,16 +121,16 @@ function HomeIndex({
                   <p className="text-[1.25rem] mt-[-0.74vh] font-medium"></p>
                 )}
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col gap-1 md:h-auto h-full items-center">
                 <h1 className="text-[0.675rem] font-bold ">Total Payout:</h1>
-                <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
+                <p className="md:text-[1.25rem] text-center text-sm mt-[-0.74vh] font-medium">
                   350000.0000 XDC
                 </p>
               </div>
             </div>
             <div className="bg-[#C16E08] py-[0.81vh]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-between ">
               <div className="flex flex-col items-center">
-                <h1 className="text-[0.675rem] font-bold ">
+                <h1 className="text-[0.675rem] text-center font-bold ">
                   Current Collateral Ratio:
                 </h1>
                 <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
@@ -135,8 +138,8 @@ function HomeIndex({
                 </p>
               </div>
               <div className="flex flex-col items-center">
-                <h1 className="text-[0.675rem] font-bold ">
-                  Total Vaults in Liquidation:
+                <h1 className="text-[0.675rem] text-center font-bold ">
+                  Total Vaults in Liquidity:
                 </h1>
                 {liquidatedVlts && (
                   <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
@@ -157,7 +160,7 @@ function HomeIndex({
               }}
               className={`${
                 !isEarnOverview && "cursor-not-allowed"
-              } bg-[#865DFF] w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75 `}
+              } bg-[#865DFF] w-full md:w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75 `}
             >
               Earn Now{" "}
               <img src={arrow} alt="" className="w-[2.22vh] h-[2.22vh] " />
@@ -168,7 +171,7 @@ function HomeIndex({
               disabled={true}
               className={`${
                 !isEarnOverview && "cursor-not-allowed"
-              } bg-[#865DFF] w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75 `}
+              } bg-[#865DFF] w-full md:w-[12.66vw] py-[0.85vh] rounded-lg flex items-center justify-center gap-2 text-[0.85rem] text-white hover:bg-opacity-75 `}
             >
               Earn Now{" "}
               <img src={arrow} alt="" className="w-[2.22vh] h-[2.22vh] " />
@@ -179,13 +182,13 @@ function HomeIndex({
       <h1 className="w-full bg-[#202225] text-center text-[#B0B0B0] font-bold text-[1.125em] border-[#585858] border-dashed border rounded-[7px] h-[4.35vh] mb-[1.48vh] ">
         History
       </h1>
-      <div className="table w-full text-[#B0B0B0] text-[1rem]  ">
+      <div className="hidden w-full text-[#B0B0B0] text-[1rem] md:table ">
         <div className="bg-[#202225] h-[5.76vh] flex justify-between items-center pl-[22px] border-b border-[#B0B0B0]  ">
           <h1 className="w-[300px]">Activity</h1>
           <h1 className="w-[300px]">Date and Time</h1>
           <h1 className="w-[300px]">Tx Hash</h1>
         </div>
-        <div className="max-h-[21.85vh] bg-[#292C31] overflow-auto ">
+        <div className="max-h-[25.85vh] bg-[#292C31] overflow-auto ">
           {vaultsData.map((vault, index) => (
             <div
               className="flex justify-between items-center pl-[22px] pr-2 py-[1.94vh] border-b border-[#B0B0B0]  "
@@ -199,6 +202,19 @@ function HomeIndex({
             </div>
           ))}
         </div>
+      </div>
+      <div className="md:hidden w-full flex flex-col gap-[1.56vh] ">
+        {vaultsData.map((vault, index) => (
+          <div className="">
+            <div className="bg-[#B0B0B0] w-full h-[3.57vh] rounded-t-[0.93rem] py-[1vh] px-[3.89vw] text-[#292C31] font-semibold flex items-center gap-2 text-xs  ">
+              {vault.date} | {vault.time}
+            </div>
+            <div className="h-[7.7vh] bg-[#202225] rounded-b-[0.93rem] p-[3.86vw] text-[#B0B0B0] flex flex-col gap-1 ">
+              <h6 className="font-semibold text-sm">{vault.activity}</h6>
+              <p className="text-xs">{vault.txHash}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
