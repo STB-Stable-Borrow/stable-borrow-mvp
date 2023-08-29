@@ -27,6 +27,7 @@ import { CivicPassProvider } from "../../contexts/civicpassContext";
 import { isRegistered } from "../../lib/sbtContract";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MobileNav from "./MobileNav";
 
 function Dashboard() {
   const {
@@ -63,7 +64,7 @@ function Dashboard() {
     onVaultBackClick,
     active,
     activeTab,
-    handleLoading
+    handleLoading,
   } = useDashboard();
   const navigate = useNavigate();
   const { resetVaultBorrowSetup } = useBorrow();
@@ -163,7 +164,7 @@ function Dashboard() {
         });
       }
     })();
-  }, );
+  });
 
   //get prices
   useEffect(() => {
@@ -194,9 +195,9 @@ function Dashboard() {
   });
 
   return (
-    <div className="flex w-screen h-screen overflow-none bg-[#292C31] px-[4.17vw] ">
+    <div className="flex w-screen md:h-screen h-full overflow-none bg-[#292C31] md:px-[4.17vw] ">
       {isLoading && <LoadingSpinner />}
-      <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] ">
+      <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] hidden md:block ">
         <Sidebar
           active={active}
           activeTab={activeTab}
@@ -210,9 +211,23 @@ function Dashboard() {
           _disconnect={disconnect}
         />
       </div>
-      <div className="flex flex-col w-full ml-[43px] ">
-        <div className=" mt-[4.6vh] text-[#B0B0B0]   ">
-          <Navbar _account={account} _address={address} _profile={profile} />
+      <div className="flex flex-col w-full md:ml-[43px] ">
+        <div className=" md:mt-[4.6vh] text-[#B0B0B0] ">
+          <div className="hidden md:block  ">
+            <Navbar _account={account} _address={address} _profile={profile} />
+          </div>
+          <div className=" md:hidden ">
+            <MobileNav
+              active={active}
+              activeTab={activeTab}
+              onDashBorrowClick={onDashBorrowClick}
+              onEarnClick={onEarnClick}
+              onExchangeClick={onExchangeClick}
+              onHistoryClick={onHistoryClick}
+              onSettingsClick={onSettingsClick}
+              onHomeClick={onHomeClick}
+            />
+          </div>
         </div>
         <div className="mt-[2.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
           {showHome && (activeTab === 1 || showHome) && (
@@ -255,7 +270,20 @@ function Dashboard() {
               _xdcPrc={xdcPrc}
             />
           )}
-          {showExchange && (activeTab === 5 || showExchange) && <Exchange _account={account} _handleLoading={handleLoading} _web3={web3} _stbSwap={stbSwap} _stc={stc} _stb={stb} _colRatio={colRatio} _xdcBln={xdcBlnc} _stcBln={stcBlnc} _xdcPrc={xdcPrc} />}
+          {showExchange && (activeTab === 5 || showExchange) && (
+            <Exchange
+              _account={account}
+              _handleLoading={handleLoading}
+              _web3={web3}
+              _stbSwap={stbSwap}
+              _stc={stc}
+              _stb={stb}
+              _colRatio={colRatio}
+              _xdcBln={xdcBlnc}
+              _stcBln={stcBlnc}
+              _xdcPrc={xdcPrc}
+            />
+          )}
           {showHistory && (activeTab === 4 || showHistory) && <History />}
           {showSettings && (activeTab === 6 || showSettings) && (
             <Settings

@@ -5,13 +5,17 @@ import medal from "../../../assets/dashboard/medal.svg";
 
 function EarnSuccess() {
   return (
-    <div className="w-full h-[64.91vh] flex items-center justify-center bg-[#202225] rounded-[15px] ">
-      <div className="bg-[#292C31] rounded-[12px] w-[38.28vw] flex flex-col items-center justify-center pb-[7.22vh] px-[3.19vw] pt-[2vh] ">
+    <div className="w-full h-full pb-[100%] md:h-[64.91vh] flex items-center justify-center bg-[#202225] rounded-[15px] md:px-0 px-[4.83vw]">
+      <div className="bg-[#292C31] rounded-[12px] w-full md:w-[38.28vw] flex flex-col items-center justify-center pb-[7.22vh]  md:px-[3.19vw] px-[8.21vw] mt-8 pt-[2vh] ">
         <div className="flex justify-between items-center w-full">
-          <img src={clapLeft} alt="" className="w-[9.48vw] h-[9.48vw] " />
-          <img src={clapRight} alt="" className="w-[9.48vw] h-[9.48vw] " />
+          <img src={clapLeft} alt="" className="md:w-[9.48vw] w-[5.39rem] " />
+          <img src={clapRight} alt="" className="md:w-[9.48vw] w-[5.39rem]" />
         </div>
-        <img src={medal} alt="" className="w-[7.86vw] h-[7.86vw] mt-[-7vh] " />
+        <img
+          src={medal}
+          alt=""
+          className="md:w-[7.86vw] w-[8.12rem] mt-[5vh]  md:mt-[-7vh] "
+        />
         <h1 className="text-[#009FBD]  font-semibold mb-[3.52vh] text-2xl ">
           Congratulations!
         </h1>

@@ -69,24 +69,24 @@ function CreateAvatar({
   });
 
   return (
-    <div className="mx-[167px]">
-      <div className=" h-[10vh] bg-gradient-to-b from-[#3A3B3D] to-[#202225] py-[.5vh] text-center rounded-[15px] mb-[1vh] ">
-        <h1 className="font-black text-xl text-[#009FBD] ">
+    <div className="md:mx-[167px] mx-[1.25rem] pb-[29.75rem] md:pb-0 ">
+      <div className="h-[5.19rem] md:h-[10vh] bg-gradient-to-b from-[#3A3B3D] to-[#202225] py-[.5vh] text-center rounded-[15px] mb-[1vh] ">
+        <h1 className="font-black md:text-xl text-base text-[#009FBD] ">
           Welcome to STB Avatar Hub!
         </h1>
-        <p className="text-[#B0B0B0] text-sm ">
+        <p className="text-[#B0B0B0] md:text-sm text-xs ">
           Customize your Avatar and click Next to Proceed.
         </p>
       </div>
-      <div className="flex justify-between mb-[1.5vh] ">
+      <div className="flex justify-between mb-[1.5vh] flex-col md:flex-row gap-[1.81rem]">
         <button
-          className="border text-white border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
+          className="border text-white border-[#009FBD] md:w-[164px] w-[10rem] h-[2.19rem] md:h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
           onClick={onBackButtonClick}
         >
           <img src={back} alt="" />
           Back
         </button>
-        <div className="h-[5.95vh] rounded-lg bg-[#202225] w-[664px] text-[#B0B0B0] flex items-center pl-[18px] text-sm ">
+        <div className="md:h-[5.95vh] h-[1.88rem] rounded-lg bg-[#202225] w-full md:w-[664px] text-[#B0B0B0] flex items-center pl-[18px] md:text-sm text-xs ">
           Connected Wallet: {_adr} || Avatar Link: {_avatar}
         </div>
       </div>

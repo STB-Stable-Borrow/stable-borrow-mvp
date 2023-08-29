@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import arrow from "../../assets/borrow/arrow.svg";
+import arrowdown from "../../assets/mobile/arrowdown.svg";
 import dash from "../../assets/borrow/dash.svg";
 import approve from "../../assets/borrow/approve.svg";
 import back from "../../assets/borrow/back.svg";
@@ -7,10 +8,9 @@ import next from "../../assets/borrow/next.svg";
 import { useBorrow } from "../../contexts/borrowContext/borrowContext";
 import { useNavigate } from "react-router-dom";
 import { approveAccount } from "../../lib/stcContract";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDashboard } from "../../contexts/dashboardContext";
-
 
 function VaultMgt({
   onNextButtonClicked,
@@ -24,11 +24,9 @@ function VaultMgt({
   _stb,
   _fromDashborrow,
   _setFromDashborrow,
-
-
 }) {
   const navigate = useNavigate();
-  const {handleLoading} = useDashboard()
+  const { handleLoading } = useDashboard();
   const { calculateAmounts, resetVaultBorrowSetup } = useBorrow();
   const [xdcIn, setXdcIn] = useState(null);
   const [stcOut, setStcOut] = useState(null);
@@ -132,8 +130,8 @@ function VaultMgt({
 
   return (
     <div>
-      <div className="flex items-center pt-[2.5vh] px-[34px] gap-[16px] text-sm">
-        <div className="bg-[#292c31] py-[12px] px-[24px] w-[400px] rounded-[12px] ">
+      <div className="flex flex-col items-center pt-[2.5vh]  gap-[16px] text-sm md:flex-row md:px-[34px] px-[5.79vw] ">
+        <div className="bg-[#292c31] py-[12px] px-[24px] w-[82.37vw] md:w-[400px] rounded-[12px] ">
           <h1 className="text-[#009FBD] text-center font-bold ">
             Configure your Vault
           </h1>
@@ -158,7 +156,9 @@ function VaultMgt({
                 placeholder="Enter Amount"
                 className="w-full bg-[#D5D5D5] rounded-[7px] h-[5.46vh] px-[21px] placeholder:text-[#292C31]  "
               />
-              <h1 className="absolute top-1 right-[21px] font-semibold">XDC</h1>
+              <h1 className="absolute md:top-1 top-4 right-[21px] font-semibold">
+                XDC
+              </h1>
             </div>
           </div>
 
@@ -172,10 +172,12 @@ function VaultMgt({
             <div className=" relative text-[#292C31]">
               <input
                 type="number"
-                className="w-[302px] bg-[#D5D5D5] rounded-[7px] h-[5.46vh] px-[21px]  "
+                className="md:w-[302px] bg-[#D5D5D5] rounded-[7px] h-[5.46vh] px-[21px]  "
                 value={stcOut}
               />
-              <h1 className="absolute top-1 right-[21px] font-semibold">XDC</h1>
+              <h1 className="absolute md:top-1 top-4 right-[21px] font-semibold">
+                XDC
+              </h1>
             </div>
           </div>
           <img src={dash} alt="" className="my-[1.4vh]" />
@@ -197,8 +199,10 @@ function VaultMgt({
             </div>
           </div>
         </div>
-        <img src={arrow} alt="" className="w-[30px]" />
-        <div className="bg-[#292c31] py-[12px] px-[24px] w-[400px] rounded-[12px] ">
+        <img src={arrow} alt="" className="w-[30px] hidden md:block" />
+        <img src={arrowdown} alt="" className="h-[30px] md:hidden" />
+
+        <div className="bg-[#292c31] py-[12px] px-[24px] md:w-[400px] w-[82.37vw] rounded-[12px] ">
           <h1 className="text-[#009FBD] text-center font-bold ">Approve STB</h1>
           <p className="text-center mb-[2.76vh] ">
             Simulate your vault by configuring the amount of collateral to
@@ -209,19 +213,19 @@ function VaultMgt({
             to transfer the collateral amount passed not less or more than.
           </p>
           <div className="flex flex-wrap justify-between gap-y-[3.3vh] mb-[5.27vh] text-xs ">
-            <div className="w-[160px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
+            <div className="md:w-[160px] w-[30.50vw]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
               <h1 className="text-xs">Total Debt:</h1>
               <p className="font-bold">${stcOut}</p>
             </div>
-            <div className="w-[160px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
+            <div className="md:w-[160px] w-[30.50vw]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
               <h1 className="text-xs">Collateralization Ratio:</h1>
               <p className="font-bold">{_colRatio}</p>
             </div>
-            <div className="w-[160px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
+            <div className="md:w-[160px] w-[30.50vw]    h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
               <h1 className="text-xs">Current Price:</h1>
               <p className="font-bold">${_xdcPrice}</p>
             </div>
-            <div className="w-[160px]  h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
+            <div className="md:w-[160px] w-[30.50vw] h-[8vh] bg-[#202225] rounded-[10px] py-[1.6vh] px-[13px] ">
               <h1 className="text-xs">Liquidation Price:</h1>
               <p className="font-bold">${_xdcPrice}</p>
             </div>
@@ -230,7 +234,7 @@ function VaultMgt({
             <button
               onClick={handleAllowance}
               id="approve-btn"
-              className="w-[198px] h-[6.6vh] bg-[#865DFF] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg "
+              className="md:w-[198px] w-full h-[3.91vh] md:h-[6.6vh] bg-[#865DFF] flex items-center justify-center gap-2 hover:bg-opacity-75 rounded-lg "
             >
               Approve
               <img src={approve} alt="" />
@@ -238,7 +242,7 @@ function VaultMgt({
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center gap-[110px] mt-[3.19vh] mb-[5.5vh] ">
+      <div className="flex items-center justify-center md:gap-[110px] gap-[5.07vw] mt-[3.19vh] mb-[5.5vh] ">
         <button
           onClick={() => {
             if (_fromDashborrow) {
@@ -248,14 +252,14 @@ function VaultMgt({
               navigate("/info");
             }
           }}
-          className="border border-[#009FBD] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
+          className="border border-[#009FBD] md:w-[164px] md:h-[5.95vh] h-[3.91vh] w-[38.65vw] rounded-lg flex items-center justify-center gap-2 bg-inherit hover:opacity-75 "
         >
           <img src={back} alt="" />
           Back
         </button>
         <button
           id="vm-next-btn"
-          className="bg-[#585858] w-[164px] h-[5.95vh] rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
+          className="bg-[#585858] md:w-[164px] md:h-[5.95vh] h-[3.91vh] w-[38.65vw]  rounded-lg flex items-center justify-center gap-2  hover:bg-opacity-75 "
           onClick={handleNextButton}
         >
           Next

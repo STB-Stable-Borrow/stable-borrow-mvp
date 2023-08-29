@@ -39,8 +39,8 @@ function PaybackSTCIndex({ _web3, _stcBalance, _stb, _account }) {
   };
 
   return (
-    <div className="w-[760px] bg-[#202225] rounded-[30px] mx-auto pt-[3.0vh] pb-[4.2969vh] flex items-center flex-col">
-      <h1 className="text-[#009FBD] font-bold text-[1.125rem] mb-[4.1vh] ">
+    <div className="md:w-[760px] bg-[#202225] rounded-[30px] mx-auto pt-[3.0vh] pb-[4.2969vh] flex items-center flex-col">
+      <h1 className="text-[#009FBD] font-bold text-sm md:text-[1.125rem] mb-[4.1vh] ">
         How much STC would you like to Pay Back?
       </h1>
       {vaultInfo && (
@@ -53,7 +53,7 @@ function PaybackSTCIndex({ _web3, _stcBalance, _stb, _account }) {
       <div className="text-[#292C31] relative ">
         <input
           type="number"
-          className="w-[428px] h-[4.49vh] bg-[#B0B0B0] rounded-lg pl-[21px] placeholder:text-[#292C31] "
+          className="md:w-[428px] w-[75.60vw] h-[4.49vh] bg-[#B0B0B0] rounded-lg pl-[21px] placeholder:text-[#292C31] "
           placeholder="Enter Amount"
           onChange={(e) => {
             setXdcIn(e.target.value);
@@ -71,10 +71,10 @@ function PaybackSTCIndex({ _web3, _stcBalance, _stb, _account }) {
           }}
           value={xdcIn}
         />{" "}
-        <p className="absolute top-0 right-2">STC</p>
+        <p className="absolute top-2 md:top-0 right-2">STC</p>
       </div>
       <p className="text-white mb-[7.91vh] ">Balance: {_stcBalance} STC</p>
-      <div className="text-white w-[350px] text-[1rem] mb-[6.738vh] ">
+      <div className="text-white md:w-[350px] w-full text-xs md:text-[1rem] mb-[6.738vh] px-[12.80vw] md:px-0 ">
         <div className="flex w-full justify-between">
           <h3>Total STC to Pay:</h3>
           <p className="w-[100px]">${xdcIn}</p>
@@ -101,10 +101,10 @@ function PaybackSTCIndex({ _web3, _stcBalance, _stb, _account }) {
           </div>
         )}
       </div>
-      <div className="flex justify-between gap-[110px] ">
+      <div className="flex justify-between md:gap-[110px] w-full md:w-auto gap-[5.07vw] px-[5.79vw] ">
         <button
           onClick={() => onVaultClick(vaultId)}
-          className="border border-[#009FBD] w-[169px] h-[49px] rounded-lg text-white hover:opacity-75 flex items-center gap-2 justify-center"
+          className="border border-[#009FBD] w-full md:w-[169px] h-[3.90vh] md:h-[49px] rounded-lg text-white hover:opacity-75 flex items-center gap-2 justify-center md:text-base text-xs"
         >
           <img src={back} alt="" />
           Back
@@ -112,7 +112,7 @@ function PaybackSTCIndex({ _web3, _stcBalance, _stb, _account }) {
         <button
           onClick={handlePayback}
           id="payback-btn"
-          className="text-[#B0B0B0] bg-[#585858] w-[169px] h-[49px] rounded-lg hover:bg-opacity-75 flex items-center gap-2 justify-center"
+          className="text-[#B0B0B0] bg-[#585858] w-full h-[3.90vh] text-xs md:text-base md:w-[169px] md:h-[49px] rounded-lg hover:bg-opacity-75 flex items-center gap-2 justify-center"
         >
           Payback
           <img src={approve} alt="" />
