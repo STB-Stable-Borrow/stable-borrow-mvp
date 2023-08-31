@@ -22,16 +22,19 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
           </button>
           <h1 className="">Settings</h1>
         </div>
-        <div className="bg-[#202225] px-[4.5vw] py-[1.5vh] rounded-[30px] ">
+        <div className="bg-[#202225] px-[4.5vw] md:pt-0 pt-[3.79vh] md:pb-0 pb-[5.91vh] md:py-[1.5vh] rounded-[1.875rem] ">
           {prof && (
-            <div className="flex items-center gap-[23px] mb-[2.35vh]">
+            <div className="flex flex-col md:flex-row items-center gap-[23px] mb-[2.35vh]">
+              <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] text-center md:hidden ">
+                @{prof.username}
+              </h1>
               <img
                 src={prof.imgUrl}
                 alt=""
-                className="h-[8.96vw] w-[8.96vw] rounded-[100%] border border-[#585858] border-dashed"
+                className="md:h-[8.96vw] md:w-[8.96vw] w-[13.5rem] rounded-[100%] border border-[#585858] border-dashed"
               />
               <div>
-                <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] ">
+                <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] hidden md:block ">
                   {prof.username}
                 </h1>
                 <div className="border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between  gap-[4.47vw] mb-[1.85vh] ">
@@ -97,7 +100,7 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
           )}
           <form
             action=""
-            className="flex flex-col gap-[4.35vh] w-[23.50vw] text-[1rem]"
+            className="flex flex-col gap-[4.35vh] md:w-[23.50vw] text-[1rem] w-full"
           >
             <div className="flex flex-col gap-[1.57vh] ">
               <label htmlFor="" className=" font-semibold text-[#009FBD]  ">
@@ -117,9 +120,13 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
                 className="bg-[#B0B0B0] py-[1.30vh] pl-[21px] rounded-lg h-[10.65vh] text-[#292C31] text-[0.85em] "
               ></textarea>
             </div>
-            <button className="text-white w-max flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 text-sm ">
+            <button className="text-white w-full md:w-max flex items-center justify-center gap-2 py-[1.11vh] px-[2.29vw] bg-[#009FBD] rounded-lg hover:bg-opacity-75 text-sm ">
               <h1> Save Changes</h1>
-              <img src={save} alt="" className="w-[1.25vw] h-[2.22vh]" />
+              <img
+                src={save}
+                alt=""
+                className="md:w-[1.25vw] w-[1.125rem] md:h-[2.22vh]"
+              />
             </button>
           </form>
         </div>
