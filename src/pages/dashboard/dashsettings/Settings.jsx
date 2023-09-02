@@ -26,10 +26,10 @@ function Settings({ _stcBlnc, _xdcBalance, _xdcPrc, _profile }) {
   };
 
   return (
-    <div className="px-[4.83vw] md:px-0 h-full md:h-auto md:pb-0 pb-[50%] ">
+    <div className="px-[4.83vw] md:px-0 h-full md:h-full md:pb-0 pb-[50%]  ">
       {showSettings ? (
-        <div className="flex justify-center">
-          <div className="md:w-[30.94vw] w-full   py-[2.5vh] rounded-[40px] bg-[#202225] flex  px-[9.17vw] md:px-0 flex-col items-center ">
+        <div className="flex h-full justify-center">
+          <div className="md:w-[30.94vw] w-full  py-[2.5vh] rounded-[40px] bg-[#202225] h-full flex  px-[9.17vw] md:px-0 flex-col items-center ">
             {_profile && (
               <h1 className="text-[#B0B0B0] font-semibold text-[1em]  mb-[1.39vh] ">
                 @{_profile.username}
@@ -96,7 +96,7 @@ function Settings({ _stcBlnc, _xdcBalance, _xdcPrc, _profile }) {
                 )}
               </div>
             </div>
-            <div className="bg-[#B0B0B0] w-full md:w-[25.8854vw] rounded-[20px] pl-[1.20vw] md:max-h-[10.5vh] h-[14.95vh] py-[1.02vh] mb-[3.15vh] overflow-y-auto ">
+            <div className="bg-[#B0B0B0] w-full md:w-[25.8854vw] rounded-[20px] p-4 md:pl-[1.20vw] md:max-h-[10.5vh] h-[14.95vh] py-[1.02vh] mb-[3.15vh] overflow-y-auto ">
               {_profile && <p className="text-[0.875em] ">{_profile.about}</p>}
               {!_profile && <p className="text-[0.875em] ">User's About</p>}
             </div>

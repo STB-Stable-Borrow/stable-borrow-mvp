@@ -10,8 +10,8 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
   });
 
   return (
-    <div className="">
-      <div className="flex flex-col items-center justify-center">
+    <div className="h-full">
+      <div className="flex flex-col items-center justify-center h-full">
         <div className="w-full bg-[#202225]  text-[#B0B0B0] font-bold text-[1.125rem] border-[#585858] border-dashed border rounded-[7px] h-[4.5989vh] mb-[1.53vh] flex justify-between items-center gap-[31px] pl-[2.86vw] pr-[33.93vw] ">
           <button
             className="flex items-center gap-2 text-[#009FBD] text-sm "
@@ -22,9 +22,9 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
           </button>
           <h1 className="">Settings</h1>
         </div>
-        <div className="bg-[#202225] px-[4.5vw] md:pt-0 pt-[3.79vh] md:pb-0 pb-[5.91vh] md:py-[1.5vh] rounded-[1.875rem] ">
+        <div className="bg-[#202225] w-full md:w-auto px-[4.5vw] md:pt-0 pt-[3.79vh] md:pb-0 pb-[5.91vh] h-full md:py-[1.5vh] rounded-[1.875rem] ">
           {prof && (
-            <div className="flex flex-col md:flex-row items-center gap-[23px] mb-[2.35vh]">
+            <div className="flex flex-col md:flex-row items-center gap-[23px] mb-[2.35vh] ">
               <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] text-center md:hidden ">
                 @{prof.username}
               </h1>
@@ -33,11 +33,11 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
                 alt=""
                 className="md:h-[8.96vw] md:w-[8.96vw] w-[13.5rem] rounded-[100%] border border-[#585858] border-dashed"
               />
-              <div>
+              <div className="w-full md:w-auto">
                 <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] hidden md:block ">
                   {prof.username}
                 </h1>
-                <div className="border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between  gap-[4.47vw] mb-[1.85vh] ">
+                <div className="border-dashed border  border-[rgb(88,88,88)] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between  gap-[4.47vw] mb-[1.85vh] w-full md:w-auto">
                   <div className="flex items-center flex-col">
                     {stcBlnc && (
                       <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
@@ -67,37 +67,49 @@ function EditProfile({ onBackClick, prof, xdcBalance, stcBlnc, xdcPrc }) {
             </div>
           )}
           {!prof && (
-            <div className="flex items-center  gap-[23px] mb-[4.35vh]">
+            <div className="flex flex-col md:flex-row items-center gap-[23px] mb-[2.35vh]">
+              <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] text-center md:hidden ">
+                @username
+              </h1>
               <img
                 src={profile}
                 alt=""
-                className="h-[8.96vw] w-[8.96vw] rounded-[100%] border border-[#585858] border-dashed"
+                className="md:h-[8.96vw] md:w-[8.96vw] w-[13.5rem] rounded-[100%] border border-[#585858] border-dashed"
               />
               <div>
-                <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] ">
+                <h1 className="text-[#B0B0B0] font-semibold text-[1rem]  mb-[1.39vh] hidden md:block ">
                   @username
                 </h1>
-                <div className="w-[15.89vw] border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between mb-[1.85vh] ">
-                  <div className="flex item-center flex-col ">
-                    <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
-                      0 STC
-                    </h1>
-                    <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
-                      ~ $0.0000
-                    </p>
+                <div className="border-dashed border  border-[#585858] px-[1.15vw] py-[1.20vh] rounded-[20px] flex items-center justify-between  gap-[4.47vw] mb-[1.85vh] ">
+                  <div className="flex items-center flex-col">
+                    {stcBlnc && (
+                      <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                        0 STC
+                      </h1>
+                    )}
+                    {stcBlnc && (
+                      <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
+                        ~ $0.0000
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center flex-col">
-                    <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
-                      0 XDC
-                    </h1>
-                    <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center ">
-                      ~ $0.0000
-                    </p>
+                    {xdcBalance && (
+                      <h1 className="text-[#009FBD] font-semibold text-[1.25em] ">
+                        0 XDC
+                      </h1>
+                    )}
+                    {xdcBalance && (
+                      <p className="text-[1em] mt-[-0.74vh] text-[#B0B0B0] text-center  ">
+                        ~ $0.0000
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           )}
+
           <form
             action=""
             className="flex flex-col gap-[4.35vh] md:w-[23.50vw] text-[1rem] w-full"
