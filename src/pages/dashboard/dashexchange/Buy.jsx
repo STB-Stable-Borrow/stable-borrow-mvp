@@ -1,6 +1,7 @@
 import React from "react";
 import tokenizationData from "../../../data/tokenizationData";
 import buyTokenDetails, { buyTokenDetails2 } from "../../../data/tokenDetails";
+import collapse from "../../../assets/mobile/collapse.svg";
 
 import xdc from "../../../assets/dashboard/xdc-w.png";
 import stc from "../../../assets/dashboard/stc-w.svg";
@@ -8,20 +9,22 @@ import mark from "../../../assets/dashboard/mark.svg";
 
 function Buy() {
   return (
-    <div className="flex flex-col justify-between items-center">
+    <div className="flex flex-col justify-between items-center mt-[3.34vh] md:mt-0 ">
       <p className="text-center text-[#585858] mb-[.75vh] text-xs">
         Welcome to the current tokenization round chose a vault to invest in.
       </p>
-      <h1 className="text-[#865DFF] italic mb-[1.31vh] ">All Vault’s tokens</h1>
+      <h1 className="text-[#865DFF] italic mb-[1.31vh] md:text-base text-xl mt-[6.13vh] md:mt-0 ">
+        All Vault’s tokens
+      </h1>
 
-      <div className="flex items-center text-xs text-[#585858] justify-between w-full pl-[0.7vw]">
+      <div className="md:flex items-center text-xs text-[#585858] justify-between w-full pl-[0.7vw] hidden ">
         <h2 className="w-[2.12vw]">Id</h2>
         <h2 className="w-[8.42vw]   ">Pair</h2>
         <h2 className="w-[6.25vw] ">Debt</h2>
         <h2 className="w-[6.25vw]">Max Sales</h2>
         <h2 className="w-[6.25vw]">Sales</h2>
       </div>
-      <div className="w-full h-[10.46vh] pr-[0.52vw] overflow-y-auto flex flex-col gap-[.46vh] mb-[1.3vh] ">
+      <div className="w-full h-[10.46vh] pr-[0.52vw] overflow-y-auto md:flex flex-col gap-[.46vh] mb-[1.3vh] hidden ">
         {tokenizationData.map((data, index) => (
           <div
             className="flex items-center text-xs text-[#B0B0B0] justify-between w-full py-[0.93vh]  bg-[#292C31] rounded-[10px] pl-[0.7vw]"
@@ -40,6 +43,32 @@ function Buy() {
             <h2 className="w-[6.25vw] ">${data.debt}</h2>
             <h2 className="w-[6.25vw]">${data.maxSales}</h2>
             <h2 className="w-[6.25vw]">${data.sales}</h2>
+          </div>
+        ))}
+      </div>
+      <div className="w-full flex flex-col gap-2 h-[15vh] overflow-y-auto mx-[3.62vw] md:hidden mb-[7.14vh] ">
+        {tokenizationData.map((data, index) => (
+          <div className="flex w-full items-center flex-col gap-4 text-[#B0B0B0] font-semibold text-xs bg-[#292C31] rounded-[0.625rem] py-[1.11vh]  px-[3.38vw]">
+            <div className="flex items-center justify-between w-full  ">
+              <div className="flex items-center gap-1 w-[38.46vw] ">
+                <p>#{data.id}</p>
+                <div className="flex items-center">
+                  <img src={xdc} alt="" className="w-[1.875rem] " />
+                  <img src={stc} alt="" className="w-[1.875rem] " />
+                </div>
+                <h2 className=" ">
+                  {data.token1}/{data.token2}
+                </h2>
+              </div>
+              <div className="flex items-center gap-4 w-[35.46vw]  ">
+                <h2 className=" ">Debt: ${data.debt}</h2>
+                <img src={collapse} alt="" />
+              </div>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <h2 className="w-[38.46vw] ">Max Sales: ${data.maxSales}</h2>
+              <h2 className=" w-[35.46vw] ">Sales: ${data.sales}</h2>
+            </div>
           </div>
         ))}
       </div>

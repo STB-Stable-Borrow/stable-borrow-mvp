@@ -32,7 +32,7 @@ function PoolIndex({
   return (
     <div className="px-[3.62vw] ">
       {showPool ? (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center md:pb-0 pb-12">
           <p className="text-center  text-[#585858]  mb-[0.5vh] text-[.75rem] ">
             Click on each Pool to add Liquidity, check your Liquidity overview
             for details.
@@ -88,10 +88,10 @@ function PoolIndex({
               Total Liquidity: 100M
             </div>
           </div>
-          <h1 className="font-semibold text-[#865DFF] text-[1rem]">
+          <h1 className="font-semibold text-[#865DFF] text-[1rem] md:mt-0 mt-6">
             Top Pools
           </h1>
-          <div className="w-full flex items-center justify-between text-[#585858] text-[.75rem] ">
+          <div className="w-full md:flex items-center justify-between text-[#585858] text-[.75rem] hidden ">
             <h1 className="w-[8vw]">Pair</h1>
             <div className="flex items-start gap-[1vw]">
               <h1 className="w-[4.0vw] ">Volume</h1>
@@ -99,7 +99,7 @@ function PoolIndex({
               <h1 className="w-[3.64vw] text-center">Fee</h1>
             </div>
           </div>
-          <div className="w-full h-[15.46vh] overflow-y-auto flex flex-col gap-[0.93vh] pr-[0.52vw]  ">
+          <div className="w-full h-[15.46vh] overflow-y-auto md:flex flex-col gap-[0.93vh] pr-[0.52vw] hidden  ">
             {liquidityData.map((data) => (
               <div
                 className="flex items-center w-full justify-between text-[.75rem] text-[#B0B0B0] py-[0.93vh]  rounded-[10px] liquidity "
@@ -119,6 +119,15 @@ function PoolIndex({
                   <h1 className="w-[3.64vw] text-end ">{data.percentage}%</h1>
                 </div>
               </div>
+            ))}
+          </div>
+          <div className=" flex gap-2 flex-col md:hidden w-full text-[#B0B0B0] text-sm mt-[3.34vh] h-[15vh] overflow-auto ">
+            {liquidityData.map((data, index) => (
+              <MobileLiquidityItem
+                key={index}
+                data={data}
+                handleItemClick={handleItemClick}
+              />
             ))}
           </div>
         </div>
