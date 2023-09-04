@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import LandingBody from "../layouts";
 import { toggleAbout } from "../data/toggleAboutContent";
 import { useAbout } from "../context/aboutContext";
-import back from "../assets/borrow/back.svg";
-import next from "../assets/borrow/next.svg";
 
 function About() {
   const abouts = useAbout();
