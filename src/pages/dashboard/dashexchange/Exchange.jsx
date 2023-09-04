@@ -25,8 +25,11 @@ function Exchange({
   }, [active]);
 
   return (
-    <div className="flex items-center gap-[2.60vw]  w-full h-full flex-col md:flex-row px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]  ">
+    <div className="flex items-center gap-[8.92vh]  md:gap-[2.60vw]  w-full h-full flex-col md:flex-row px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]  ">
       <div className="w-full h-full">
+        <h1 className="font-bold md:hidden text-[#B0B0B0] text-xl mb-[5.91vh] ">
+          Welcome!
+        </h1>
         <ExchangeIndex
           account={_account}
           handleLoading={_handleLoading}
