@@ -8,10 +8,20 @@ import TokenizationSuccessModal from "./SuccessModal";
 import FailedModal from "./FailedModal";
 import SuccessModal from "./SuccessModal";
 
-function ExchangeIndex({account, handleLoading, web3, stbSwap, stc, stb, xdcBlnc, stcBlnc, xdcPrc}) {
+function ExchangeIndex({
+  account,
+  handleLoading,
+  web3,
+  stbSwap,
+  stc,
+  stb,
+  xdcBlnc,
+  stcBlnc,
+  xdcPrc,
+}) {
   const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
   const [confirmationRes, setConfirmationRes] = useState(null);
-  
+
   const handleSwapToggle = () => {
     setIsSwapToggleOn(!isSwapToggleOn);
   };
@@ -28,9 +38,9 @@ function ExchangeIndex({account, handleLoading, web3, stbSwap, stc, stb, xdcBlnc
         </h1>
         <img src={drag} alt="" className="w-[3.70vw] h-[0.56vh] mb-[0.98vh] " />
       </div>
-      <div className="py-[.65vh] px-[.52vw] bg-[#292C31] rounded-[10px] flex text-[0.75rem] items-center text-[#b0b0b0] mb-[1.31vh] ">
+      <div className="w-[16.93rem] md:w-auto justify-between gap-4 md:gap-0 py-[.65vh] px-[.52vw] bg-[#292C31] rounded-[10px] flex text-[0.75rem] items-center text-[#b0b0b0] mb-[1.31vh] ">
         <button
-          className={`py-[.37vh] px-[1.56vw] ${
+          className={`py-[.37vh] w-full md:w-auto px-[1.56vw] ${
             isSwapToggleOn ? "bg-[#009FBD] text-white" : ""
           }  rounded-[7px] `}
           onClick={handleSwapToggle}
@@ -38,7 +48,7 @@ function ExchangeIndex({account, handleLoading, web3, stbSwap, stc, stb, xdcBlnc
           Swap
         </button>
         <button
-          className={`py-[.37vh] px-[1.56vw] ${
+          className={`py-[.37vh] w-full md:w-auto px-[1.56vw] ${
             isSwapToggleOn ? "" : "bg-[#009fbd] text-white "
           } rounded-[7px] `}
           onClick={handlePoolToggle}
@@ -47,10 +57,32 @@ function ExchangeIndex({account, handleLoading, web3, stbSwap, stc, stb, xdcBlnc
         </button>
       </div>
       {confirmationRes === null && isSwapToggleOn && (
-        <SwapIndex _setConfirmationRes={setConfirmationRes} _account={account} _handleLoading={handleLoading}  _web3={web3} _stbSwap={stbSwap} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  />
+        <SwapIndex
+          _setConfirmationRes={setConfirmationRes}
+          _account={account}
+          _handleLoading={handleLoading}
+          _web3={web3}
+          _stbSwap={stbSwap}
+          _stc={stc}
+          _stb={stb}
+          _xdcBlnc={xdcBlnc}
+          _stcBlnc={stcBlnc}
+          _xdcPrc={xdcPrc}
+        />
       )}
       {confirmationRes === null && !isSwapToggleOn && (
-        <PoolIndex _setConfirmationRes={setConfirmationRes} _account={account} _handleLoading={handleLoading}  _web3={web3} _stbSwap={stbSwap} _stc={stc} _stb={stb} _xdcBlnc={xdcBlnc} _stcBlnc={stcBlnc} _xdcPrc={xdcPrc}  />
+        <PoolIndex
+          _setConfirmationRes={setConfirmationRes}
+          _account={account}
+          _handleLoading={handleLoading}
+          _web3={web3}
+          _stbSwap={stbSwap}
+          _stc={stc}
+          _stb={stb}
+          _xdcBlnc={xdcBlnc}
+          _stcBlnc={stcBlnc}
+          _xdcPrc={xdcPrc}
+        />
       )}
       {confirmationRes === false && (
         <TokenizationFailedModal _setConfirmationRes={setConfirmationRes} />

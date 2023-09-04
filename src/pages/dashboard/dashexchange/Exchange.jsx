@@ -4,7 +4,18 @@ import { useDashboard } from "../../../contexts/dashboardContext";
 import ExchangeIndex from "./ExchangeIndex";
 import Tokenization from "./Tokenization";
 
-function Exchange({_account, _handleLoading, _web3, _stbSwap, _stc, _stb, _colRatio, _xdcBln, _stcBln, _xdcPrc}) {
+function Exchange({
+  _account,
+  _handleLoading,
+  _web3,
+  _stbSwap,
+  _stc,
+  _stb,
+  _colRatio,
+  _xdcBln,
+  _stcBln,
+  _xdcPrc,
+}) {
   const { active, activeTab } = useDashboard();
 
   useEffect(() => {
@@ -14,9 +25,19 @@ function Exchange({_account, _handleLoading, _web3, _stbSwap, _stc, _stb, _colRa
   }, [active]);
 
   return (
-    <div className="flex items-center gap-[2.60vw] h-full w-full  ">
+    <div className="flex items-center gap-[2.60vw]  w-full h-full flex-col md:flex-row px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]  ">
       <div className="w-full h-full">
-        <ExchangeIndex account={_account} handleLoading={_handleLoading} web3={_web3} stbSwap={_stbSwap} stc={_stc} stb={_stb} xdcBlnc={_xdcBln} stcBlnc={_stcBln} xdcPrc={_xdcPrc} />
+        <ExchangeIndex
+          account={_account}
+          handleLoading={_handleLoading}
+          web3={_web3}
+          stbSwap={_stbSwap}
+          stc={_stc}
+          stb={_stb}
+          xdcBlnc={_xdcBln}
+          stcBlnc={_stcBln}
+          xdcPrc={_xdcPrc}
+        />
       </div>
       <div className="w-full h-full">
         <Tokenization />
