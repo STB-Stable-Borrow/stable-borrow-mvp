@@ -13,20 +13,13 @@ import earn from "../../assets/dashboard/earn.svg";
 import exchange from "../../assets/dashboard/exchange.svg";
 import history from "../../assets/dashboard/history.svg";
 import settings from "../../assets/dashboard/settings.svg";
+import { useDashboard } from "../../contexts/dashboardContext";
 
-function MobileNav(
-  activeTab,
-  active,
-  onDashBorrowClick,
-  onEarnClick,
-  onExchangeClick,
-  onHistoryClick,
-  onSettingsClick,
-  onHomeClick
-) {
+function MobileNav() {
   const walletAddress = "0x1234567890123456789012345678901234567890";
   const [isExpanded, setIsExpanded] = useState(false);
   const [showNavigationMenu, setShowNavigationMenu] = useState(false);
+  const {onHomeClick,activeTab,active,onDashBorrowClick,onEarnClick,onExchangeClick,onHistoryClick,onSettingsClick} = useDashboard()
   const handleNavigation = () => {
     setShowNavigationMenu((prev) => !prev);
   };
@@ -36,6 +29,7 @@ function MobileNav(
   const handleCloseNavigation = () => {
     setShowNavigationMenu(false);
   };
+
 
   const handleCopy = () => {
     const textToCopy = walletAddress;
@@ -149,7 +143,7 @@ function MobileNav(
              hover:textsb-[#009FBD] cursor-pointer `}
                   key={item.id}
                   onClick={() => {
-                    item.onClick(item.id);
+                    item.onClick();
                     activeTab(item.id);
                   }}
                 >
