@@ -12,14 +12,22 @@ function MobileLiquidityItem({ data, handleItemClick }) {
   };
   return (
     <div
-      className=" bg-[#292C31] py-[1.161vh] rounded-[0.6250rem] px-[4.83vw] w-full"
+      className=" bg-[#292C31] py-[1.161vh] rounded-[0.6250rem] px-[4.83vw] w-full shadow-2xl"
       key={data.id}
       onClick={() => handleItemClick(data.id)}
     >
       <div className="flex items-center justify-between w-full ">
         <div className="flex gap-1 items-center">
-          <img src={xdc} alt="" className="h-[2.78vh] w-[2.78vh] " />
-          <img src={stc} alt="" className="h-[2.78vh] w-[2.78vh] " />
+          <img
+            src={xdc}
+            alt=""
+            className="md:h-[2.78vh] md:w-[2.78vh] w-[1.275rem] h-[1.275rem] "
+          />
+          <img
+            src={stc}
+            alt=""
+            className="md:h-[2.78vh] md:w-[2.78vh] w-[1.275rem] h-[1.275rem] "
+          />
           <h1 className="ml-[0.52vw]">
             {data.assetOne}/{data.assetTwo}
           </h1>
