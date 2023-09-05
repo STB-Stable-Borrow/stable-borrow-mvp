@@ -75,7 +75,7 @@ export const DashboardProvider = ({ children }) => {
     setShowSettings(false);
   };
 
-  const onSettingsClick = () => {
+  const onSettingsClick = (id) => {
     setShowHome(false);
     setShowDashBorrow(false);
     setShowEarn(false);
