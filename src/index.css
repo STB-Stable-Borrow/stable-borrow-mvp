@@ -60,3 +60,13 @@ body {
   font-style: normal;
   font: "TT Firs Neue Trl";
 }
+
+.hamburgerMenu {
+  border-radius: 20px;
+  background: linear-gradient(
+    109deg,
+    rgba(1, 48, 56, 0.7) 8.32%,
+    rgba(1, 49, 57, 0.4) 89.64%
+  );
+  backdrop-filter: blur(12.807690620422363px);
+}

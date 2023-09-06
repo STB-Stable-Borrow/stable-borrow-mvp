@@ -77,7 +77,7 @@ function Buy() {
         How much would you like to invest in this token to revive the vault and
         make profit when the collateral price increases?
       </p>
-      <div className="flex-col items-center w-auto md:w-full">
+      <div className="flex-col items-center">
         <div className="flex items-center justify-center md:justify-end text-[.60rem] ">
           <h6 className="text-[#B0B0B0] ">Balance: 34654328.0987</h6>
         </div>

@@ -39,7 +39,7 @@ function HomeIndex({
   }, [totalLck, totalDebt, hauntedVlts]);
 
   return (
-    <div className=" overflow-hidden px-[4.83vw] md:px-0 pb-[15.62vh] ">
+    <div className=" overflow-hidden px-[4.83vw] md:px-0 pb-[15.62vh] md:pb-0 ">
       <div className=" text-[#D9D9D9] flex flex-col justify-around mb-[5.09vh] md:flex-row gap-[3.34vh] md:gap-0   ">
         <h1 className="md:hidden mt-[3.34vh] mb-[8.48vh] text-[#B0B0B0] font-bold ">
           Welcome!
@@ -47,19 +47,19 @@ function HomeIndex({
         <div
           className={` ${
             !isBorrowOverview && "opacity-10 cursor-not-allowed"
-          } border-[2px] border-dashed border-[#585858] px-[4.83vw] md:px-[1.04vw] h-[28.79vh]  md:h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#009fbd] -52.27 to-[#344e53] 127.2% flex flex-col gap-[2.78vh] items-center  `}
+          } border-[3px] border-dashed  border-[#585858] px-[4.83vw] md:px-[1.04vw] h-[28.79vh]  md:h-[34.26vh] min-w-[33.56vw] rounded-[1.5625rem] py-[1.94vh] bg-gradient-to-b 180deg from-[#009fbd] -52.27 to-[#344e53] 127.2% flex flex-col gap-[2.78vh] items-center  `}
         >
           <h1 className="font-semibold md:text-base text-xl">
             Borrow Overview
           </h1>
           <div className="flex justify-between gap-[1.93vw] md:gap-[19px] md:h-[16.20vh] h-[10.15vh] w-full md:w-auto">
-            <div className="bg-[#12A92A]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center w-full md:w-auto ">
+            <div className="bg-[#12A92A]  px-[1.88vw] rounded-[0.625rem] flex flex-col items-center justify-center w-full md:w-auto ">
               <h1 className="text-[0.675rem] font-bold ">Total Locked</h1>
               <p className="text-[1.25rem] font-medium">
                 ${(xdcPrc * totalLck).toFixed(4)}
               </p>
             </div>
-            <div className="bg-[#FF1F1F] px-[1.88vw] rounded-[20px] flex flex-col items-center justify-center w-full md:w-auto  ">
+            <div className="bg-[#FF1F1F] px-[1.88vw] rounded-[0.625rem] flex flex-col items-center justify-center w-full md:w-auto  ">
               <h1 className="text-[0.675rem] font-bold ">Total Debt</h1>
               <p className="text-[1.25rem] font-medium">${1 * totalDebt}</p>
             </div>
@@ -103,13 +103,13 @@ function HomeIndex({
         <div
           className={`${
             !isBorrowOverview && "cursor-not-allowed"
-          } border-[2px] border-dashed border-[#585858] md:px-[1.04vw] px-[4.83vw]   h-[34.26vh] min-w-[33.56vw] rounded-[40px] py-[1.94vh] bg-gradient-to-b 180deg from-[#865DFF] -52.27 to-[#344e53] 127.2%  flex flex-col gap-[2.78vh] items-center`}
+          } border-[3px] border-dashed border-[#585858] md:px-[1.04vw] px-[4.83vw] md:min-h-full   min-h-[34.26vh] min-w-[33.56vw] rounded-[1.562rem] py-[1.94vh] bg-gradient-to-b 180deg from-[#865DFF] -52.27 to-[#344e53] 127.2%  flex flex-col gap-[2.78vh] items-center`}
         >
           <h1 className="font-semibold  md:text-base text-xl">Earn Overview</h1>
-          <div className="flex justify-between gap-[1.93vw] md:gap-[19px] h-[18.08vh] md:h-[16.20vh] w-full md:w-auto ">
-            <div className="bg-[#12A92A] h-full py-[0.81vh]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-between ">
+          <div className="flex justify-between gap-[1.93vw] md:gap-[19px] h-[18.08vh] md:h-[16.20vh] w-full md:w-auto  ">
+            <div className="bg-[#12A92A] md:min-h-auto h-[20vh] md:h-full py-[2.79vh] px-[1.83vw] rounded-[0.625rem] flex flex-col items-center justify-between gap-[1.34vh]  ">
               <div className="flex flex-col md:h-auto h-full items-center">
-                <h1 className="text-[0.675rem] font-bold ">
+                <h1 className="text-[0.5rem] font-bold ">
                   Total Vaults Haunted:
                 </h1>
                 {hauntedVlts && (
@@ -122,15 +122,15 @@ function HomeIndex({
                 )}
               </div>
               <div className="flex flex-col gap-1 md:h-auto h-full items-center">
-                <h1 className="text-[0.675rem] font-bold ">Total Payout:</h1>
+                <h1 className="text-[0.5rem] font-bold ">Total Payout:</h1>
                 <p className="md:text-[1.25rem] text-center text-sm mt-[-0.74vh] font-medium">
                   350000.0000 XDC
                 </p>
               </div>
             </div>
-            <div className="bg-[#C16E08] py-[0.81vh]  px-[1.88vw] rounded-[20px] flex flex-col items-center justify-between ">
+            <div className="bg-[#C16E08] md:h-auto  h-[20vh]  py-[2.79vh] px-[1.83vw] rounded-[0.625rem] flex flex-col items-center justify-between gap-[1.34vh] ">
               <div className="flex flex-col items-center">
-                <h1 className="text-[0.675rem] text-center font-bold ">
+                <h1 className="text-[0.5rem] text-center font-bold ">
                   Current Collateral Ratio:
                 </h1>
                 <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
@@ -138,7 +138,7 @@ function HomeIndex({
                 </p>
               </div>
               <div className="flex flex-col items-center">
-                <h1 className="text-[0.675rem] text-center font-bold ">
+                <h1 className="text-[0.5rem] text-center font-bold ">
                   Total Vaults in Liquidity:
                 </h1>
                 {liquidatedVlts && (

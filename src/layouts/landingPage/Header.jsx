@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import logoStb from "../../assets/landing/stb-logo.svg";
 import { Link, useLocation } from "react-router-dom";
 import ham from "../../assets/mobile/ham.svg";
+import close from "../../assets/mobile/close.svg";
 
 function Header({ _handleConnectWallet_ }) {
   const location = useLocation();
@@ -20,15 +21,13 @@ function Header({ _handleConnectWallet_ }) {
       <div>
         <Link to="/">
           <img
-            className={`w-[9.18rem] h-[2.31rem] md:w-[13.50vw] md:h-[5.46vh] ${
-              showMenu ? "hidden" : "block"
-            }`}
+            className={`w-[9.18rem] h-[2.31rem] md:w-[13.50vw] md:h-[5.46vh]`}
             src={logoStb}
             alt="Stb Logo"
           />
         </Link>
       </div>
-      <div className="hidden lg:flex justify-betweeen items-center gap-[2.14vw] text-[#FFFFFF] font-semibold  ">
+      <div className="hidden lg:flex justify-betweeen items-center gap-[2.14vw] text-[#FFFFFF] font-semibold">
         <ul className="flex gap-[2.14vw]   text-sm cursor-pointer">
           <li className="hover:opacity-75">
             <Link
@@ -66,34 +65,30 @@ function Header({ _handleConnectWallet_ }) {
           </button>
         )}
       </div>
-      <button
-        onClick={onHamburgerClick}
-        className={`${showMenu ? "hidden" : "block"} md:hidden `}
-      >
-        <img src={ham} alt="" />
+      <button onClick={onHamburgerClick} className={`md:hidden w-[1.25rem]  `}>
+        <img src={showMenu ? close : ham} alt="" />
       </button>
 
       {showMenu && (
-        <div className="bg-white/70 w-[50%] h-full rounded-[1rem] p-[1rem]  ">
-          <div className="flex items-center justify-between">
-            <Link to="/">
-              <img
-                className={`w-[9.18rem] h-[2.31rem] md:w-[13.50vw] md:h-[5.46vh] `}
-                src={logoStb}
-                alt="Stb Logo"
-              />
-            </Link>
-            <button className="text-sm" onClick={closeMenu}>
-              Close
-            </button>
-          </div>
+        <div className="hamburgerMenu w-[50%] h-auto p-[1rem] pb-[22.76vh]  absolute right-4 top-20 z-50 ">
           <ul className="flex flex-col gap-[1rem] text-white">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
             <li>
               <Link to="/about">About</Link>
             </li>
             <li>
               <Link to="/exchange">Exchange</Link>
             </li>
+            {location.pathname === "/" && (
+              <button
+                className="border border-[#009FBD] px-[0.90vw] py-[0.93vh] rounded-lg hover:opacity-75 text-sm "
+                onClick={_handleConnectWallet_}
+              >
+                Connect Wallet
+              </button>
+            )}
           </ul>
         </div>
       )}
