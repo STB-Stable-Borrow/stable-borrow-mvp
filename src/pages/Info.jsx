@@ -255,11 +255,11 @@ function Info() {
         </div>
         <div
           style={{ font: "TT Firs Neue Trl", fontFamily: "TT Firs Neue Trl" }}
-          className="mx-[11.83vw] mt-[12.94vh] flex flex-col  gap-[5.52vw] text-white  "
+          className="mx-[6.83vw] mt-[12.94vh] flex flex-col  gap-[5.52vw] text-white  "
         >
           <div className="flex-col flex justify-between gap-[1.5vh]  h-full w-full ">
             <div className="border-[3px] border-[#009FBD]  rounded-[30px]  w-full h-full relative bg-gradient-to-r from-[#009FBD]  to-[#865DFF] ">
-              <div className="flex flex-col items-center gap-[5px] bg-black/80 pb-[4.24vh] w-full h-full rounded-[30px] px-[6px] md:py-2  ">
+              <div className="flex flex-col items-center gap-[5px] bg-black/80 pb-[4.24vh]  h-full rounded-[30px] px-[4.83vw] md:py-2">
                 <img
                   src={borrow}
                   alt=""
@@ -268,9 +268,8 @@ function Info() {
                 <h1 className="font-black border-b-2 border-[#009FBD] text-base md:text-lg ">
                   Borrow $STC
                 </h1>
-                <p className="text-center text-xs mx-4 mt-2 text-[#FFFFFF] md:text-sm  ">
+                <p className="text-justify text-xs mx-4 mt-2 text-[#FFFFFF] md:text-sm  ">
                   <span className=" font-bold text-white">
-                    {" "}
                     Stable Coin ($STC){" "}
                   </span>{" "}
                   is Stable Borrow (STB) Official Token, it’s a fully
@@ -285,7 +284,7 @@ function Info() {
                   </Link>
                 </p>
                 <button
-                  className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-full mx-[4.8vw] md:w-[8.8vw] "
+                  className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[65.77vw] "
                   onClick={() => handleBorrow()}
                 >
                   Borrow now
@@ -320,7 +319,7 @@ function Info() {
                 <h1 className="font-black border-b-2 border-[#009FBD] text-base md:text-lg ">
                   Earn $STC
                 </h1>
-                <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-xs md:text-sm ">
+                <p className="text-justify mx-4 mt-2 text-[#FFFFFF] text-xs md:text-sm ">
                   Register as an haunter today to earn as you play by haunting
                   vaults in liquidation and regulating prices. Earn various
                   tokens that can be exchanged to any token via exchange UI ...
@@ -333,7 +332,7 @@ function Info() {
                   </Link>
                 </p>
                 <button
-                  className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-full md:w-[8.8vw]"
+                  className="bg-[#009FBD] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[65.77vw] md:w-[8.8vw]"
                   onClick={() => handleEarn()}
                 >
                   Earn now
@@ -362,7 +361,7 @@ function Info() {
           </div>
           <div
             // onLoad={verifyConnection}
-            className="bg-gradient-to-r from-[#013038] to-[#013139]  border-[3px] border-[#009FBD] h-full w-full rounded-[30px] relative"
+            className="bg-gradient-to-r from-[#013038] to-[#013139]  border-[3px] border-[#009FBD] h-full rounded-[30px] relative  "
           >
             <div className="flex flex-col items-center gap-[5px] bg-black/30 w-full h-full rounded-[30px] px-[6px] py-2 pb-[4.24vh]">
               <img
@@ -374,7 +373,7 @@ function Info() {
                 Exchange
               </h1>
 
-              <p className="text-center mx-4 mt-2 text-[#FFFFFF] text-xs md:text-sm ">
+              <p className=" mx-4 mt-2 text-[#FFFFFF] text-xs md:text-sm  text-justify">
                 Stable Swap is Stable Borrow Official Exchange, it’s a
                 Decentralized Exchange with Unique Protocols that allows users
                 Swap Tokens and earn as a Liquidity provider and Pool Creator.
@@ -397,7 +396,7 @@ function Info() {
               </p>
               <button
                 onClick={() => handleExchange()}
-                className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-full md:w-[8.8vw]"
+                className="bg-[#9114de] hover:bg-opacity-75 rounded-lg text-xs px-[20px] py-2 mt-2 w-[65.77vw] md:w-[8.8vw]"
               >
                 Exchange
               </button>

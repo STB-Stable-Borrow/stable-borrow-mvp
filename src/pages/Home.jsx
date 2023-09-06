@@ -12,7 +12,6 @@ import { useDashboard } from "../contexts/dashboardContext";
 import { getXdcContract } from "../lib/stbSwapContract";
 
 function Home() {
-
   const { connect, disconnect } = useContext(Web3ModalContext);
   const { resetVaultBorrowSetup, setFromDashborrow, setFromDashearn } =
     useBorrow();
@@ -58,7 +57,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="h-full lg:h-screen">
+    <div className="">
       <LandingBody _handleConnectWallet={handleConnectWallet}>
         <Web3ModalProvider></Web3ModalProvider>
         <div className="">

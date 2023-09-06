@@ -23,7 +23,7 @@ function HeroSection({ _handleConnectWallet }) {
         <div className="flex justify-center items-center md:block">
           <Link>
             <button
-              className={`py-[1.29vh] px-[2.08vw] text-sm text-[#FFFFFF] bg-[#009FBD]  rounded-lg hover:opacity-75 md:py-[1.57vh] md:px-[3.02vw] md:text-base `}
+              className={`py-[1.29vh] w-[41.78vw] md:w-auto flex items-center justify-center px-[2.08vw] text-sm text-[#FFFFFF] bg-[#009FBD]  rounded-lg hover:opacity-75 md:py-[1.57vh] md:px-[3.02vw] md:text-base `}
               onClick={_handleConnectWallet}
             >
               <div className="flex gap-2 items-center">

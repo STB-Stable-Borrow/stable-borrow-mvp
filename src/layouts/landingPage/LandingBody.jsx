@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 function LandingBody({ children, _handleConnectWallet }) {
   const location = useLocation();
   return (
-    <div className="relative h-full lg:h-screen">
+    <div className="">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         // style={{ backgroundImage: `url(${bgImage})` }}

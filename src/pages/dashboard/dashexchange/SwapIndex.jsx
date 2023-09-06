@@ -378,14 +378,14 @@ function SwapIndex({
               <option value="">XDC</option>
               <option value="">STC</option>
             </select>
-            <div className="h-[3.43vh] w-[2px] bg-[#292C31] mx-2 md:mx-[.73vw]"></div>
+            <div className="h-[3.43vh] w-[2px] bg-[#292C31] mx-[.73vw]"></div>
             <div className="relative">
               {!amtOutSTC && (
                 <input
                   type="number"
                   name=""
                   id="swap-input1"
-                  className="bg-inherit md:w-[10.25vw] pl-2 md:pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs"
+                  className="bg-inherit md:w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none"
                   placeholder="0"
                   onInput={(e) => {
                     handleSwapInputXDC(e);
@@ -398,7 +398,7 @@ function SwapIndex({
                   disabled
                   type="number"
                   name=""
-                  className="bg-inherit md:w-[10.25vw] pl-2 md:pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs"
+                  className="bg-inherit md:w-[10.25vw]  pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none"
                   placeholder="0"
                 />
               )}
@@ -440,7 +440,7 @@ function SwapIndex({
                 type="number"
                 name=""
                 id="swap-input2"
-                className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
+                className="bg-inherit md:w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
                 placeholder="0"
                 onInput={(e) => {
                   handleSwapInputSTC(e);
@@ -454,7 +454,7 @@ function SwapIndex({
                 value={amtOutXDC}
                 type="number"
                 name=""
-                className="bg-inherit w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
+                className="bg-inherit md:w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
                 placeholder="0"
                 onInput={(e) => {
                   handleSwapInputSTC(e);
@@ -467,7 +467,10 @@ function SwapIndex({
                   document.getElementById("swap-input2").value = _stcBlnc;
                 }
               }}
-              className="absolute right-[-9.375rem] md:right-[-2.26vw] top-[0.58vh] text-[.75rem]"
+              className="
+              
+              absolute right-[-2.375rem] md:right-[-2.26vw] top-[0.58vh] text-[.75rem]
+              "
             >
               Max
             </button>

@@ -30,7 +30,7 @@ function Footer() {
           <img src={telegram} alt="telegram" className="w-[0.8125rem]" />
           <img src={discord} alt="discord" className="w-[0.8125rem]" />
         </div>
-        <div className="flex gap-[1.56vw]items-center">
+        <div className="flex gap-[1.56vw] items-center">
           <div className="flex gap-[0.47vw] items-center">
             <img src={phone} alt="phone" className="w-[0.8125rem]" />
             <p className="cursor-pointer" onClick={copyToClipboard}>
