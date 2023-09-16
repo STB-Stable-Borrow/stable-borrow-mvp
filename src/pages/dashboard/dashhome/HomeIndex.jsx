@@ -107,8 +107,8 @@ function HomeIndex({
         >
           <h1 className="font-semibold  md:text-base text-xl">Earn Overview</h1>
           <div className="flex justify-between gap-[1.93vw] md:gap-[19px] h-[18.08vh] md:h-[16.20vh] w-full md:w-auto  ">
-            <div className="bg-[#12A92A] md:min-h-auto h-[20vh] md:h-full py-[2.79vh] px-[1.83vw] rounded-[0.625rem] flex flex-col items-center justify-between gap-[1.34vh]  ">
-              <div className="flex flex-col md:h-auto h-full items-center">
+            <div className="bg-[#12A92A] md:min-h-auto h-[15vh] md:h-full py-[2.79vh] px-[1.83vw] rounded-[0.625rem] flex flex-col items-center justify-between gap-[1.34vh]">
+              <div className="flex flex-col gap-1 items-center">
                 <h1 className="text-[0.5rem] font-bold ">
                   Total Vaults Haunted:
                 </h1>
@@ -121,33 +121,33 @@ function HomeIndex({
                   <p className="text-[1.25rem] mt-[-0.74vh] font-medium"></p>
                 )}
               </div>
-              <div className="flex flex-col gap-1 md:h-auto h-full items-center">
+              <div className="flex flex-col gap-1 items-center">
                 <h1 className="text-[0.5rem] font-bold ">Total Payout:</h1>
                 <p className="md:text-[1.25rem] text-center text-sm mt-[-0.74vh] font-medium">
                   350000.0000 XDC
                 </p>
               </div>
             </div>
-            <div className="bg-[#C16E08] md:h-auto  h-[20vh]  py-[2.79vh] px-[1.83vw] rounded-[0.625rem] flex flex-col items-center justify-between gap-[1.34vh] ">
-              <div className="flex flex-col items-center">
+            <div className="bg-[#C16E08] md:min-h-auto h-[15vh] md:h-full py-[2.79vh] px-[1.83vw] rounded-[0.625rem] flex flex-col items-center justify-between gap-[1.34vh]">
+              <div className="flex flex-col gap-1 items-center">
                 <h1 className="text-[0.5rem] text-center font-bold ">
                   Current Collateral Ratio:
                 </h1>
-                <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
+                <p className="text-sm md:text-[1.25rem] mt-[-0.74vh] font-medium">
                   {colRatio}
                 </p>
               </div>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center gap-1">
                 <h1 className="text-[0.5rem] text-center font-bold ">
                   Total Vaults in Liquidity:
                 </h1>
                 {liquidatedVlts && (
-                  <p className="text-[1.25rem] mt-[-0.74vh] font-medium">
+                  <p className="text-sm md:text-[1.25rem] mt-[-0.74vh] font-medium">
                     {getArrayLength(liquidatedVlts)}
                   </p>
                 )}
                 {!liquidatedVlts && (
-                  <p className="text-[1.25rem] mt-[-0.74vh] font-medium"></p>
+                  <p className="text-sm md:text-[1.25rem] mt-[-0.74vh] font-medium"></p>
                 )}
               </div>
             </div>

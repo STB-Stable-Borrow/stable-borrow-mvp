@@ -70,7 +70,7 @@ function Header({ _handleConnectWallet_ }) {
       </button>
 
       {showMenu && (
-        <div className="hamburgerMenu w-[50%] h-auto p-[1rem] pb-[22.76vh]  absolute right-4 top-20 z-50 ">
+        <div className="hamburgerMenu w-[50%] h-auto p-[1rem] absolute right-4 top-20 z-50 ">
           <ul className="flex flex-col gap-[1rem] text-white">
             <li>
               <Link to="/">Home</Link>

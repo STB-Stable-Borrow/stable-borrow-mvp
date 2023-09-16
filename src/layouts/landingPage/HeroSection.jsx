@@ -7,11 +7,11 @@ function HeroSection({ _handleConnectWallet }) {
   return (
     <div className="flex justify-between w-full items-center mt-[10.15vh] flex-col-reverse gap-[3.98vh] md:gap-0 md:flex-row  ">
       <div className="">
-        <h1 className="w-full text-[#FFFFFF] text-[1.5rem] font-black text-center leading-tight md:text-start  md:text-[2.5rem]  md:w-[40vw] ">
+        <h1 className="w-full text-[#FFFFFF] text-[1.5rem] font-black text-center leading-tight md:text-start  md:text-[2.5rem]  md:w-[40vw] mb-[10vh] md:mb-0 ">
           Borrow STC, Earn as you Play and Exchange Tokens with Ease!
         </h1>
         <div className="mt-[1.30vh] mb-[4.07vh] ">
-          <p className="text-sm text-[#FFFFFF]  leading-tight w-full text-center md:text-start md:text-[0.875rem] md:w-[35.05vw]  ">
+          <p className="text-sm text-[#FFFFFF]  leading-tight w-full text-justify md:text-start md:text-[0.875rem] md:w-[35.05vw]  ">
             Stable Borrow (STB), a Web3 Platform where users can Borrow $STC,
             Earn and Exchange Tokens at-a-go using our Simple and Swift UI with
             Unique Protocols embedded in our Smart Contracts!...{" "}
@@ -37,7 +37,7 @@ function HeroSection({ _handleConnectWallet }) {
       <img
         src={heroImage}
         alt="stb vector"
-        className="w-[10.87rem] h-[10rem] md:w-[35.12vw] md:h-[60.87vh] "
+        className="w-[10.87rem] h-[10rem] md:w-[35.12vw] md:h-[60.87vh] hidden md:block "
       />
     </div>
   );

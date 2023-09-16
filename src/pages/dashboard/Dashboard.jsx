@@ -195,7 +195,7 @@ function Dashboard() {
   });
 
   return (
-    <div className="flex w-screen md:h-screen h-full overflow-none bg-[#292C31] md:px-[4.17vw] ">
+    <div className="flex w-screen md:h-screen h-screen overflow-none bg-[#292C31] md:px-[4.17vw] ">
       {isLoading && <LoadingSpinner />}
       <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] hidden md:block ">
         <Sidebar
