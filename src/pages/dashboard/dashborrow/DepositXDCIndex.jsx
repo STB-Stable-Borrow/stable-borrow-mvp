@@ -55,21 +55,23 @@ function DepositXDCIndex({ _xdcBalance, _xdcPrc, _stb, _account, _web3 }) {
         />{" "}
         <p className="absolute md:top-0 top-2 right-2">XDC</p>
       </div>
-      <p className="text-white mb-[7.91vh] ">Balance: {_xdcBalance} XDC</p>
-      <div className="text-white w-full md:px-0 px-[12.80vw] md:w-[350px] md:text-[1rem] mb-[6.738vh] text-xs ">
+      <p className="text-white text-sm md:text-base mb-[7.91vh] ">
+        Balance: {_xdcBalance} XDC
+      </p>
+      <div className="text-white w-full md:px-0 px-[12.80vw] md:w-[450px] md:text-[1rem] mb-[6.738vh] text-xs ">
         <div className="flex w-full justify-between">
           <h3>Total XDC to Deposit:</h3>
-          <p className="w-[100px]">
+          <p className="md:w-[100px]">
             ${(_xdcPrc * parseFloat(xdcIn)).toFixed(4)}
           </p>
         </div>
         <div className="flex w-full justify-between">
           <h3>Current Price:</h3>
-          <p className="w-[100px]">${_xdcPrc}</p>
+          <p className="md:w-[100px]">${_xdcPrc}</p>
         </div>
         <div className="flex w-full justify-between">
           <h3>New XDC Balance:</h3>
-          <p className="w-[100px]">{_xdcBalance - xdcIn}</p>
+          <p className="md:w-[100px]">{_xdcBalance - xdcIn}</p>
         </div>
       </div>
       <div className="flex justify-between md:gap-[110px] w-full md:w-auto gap-[5.07vw] px-[5.79vw] ">
@@ -86,7 +88,7 @@ function DepositXDCIndex({ _xdcBalance, _xdcPrc, _stb, _account, _web3 }) {
           className="text-[#B0B0B0] bg-[#585858] w-full md:w-[169px] h-[3.90vh] md:h-[49px] rounded-lg hover:bg-opacity-75 flex items-center gap-2 justify-center text-xs md:text-base"
         >
           Deposit
-          <img src={approve} alt="" />
+          <img src={approve} alt="" className="w-[1.25rem]" />
         </button>
       </div>
     </div>

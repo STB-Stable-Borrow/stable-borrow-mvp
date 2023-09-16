@@ -56,7 +56,7 @@ function Earn({
   }, [status]);
 
   return (
-    <div className="px-[4.83vw] md:px-0 pb-[15.62vh]">
+    <div className="px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]">
       {pageOne && (
         <EarnIndex
           web3={_web3}

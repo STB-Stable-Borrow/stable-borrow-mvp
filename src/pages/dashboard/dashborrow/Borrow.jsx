@@ -45,7 +45,7 @@ function Borrow({
   // const [editVault, setEditVault] = useState(false);
 
   return (
-    <div className="px-[4.83vw] md:px-0 pb-[15.62vh]">
+    <div className="px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]">
       <h1 className="md:hidden mt-[3.34vh] mb-[5.46vh] text-[#B0B0B0] font-bold ">
         Welcome!
       </h1>
