@@ -19,6 +19,7 @@ function Sidebar({
   onHistoryClick,
   onSettingsClick,
   onHomeClick,
+  onTokenizationClick,
   activeTab,
   _verifyConnection,
   _disconnect,
@@ -63,6 +64,12 @@ function Sidebar({
       onClick: onExchangeClick,
     },
 
+    {
+      id: 7,
+      name: "Tokenization",
+      icon: "",
+      onClick: onTokenizationClick,
+    },
     {
       id: 6,
       name: "Settings",
@@ -122,7 +129,7 @@ function Sidebar({
         onClick={handleLogout}
         className={`${
           isExpanded ? "w-[182px]" : "w-[42px]"
-        } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px] mt-[13vh] hover:text-[#009FBD] cursor-pointer `}
+        } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px] mt-[10vh] hover:text-[#009FBD] cursor-pointer `}
       >
         <img src={logout} alt="" />
         {isExpanded && <p className="text-[#D9D9D9] text-[14px]  ">Logout</p>}

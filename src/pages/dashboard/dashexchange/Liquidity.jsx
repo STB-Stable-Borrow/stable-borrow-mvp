@@ -7,7 +7,7 @@ import question from "../../../assets/dashboard/question.svg";
 import remove from "../../../assets/dashboard/remove.svg";
 import add from "../../../assets/dashboard/add.svg";
 
-function Liquidity({ assetOne, assetTwo }) {
+function Liquidity({ assetOne, assetTwo, expandedComponent }) {
   const [slippage, setSlippage] = useState([
     {
       id: 1,
@@ -70,7 +70,7 @@ function Liquidity({ assetOne, assetTwo }) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center gap-2 md:gap-[0.47vw] mt-[4.57vh] md:mt-0 font-semibold text-[.825em] mb-[1.5vh] ">
+      <div className="flex items-center justify-center gap-2 md:gap-[0.47vw] mt-[4.57vh] md:mt-0 font-semibold text-[.825em] mb-[0.275vh] ">
         <h1
           className={` ${
             isAddLiquidity ? "text-[#009FBD]" : "text-[#585858] "
@@ -90,7 +90,7 @@ function Liquidity({ assetOne, assetTwo }) {
         </h1>
       </div>
       <div
-        className={`flex flex-col py-[2vh] ${
+        className={`flex flex-col py-[1vh] ${
           isSwapped ? "flex-col-reverse" : "flex-col"
         } `}
       >
@@ -99,10 +99,20 @@ function Liquidity({ assetOne, assetTwo }) {
             isSwapped ? "flex-col-reverse" : "flex-col"
           }`}
         >
-          <p className="text-[#B0B0B0] text-center text-[0.85rem] ">
+          <p
+            className={`text-[#B0B0B0] ${
+              expandedComponent === "pool"
+                ? "text-[0.85rem]"
+                : "text-[0.63rem] "
+            } text-center`}
+          >
             Balance: 24,333.2213 {assetOne}
           </p>
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[75.60vw] md:w-[22vw] px-[.83vw] py-[.56vh] flex items-center  ">
+          <div
+            className={`bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[75.6vw] ${
+              expandedComponent === "pool" ? "md:w-[30vw]" : "md:w-[22vw]"
+            } px-[.83vw] py-[.56vh] flex items-center`}
+          >
             <img
               src={xdc}
               alt=""
@@ -122,16 +132,26 @@ function Liquidity({ assetOne, assetTwo }) {
                 type="number"
                 name=""
                 id=""
-                className="bg-inherit text-xs  md:w-[10.25vw] pl-2 md:pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold "
+                className={`bg-inherit ${
+                  expandedComponent === "pool"
+                    ? "md:w-[15.25vw]"
+                    : "md:w-[10.25vw]"
+                } pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none`}
                 placeholder="0"
               />
-              <button className="absolute right-[-2.375rem] md:right-[-2.26vw] top-[0.58vh] text-[.75rem] ">
+              <button
+                className={`absolute right-[-2.375rem] ${
+                  expandedComponent === "pool"
+                    ? "md:right-[-4rem]"
+                    : "md:right-[-2.26vw]"
+                } top-[0.58vh] text-[.75rem]`}
+              >
                 Max
               </button>
             </div>
           </div>
         </div>
-        <div className="flex items-center w-full md:w-[17.45vw] justify-between my-[1.48vh] gap-4 md:gap-0">
+        <div className="flex items-center w-full md:w-[17.45vw] justify-between my-[1.48vh] gap-4 md:gap-0 mx-auto">
           <div className="md:w-[7.29vw] w-full h-[.19vh] bg-[#B0B0B0] "></div>
           <button onClick={handleSwap}>
             <img src={swapImg} alt="" className="md:w-auto w-20" />
@@ -143,7 +163,11 @@ function Liquidity({ assetOne, assetTwo }) {
             isSwapped ? "flex-col-reverse" : "flex-col"
           }`}
         >
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[75.60vw] md:w-[22vw] px-[.83vw] py-[.56vh] flex items-center  ">
+          <div
+            className={`bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[75.6vw] ${
+              expandedComponent === "pool" ? "md:w-[30vw]" : "md:w-[22vw]"
+            } px-[.83vw] py-[.56vh] flex items-center`}
+          >
             <img
               src={stc}
               alt=""
@@ -163,27 +187,51 @@ function Liquidity({ assetOne, assetTwo }) {
                 type="number"
                 name=""
                 id=""
-                className="bg-inherit md:w-[10.25vw] pl-2 md:pl-[.73vw] placeholder:text-[#292c31] text-xs placeholder:font-semibold  font-semibold "
+                className={`bg-inherit ${
+                  expandedComponent === "pool"
+                    ? "md:w-[15.25vw]"
+                    : "md:w-[10.25vw]"
+                } pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none`}
                 placeholder="0"
               />
-              <button className="absolute right-[-2.375rem] md:right-[-2.26vw] top-[0.58vh] text-[.75rem] ">
+              <button
+                className={`absolute right-[-2.375rem] ${
+                  expandedComponent === "pool"
+                    ? "md:right-[-4rem]"
+                    : "md:right-[-2.26vw]"
+                } top-[0.58vh] text-[.75rem]`}
+              >
                 Max
               </button>
             </div>
           </div>
-          <p className="text-[#B0B0B0] text-center text-[0.85rem] ">
+          <p
+            className={`text-[#B0B0B0] ${
+              expandedComponent === "pool"
+                ? "text-[0.85rem]"
+                : "text-[0.63rem] "
+            } text-center mt-[1.5vh`}
+          >
             Balance: 24,333.2213 {assetTwo}
           </p>
         </div>
       </div>
-      <div className="md:w-[22vw] w-[75.60vw] py-2 md:py-[0.59vh] px-4 md:px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center">
+      <div
+        className={` w-[75.60vw] ${
+          expandedComponent === "pool" ? "md:w-[30vw]" : "md:w-[22vw]"
+        } py-2 md:py-[0.5rem] px-4 md:px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center  `}
+      >
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1 font-semibold mb-[0.5vh]">
           Slippage Tolerance:
           <img src={question} alt="" className=" " />
         </h4>
-        {/* */}
+
         <div className="flex items-center justify-between w-full ">
-          <div className="bg-[#202225] w-[50%] md:w-[9.53vw] h-[3.89vh] px-[1.15vw] justify-between flex items-center text-[0.65rem] rounded-[10px] text-[#B0B0B0]">
+          <div
+            className={`bg-[#202225] w-[50%] ${
+              expandedComponent === "pool" ? "md:w-[15.25vw]" : "md:w-[9.53vw] "
+            } h-[3.89vh] px-[1.15vw] justify-between flex items-center text-[0.65rem] rounded-[10px] text-[#B0B0B0]`}
+          >
             {slippage.map((slip) => (
               <p
                 key={slip.id}
@@ -208,8 +256,14 @@ function Liquidity({ assetOne, assetTwo }) {
           </div>
         </div>
       </div>
-      <div className="px-[1.8vw] py-[1.13vh] w-[75.60vw] md:w-[21.04vw] rounded-[20px] bg-[#292C31] text-[#b0b0b0] mb-[1.22vh] border-[1.5px] border-[#585858] border-dashed text-[0.75rem]">
-        <div className="flex items-center  gap-[1.09vw] justify-between">
+      <div
+        className={`px-[1.8vw] py-[1.13vh] w-[75.60vw] md:w-[21.04vw] bg-[#292C31] text-[#b0b0b0] mb-[1.22vh] border-[1.5px] border-[#585858] border-dashed ${
+          expandedComponent === "pool"
+            ? "text-[0.75rem] rounded-[20px] "
+            : "text-[0.425rem] rounded-[8px] "
+        }`}
+      >
+        <div className="flex items-center  gap-[1.09vw] justify-between mb-1">
           <div className="flex items-center gap-[1px]">
             <img src={question} alt="" />
             <h4>Minimum Received:</h4>
@@ -224,11 +278,21 @@ function Liquidity({ assetOne, assetTwo }) {
           <p>0.00% / 0.000 XDC </p>
         </div>
       </div>
-      <button className="py-[.75vh] w-[75.60vw]  md:w-auto px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2 md:mt-0 mt-[5.58vh] md:mb-0 mb-[3.87rem] ">
+      <button
+        className={`${
+          expandedComponent === "pool"
+            ? "py-[.75vh] text-[.75rem] w-[75.60vw] rounded-[7px]"
+            : "py-[.25vh] text-[.425rem] w-[55.60vw] rounded-[4px] "
+        }   md:w-auto px-[2.29vw] bg-[#585858]   text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2 md:mt-0 mt-[5.58vh] md:mb-0 mb-[3.87rem] `}
+      >
         <img
           src={isAddLiquidity ? add : remove}
           alt=""
-          className="md:w-[1.25vw] md:h-[1.25vw] h-[1.125rem] w-[1.125rem] "
+          className={`${
+            expandedComponent === "pool"
+              ? "md:w-[1.25vw] md:h-[1.25vw]"
+              : "md:w-[.95vw] md:h-[.95vw]"
+          } h-[1.125rem] w-[1.125rem] `}
         />
         {isAddLiquidity ? "Add" : "Remove"} Liquidity
       </button>

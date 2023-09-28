@@ -6,6 +6,7 @@ import Home from "./dashhome/Home";
 import DashBorrow from "../dashboard/dashborrow/DashBorrow";
 import Earn from "./dashearn/Earn";
 import Exchange from "./dashexchange/Exchange";
+import TokenizationIndex from "./tokenization/TokenizationIndex";
 import History from "./dashhistory/History";
 import Settings from "./dashsettings/Settings";
 import { Web3ModalContext } from "../../contexts/web3ModalContext";
@@ -51,11 +52,13 @@ function Dashboard() {
     showDashBorrow,
     showEarn,
     showExchange,
+    showTokenization,
     showHistory,
     showSettings,
     onHomeClick,
     onDashBorrowClick,
     onEarnClick,
+    onTokenizationClick,
     onExchangeClick,
     onHistoryClick,
     onSettingsClick,
@@ -197,7 +200,7 @@ function Dashboard() {
   return (
     <div className="flex w-screen md:h-screen h-screen overflow-none bg-[#292C31] md:px-[4.17vw] ">
       {isLoading && <LoadingSpinner />}
-      <div className="bg-[#202225] my-[4.9vh] h-[90vh]  text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] hidden md:block ">
+      <div className="bg-[#202225] my-[4.9vh] h-[90vh] text-[#D9D9D9] py-[5.37vh] px-[12px] rounded-[20px] hidden md:block ">
         <Sidebar
           active={active}
           activeTab={activeTab}
@@ -207,12 +210,13 @@ function Dashboard() {
           onHistoryClick={onHistoryClick}
           onSettingsClick={onSettingsClick}
           onHomeClick={onHomeClick}
+          onTokenizationClick={onTokenizationClick}
           _verifyConnection={verifyConnection}
           _disconnect={disconnect}
         />
       </div>
       <div className="flex flex-col w-full md:ml-[43px] ">
-        <div className=" md:mt-[4.6vh] text-[#B0B0B0] ">
+        <div className=" md:mt-[2.6vh] text-[#B0B0B0] ">
           <div className="hidden md:block  ">
             <Navbar _account={account} _address={address} _profile={profile} />
           </div>
@@ -229,7 +233,7 @@ function Dashboard() {
             />
           </div>
         </div>
-        <div className="mt-[2.6vh] w-full h-full mb-[4.88vh] overflow-y-auto">
+        <div className="mt-[1.6vh] w-full h-full mb-[2.88vh] overflow-y-auto">
           {showHome && (activeTab === 1 || showHome) && (
             <Home
               _isReg={isReg}
@@ -292,6 +296,9 @@ function Dashboard() {
               _xdcBalance={xdcBlnc}
               _xdcPrc={xdcPrc}
             />
+          )}
+          {showTokenization && (activeTab === 7 || showTokenization) && (
+            <TokenizationIndex />
           )}
         </div>
       </div>
