@@ -14,7 +14,7 @@ function Tokenization() {
     setIsToggleOn(!isToggleOn);
   };
   return (
-    <div className="rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center  mx-auto  mt-[8.92vh]  md:mt-0 ">
+    <div className="rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center  mx-auto  mt-[8.92vh]  md:mt-0 md:hidden">
       <div className="flex flex-col items-center">
         <h1 className="text-[#B0B0B0] text-[]  md:italic font-bold  ">
           Tokenization

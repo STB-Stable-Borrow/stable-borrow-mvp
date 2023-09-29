@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { useDashboard } from "../../../contexts/dashboardContext";
 import ExchangeIndex from "./ExchangeIndex";
-import Tokenization from "./Tokenization";
 
 function Exchange({
   _account,
@@ -25,11 +24,16 @@ function Exchange({
   }, [active]);
 
   return (
-    <div className="flex items-center gap-[8.92vh]  md:gap-[2.60vw]  w-full h-full flex-col md:flex-row px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]  ">
-      <div className="w-full h-full">
-        <h1 className="font-bold md:hidden text-[#B0B0B0] text-xl mb-[5.91vh] ">
-          Welcome!
-        </h1>
+    <>
+      <h1 className="font-bold md:hidden text-[#B0B0B0] text-xl mb-[5.91vh] pl-4 ">
+        Welcome!
+      </h1>
+      <p className="text-[#D9D9D9] text-[0.625rem] py-[1.85vh] px-[1.41vw] bg-[#191B1D] border-[1.5px] border-dashed border-[#585858] rounded-[0.9375rem] mb-[2.31vh] hidden md:block ">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti, modi
+        nostrum excepturi, veniam molestiae sed alias rem, ut sint doloremque
+        vero unde saepe adipisci iure quam dolore fuga facere aspernatur!
+      </p>
+      <div className="flex items-center gap-[8.92vh]  md:gap-[2.60vw]  w-full h-auto flex-col md:flex-row px-[4.83vw] md:px-0 md:pb-0 pb-[15.62vh]  ">
         <ExchangeIndex
           account={_account}
           handleLoading={_handleLoading}
@@ -42,10 +46,7 @@ function Exchange({
           xdcPrc={_xdcPrc}
         />
       </div>
-      <div className="w-full h-full">
-        <Tokenization />
-      </div>
-    </div>
+    </>
   );
 }
 

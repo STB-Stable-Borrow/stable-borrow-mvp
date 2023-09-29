@@ -16,6 +16,7 @@ function PoolIndex({
   _xdcBlnc,
   _stcBlnc,
   _xdcPrc,
+  expandedComponent,
 }) {
   const [showPool, setShowPool] = useState(true);
   const [selectedLiquidity, setSelectedLiquidity] = useState(null);
@@ -30,10 +31,18 @@ function PoolIndex({
   };
 
   return (
-    <div className="px-[3.62vw] ">
+    <div
+      className={`px-[3.62vw] ${
+        expandedComponent === "pool" ? "" : "text-[0.625rem]"
+      }`}
+    >
       {showPool ? (
         <div className="flex flex-col items-center md:pb-0 pb-12">
-          <p className="text-center  text-[#585858]  mb-[0.5vh] text-[.75rem] ">
+          <p
+            className={`text-center  text-[#585858]  mb-[0.5vh]  ${
+              expandedComponent === "pool" ? "text-[.75rem]" : "text-[0.63rem] "
+            }`}
+          >
             Click on each Pool to add Liquidity, check your Liquidity overview
             for details.
           </p>
@@ -48,7 +57,11 @@ function PoolIndex({
               <h1 className="w-[3.64vw] ">Percentage</h1>
             </div>
           </div>
-          <div className="w-full h-[15.46vh] pr-[0.52vw] overflow-y-auto md:flex flex-col gap-[0.93vh] hidden  ">
+          <div
+            className={`w-full ${
+              expandedComponent === "pool" ? "h-[15.46vh]" : "h-[10.46vh]"
+            } pr-[0.52vw] overflow-y-auto md:flex flex-col gap-[0.93vh] hidden `}
+          >
             {liquidityData.map((data) => (
               <div
                 className="flex items-center w-full justify-between text-xs text-[#B0B0B0] py-[0.93vh] pl-[0.7vw] bg-[#292C31] rounded-[10px] liquidity "
@@ -99,10 +112,14 @@ function PoolIndex({
               <h1 className="w-[3.64vw] text-center">Fee</h1>
             </div>
           </div>
-          <div className="w-full h-[15.46vh] overflow-y-auto md:flex flex-col gap-[0.93vh] pr-[0.52vw] hidden  ">
+          <div
+            className={`w-full overflow-y-auto md:flex flex-col gap-[0.93vh] pr-[0.52vw] hidden ${
+              expandedComponent === "pool" ? "h-[13.46vh]" : "h-[10.46vh]"
+            }`}
+          >
             {liquidityData.map((data) => (
               <div
-                className="flex items-center w-full justify-between text-[.75rem] text-[#B0B0B0] py-[0.93vh]  rounded-[10px] liquidity "
+                className="flex items-center w-full justify-between text-[.75rem] text-[#B0B0B0]  rounded-[10px] liquidity "
                 key={data.id}
                 onClick={() => handleItemClick(data.id)}
               >
@@ -135,6 +152,7 @@ function PoolIndex({
         <Liquidity
           assetOne={selectedData.assetOne}
           assetTwo={selectedData.assetTwo}
+          expandedComponent={expandedComponent}
         />
       )}
     </div>

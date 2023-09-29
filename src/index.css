@@ -70,3 +70,26 @@ body {
   );
   backdrop-filter: blur(12.807690620422363px);
 }
+
+.exchange-head {
+  text-align: center;
+  font-family: TT Firs Neue Trl;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 107%; /* 24.61px */
+  background: linear-gradient(90deg, #009fbd 7.89%, #865dff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.head-border {
+  width: 9.11vw;
+  /* height: 4.26vh; */
+  flex-shrink: 0;
+  padding: 0.22rem;
+  margin-bottom: 1.48vh;
+  border-radius: 0.31rem;
+  border: 3.5px solid rgba(0, 159, 189, 0.5);
+  backdrop-filter: blur(20px);
+}

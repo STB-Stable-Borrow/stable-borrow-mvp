@@ -7,6 +7,7 @@ import TokenizationFailedModal from "./FailedModal";
 import TokenizationSuccessModal from "./SuccessModal";
 import FailedModal from "./FailedModal";
 import SuccessModal from "./SuccessModal";
+import ExchangeIndexV1 from "./ExchangeIndexV1";
 
 function ExchangeIndex({
   account,
@@ -19,78 +20,111 @@ function ExchangeIndex({
   stcBlnc,
   xdcPrc,
 }) {
-  const [isSwapToggleOn, setIsSwapToggleOn] = useState(true);
+  const [expandedComponent, setExpandedComponent] = useState("swap");
   const [confirmationRes, setConfirmationRes] = useState(null);
 
-  const handleSwapToggle = () => {
-    setIsSwapToggleOn(!isSwapToggleOn);
-  };
-
-  const handlePoolToggle = () => {
-    setIsSwapToggleOn(!isSwapToggleOn);
+  const handleExpand = (component) => {
+    setExpandedComponent(component);
   };
 
   return (
-    <div className="rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center justify-between  mx-auto ">
-      <div className="flex flex-col items-center">
-        <h1 className="text-[#B0B0B0] text-[] font-semibold italic ">
-          Stable Swap
-        </h1>
-        <img src={drag} alt="" className="w-[3.70vw] h-[0.56vh] mb-[0.98vh] " />
-      </div>
-      <div className="w-[16.93rem] md:w-auto justify-between gap-4 md:gap-0 py-[.65vh] px-[.52vw] bg-[#292C31] rounded-[10px] flex text-[0.75rem] items-center text-[#b0b0b0] mb-[1.31vh] ">
-        <button
-          className={`py-[.37vh] w-full md:w-auto px-[1.56vw] ${
-            isSwapToggleOn ? "bg-[#009FBD] text-white" : ""
-          }  rounded-[7px] `}
-          onClick={handleSwapToggle}
+    <>
+      <div className=" items-center justify-between w-full min-h-auto h-[70.67vh] gap-[0.99vw] overflow-hidden hidden md:flex ">
+        <div
+          className={`rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center justify-between mx-auto
+        border-[#009FBD80]
+        ${
+          expandedComponent === "swap"
+            ? "w-[65%] h-full border-[5px]"
+            : "w-[35%] h-[90%] border-[3.5px] "
+        }
+        `}
+          onClick={() => handleExpand("swap")}
         >
-          Swap
-        </button>
-        <button
-          className={`py-[.37vh] w-full md:w-auto px-[1.56vw] ${
-            isSwapToggleOn ? "" : "bg-[#009fbd] text-white "
-          } rounded-[7px] `}
-          onClick={handlePoolToggle}
+          <div className="flex flex-col items-center">
+            <h1
+              className={`text-[#585858] ${
+                expandedComponent === "pool" ? "text-xs" : "text-base"
+              } tracking-[5.6px] font-bold mb-[0.65vh] `}
+            >
+              STABLE SWAP
+            </h1>
+            <div className="head-border">
+              <h2
+                className={`exchange-head ${
+                  expandedComponent === "pool" ? "text-base" : "text-[1.44rem] "
+                }`}
+              >
+                SWAP
+              </h2>
+            </div>
+            <SwapIndex
+              _setConfirmationRes={setConfirmationRes}
+              _account={account}
+              _handleLoading={handleLoading}
+              _web3={web3}
+              _stbSwap={stbSwap}
+              _stc={stc}
+              _stb={stb}
+              _xdcBlnc={xdcBlnc}
+              _stcBlnc={stcBlnc}
+              _xdcPrc={xdcPrc}
+              expandedComponent={expandedComponent}
+            />
+          </div>
+        </div>
+        <div
+          className={`exchange rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center mx-auto
+        border-[#009FBD80]
+        ${
+          expandedComponent === "pool"
+            ? "w-[65%] h-full border-[5px] "
+            : "w-[35%] h-[90%] border-[3.5px]"
+        } 
+        `}
+          onClick={() => handleExpand("pool")}
         >
-          Pool{" "}
-        </button>
+          <h1
+            className={`text-[#585858] ${
+              expandedComponent === "swap" ? "text-xs" : "text-base"
+            } tracking-[5.6px] font-bold mb-[0.65vh] `}
+          >
+            STABLE SWAP
+          </h1>
+          <div className="head-border">
+            <h2
+              className={`exchange-head ${
+                expandedComponent === "swap" ? "text-base" : "text-[1.44rem] "
+              }`}
+            >
+              POOL
+            </h2>
+          </div>
+          <PoolIndex
+            _setConfirmationRes={setConfirmationRes}
+            _account={account}
+            _handleLoading={handleLoading}
+            _web3={web3}
+            _stbSwap={stbSwap}
+            _stc={stc}
+            _stb={stb}
+            _xdcBlnc={xdcBlnc}
+            _stcBlnc={stcBlnc}
+            _xdcPrc={xdcPrc}
+            expandedComponent={expandedComponent}
+          />
+          {confirmationRes === false && (
+            <TokenizationFailedModal _setConfirmationRes={setConfirmationRes} />
+          )}
+          {confirmationRes === true && (
+            <TokenizationSuccessModal
+              _setConfirmationRes={setConfirmationRes}
+            />
+          )}
+        </div>
       </div>
-      {confirmationRes === null && isSwapToggleOn && (
-        <SwapIndex
-          _setConfirmationRes={setConfirmationRes}
-          _account={account}
-          _handleLoading={handleLoading}
-          _web3={web3}
-          _stbSwap={stbSwap}
-          _stc={stc}
-          _stb={stb}
-          _xdcBlnc={xdcBlnc}
-          _stcBlnc={stcBlnc}
-          _xdcPrc={xdcPrc}
-        />
-      )}
-      {confirmationRes === null && !isSwapToggleOn && (
-        <PoolIndex
-          _setConfirmationRes={setConfirmationRes}
-          _account={account}
-          _handleLoading={handleLoading}
-          _web3={web3}
-          _stbSwap={stbSwap}
-          _stc={stc}
-          _stb={stb}
-          _xdcBlnc={xdcBlnc}
-          _stcBlnc={stcBlnc}
-          _xdcPrc={xdcPrc}
-        />
-      )}
-      {confirmationRes === false && (
-        <TokenizationFailedModal _setConfirmationRes={setConfirmationRes} />
-      )}
-      {confirmationRes === true && (
-        <TokenizationSuccessModal _setConfirmationRes={setConfirmationRes} />
-      )}
-    </div>
+      <ExchangeIndexV1 />
+    </>
   );
 }
 

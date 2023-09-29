@@ -1,6 +1,6 @@
 import React from "react";
-import SuccessModal from "./SuccessModal";
-import FailedModal from "./FailedModal";
+import SuccessModal from "../dashexchange/SuccessModal";
+import FailedModal from "../dashexchange/FailedModal";
 
 function TransactionConfirmations() {
   return (

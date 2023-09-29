@@ -22,6 +22,7 @@ function SwapIndex({
   _xdcBlnc,
   _stcBlnc,
   _xdcPrc,
+  expandedComponent,
 }) {
   const [slippage, setSlippage] = useState([
     {
@@ -346,15 +347,27 @@ function SwapIndex({
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-center text-[#585858] mb-[.75vh] text-xs">
+      <p
+        className={`text-center  text-[#585858]  mb-[0.5vh]  ${
+          expandedComponent === "swap" ? "text-[.75rem]" : "text-[0.63rem] "
+        }`}
+      >
         Select Token Pair, input the desired amount, and select Token Tolerance
       </p>
       {token === "XDC" ? (
-        <p className="text-[#B0B0B0] text-[0.85rem] text-center mt-[1.5vh]">
+        <p
+          className={`text-[#B0B0B0] ${
+            expandedComponent === "swap" ? "text-[0.85rem]" : "text-[0.63rem] "
+          } text-center mt-[1.5vh`}
+        >
           Balance: {_xdcBlnc} XDC
         </p>
       ) : (
-        <p className="text-[#B0B0B0] text-[0.85rem] text-center mt-[1.5vh]">
+        <p
+          className={`text-[#B0B0B0] ${
+            expandedComponent === "swap" ? "text-[0.85rem]" : "text-[0.63rem] "
+          } text-center mt-[1.5vh]`}
+        >
           Balance: {_stcBlnc} STC
         </p>
       )}
@@ -368,7 +381,11 @@ function SwapIndex({
             isSwapped ? "flex-col-reverse" : "flex-col"
           }`}
         >
-          <div className="bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[75.6vw] md:w-[22vw] px-[.83vw] py-[.56vh] flex items-center">
+          <div
+            className={`bg-[#B0B0B0] h-[4.63vh] rounded-[10px] w-[75.6vw] ${
+              expandedComponent === "swap" ? "md:w-[30vw]" : "md:w-[22vw]"
+            } px-[.83vw] py-[.56vh] flex items-center`}
+          >
             <img src={xdc} alt="" className="w-[3.2vh] h-[3.2vh] mr-[0.52vw]" />
             <select
               name=""
@@ -385,7 +402,11 @@ function SwapIndex({
                   type="number"
                   name=""
                   id="swap-input1"
-                  className="bg-inherit md:w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none"
+                  className={`bg-inherit ${
+                    expandedComponent === "swap"
+                      ? "md:w-[15.25vw]"
+                      : "md:w-[10.25vw]"
+                  } pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none`}
                   placeholder="0"
                   onInput={(e) => {
                     handleSwapInputXDC(e);
@@ -398,7 +419,11 @@ function SwapIndex({
                   disabled
                   type="number"
                   name=""
-                  className="bg-inherit md:w-[10.25vw]  pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none"
+                  className={`bg-inherit ${
+                    expandedComponent === "swap"
+                      ? "md:w-[15.25vw]"
+                      : "md:w-[10.25vw]"
+                  } pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none`}
                   placeholder="0"
                 />
               )}
@@ -408,7 +433,11 @@ function SwapIndex({
                     document.getElementById("swap-input1").value = _xdcBlnc;
                   }
                 }}
-                className="absolute right-[-2.375rem] md:right-[-2.26vw] top-[0.58vh] text-[.75rem]"
+                className={`absolute right-[-1.375rem] ${
+                  expandedComponent === "swap"
+                    ? "md:right-[-4rem]"
+                    : "md:right-[-2.26vw]"
+                } top-[0.58vh] text-[.75rem]`}
               >
                 Max
               </button>
@@ -440,7 +469,11 @@ function SwapIndex({
                 type="number"
                 name=""
                 id="swap-input2"
-                className="bg-inherit md:w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
+                className={`bg-inherit ${
+                  expandedComponent === "swap"
+                    ? "md:w-[15.25vw]"
+                    : "md:w-[10.25vw]"
+                } pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none`}
                 placeholder="0"
                 onInput={(e) => {
                   handleSwapInputSTC(e);
@@ -454,8 +487,12 @@ function SwapIndex({
                 value={amtOutXDC}
                 type="number"
                 name=""
-                className="bg-inherit md:w-[10.25vw] pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold text-xs font-semibold"
-                placeholder="0"
+                className={`bg-inherit ${
+                  expandedComponent === "swap"
+                    ? "md:w-[15.25vw]"
+                    : "md:w-[10.25vw]"
+                } pl-[.73vw] placeholder:text-[#292c31] placeholder:font-semibold  font-semibold text-xs outline-none`}
+                placeholder=""
                 onInput={(e) => {
                   handleSwapInputSTC(e);
                 }}
@@ -467,31 +504,44 @@ function SwapIndex({
                   document.getElementById("swap-input2").value = _stcBlnc;
                 }
               }}
-              className="
-              
-              absolute right-[-2.375rem] md:right-[-2.26vw] top-[0.58vh] text-[.75rem]
-              "
+              className={`absolute right-[-1.375rem] ${
+                expandedComponent === "swap"
+                  ? "md:right-[-4rem]"
+                  : "md:right-[-2.26vw]"
+              } top-[0.58vh] text-[.75rem]`}
             >
               Max
             </button>
           </div>
         </div>
       </div>
-      <div className="mb-[0.95vh]">
+      <div className="mb-[0.95vh] flex items-center gap-4">
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1">
           Exchange Rate: <img src={question} alt="" />
         </h4>
-        <h6 className="font-semibold text-[#865DFF] text-[0.75rem]">
+        <h6
+          className={`font-semibold text-[#865DFF] ${
+            expandedComponent === "swap" ? "text-[0.75rem]" : "text-[0.625rem] "
+          }`}
+        >
           1 STC $(1.0000) ~ {rate} XDC
         </h6>
       </div>
-      <div className="md:w-[22vw] w-[75.60vw] py-2 md:py-[0.59vh] px-4 md:px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center  ">
+      <div
+        className={` w-[75.60vw] ${
+          expandedComponent === "swap" ? "md:w-[30vw]" : "md:w-[22vw]"
+        } py-2 md:py-[0.5rem] px-4 md:px-[1.04vw] rounded-[15px] bg-[#292C31] mb-[1.5vh] flex flex-col justify-center items-center  `}
+      >
         <h4 className="text-[#B0B0B0] text-[0.75rem] flex items-center justify-center gap-1 font-semibold mb-[0.5vh]">
           Slippage Tolerance:
           <img src={question} alt="" className=" " />
         </h4>
         <div className="flex items-center justify-between w-full">
-          <div className="bg-[#202225] w-[50%] md:w-[9.53vw] h-[3.89vh] px-[1.15vw] justify-between flex items-center text-[0.65rem] rounded-[10px] text-[#B0B0B0]">
+          <div
+            className={`bg-[#202225] w-[50%] ${
+              expandedComponent === "swap" ? "md:w-[15.25vw]" : "md:w-[9.53vw] "
+            } h-[3.89vh] px-[1.15vw] justify-between flex items-center text-[0.65rem] rounded-[10px] text-[#B0B0B0]`}
+          >
             {slippage.map((slip) => (
               <p
                 key={slip.id}
@@ -516,8 +566,14 @@ function SwapIndex({
           </div>
         </div>
       </div>
-      <div className="px-[1.8vw] py-[1.13vh] w-[75.60vw] md:w-[21.04vw] rounded-[20px] bg-[#292C31] text-[#b0b0b0] mb-[1.22vh] border-[1.5px] border-[#585858] border-dashed text-[0.75rem]">
-        <div className="flex items-center gap-[1.09vw] justify-between">
+      <div
+        className={`px-[1.8vw] py-[1.13vh] w-[75.60vw] md:w-[21.04vw]  bg-[#292C31] text-[#b0b0b0] mb-[1.22vh] border-[1.5px] border-[#585858] border-dashed ${
+          expandedComponent === "swap"
+            ? "text-[0.75rem] rounded-[20px]"
+            : "text-[0.425rem] rounded-[8px] "
+        }`}
+      >
+        <div className="flex items-center gap-[1.09vw] justify-between mb-1">
           <div className="flex items-center gap-[1px]">
             <img src={question} alt="" />
             <h4>Minimum Received:</h4>
@@ -539,12 +595,20 @@ function SwapIndex({
           handleSwapToken(e);
         }}
         id="swap-btn"
-        className="py-[.75vh] w-[75.60vw] md:w-auto px-[2.29vw] bg-[#585858] rounded-[7px] text-[.75rem] text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2 md:mt-0 mt-[5.58vh] md:mb-0 mb-[3.87rem] "
+        className={`${
+          expandedComponent === "swap"
+            ? "py-[.75vh] text-[.75rem] w-[75.60vw] rounded-[7px]"
+            : "py-[.25vh] text-[.425rem] w-[55.60vw] rounded-[4px] "
+        }   md:w-auto px-[2.29vw] bg-[#585858]   text-[#B0B0B0] hover:bg-opacity-75 flex items-center justify-center gap-2 md:mt-0 mt-[5.58vh] md:mb-0 mb-[3.87rem] `}
       >
         <img
           src={swapBtn}
           alt=""
-          className="md:w-[1.25vw] md:h-[1.25vw] h-[1.125rem] w-[1.125rem]"
+          className={`${
+            expandedComponent === "swap"
+              ? "md:w-[1.25vw] md:h-[1.25vw]"
+              : "md:w-[.95vw] md:h-[.95vw]"
+          } h-[1.125rem] w-[1.125rem] `}
         />
         Swap
       </button>
