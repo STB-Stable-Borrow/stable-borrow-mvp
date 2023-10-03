@@ -29,6 +29,9 @@ import { isRegistered } from "../../lib/sbtContract";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MobileNav from "./MobileNav";
+import SecurityIndex from "./security/SecurityIndex";
+import SecurityModal from "../dashboard/security/SecurityModal";
+import ReclaimModal from "./security/ReclaimModal";
 
 function Dashboard() {
   const {
@@ -56,6 +59,8 @@ function Dashboard() {
     showHistory,
     showSettings,
     onHomeClick,
+    showSecurity,
+    onSecurityClick,
     onDashBorrowClick,
     onEarnClick,
     onTokenizationClick,
@@ -197,6 +202,9 @@ function Dashboard() {
     })();
   });
 
+  const [showSecurityModal, setShowSecurityModal] = useState(false);
+  const [showReclaimModal, setShowReclaimModal] = useState(false);
+
   return (
     <div className="flex w-screen md:h-screen h-screen overflow-none bg-[#292C31] md:px-[4.17vw] ">
       {isLoading && <LoadingSpinner />}
@@ -211,6 +219,7 @@ function Dashboard() {
           onSettingsClick={onSettingsClick}
           onHomeClick={onHomeClick}
           onTokenizationClick={onTokenizationClick}
+          onSecurityClick={onSecurityClick}
           _verifyConnection={verifyConnection}
           _disconnect={disconnect}
         />
@@ -300,8 +309,45 @@ function Dashboard() {
           {showTokenization && (activeTab === 7 || showTokenization) && (
             <TokenizationIndex />
           )}
+          {showSecurity && (activeTab === 8 || showSecurity) && (
+            <SecurityIndex
+              showSecurityModal={showSecurityModal}
+              setShowSecurityModal={setShowSecurityModal}
+              showReclaimModal={showReclaimModal}
+              setShowReclaimModal={setShowReclaimModal}
+            />
+          )}
         </div>
       </div>
+
+      {/* security  modal */}
+
+      {showSecurityModal && (
+        <div
+          className="absolute top-0 left-0 backdrop-blur-sm w-screen h-screen z-[0]"
+          onClick={() => setShowSecurityModal(false)}
+        ></div>
+      )}
+      {showSecurityModal && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#202225] w-[48.23vw] h-auto rounded-[2.50rem] py-[1.62em] px-[4.5em] border-[5px] border-[#009FBD80] ">
+          <SecurityModal />
+        </div>
+      )}
+
+      {/* reclaim modal */}
+      {showReclaimModal && (
+        <div
+          className="absolute top-0 left-0 backdrop-blur-sm w-screen h-screen z-[0]"
+          onClick={() => setShowReclaimModal(false)}
+        ></div>
+      )}
+
+      {showReclaimModal && (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#202225] w-[48.23vw] h-auto rounded-[2.50rem] py-[1.62em] px-[4.5em] border-[5px] border-[#009FBD80] ">
+          {" "}
+          <ReclaimModal />{" "}
+        </div>
+      )}
     </div>
   );
 }

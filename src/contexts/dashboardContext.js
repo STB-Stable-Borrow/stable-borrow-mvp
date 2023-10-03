@@ -12,6 +12,7 @@ export const DashboardProvider = ({ children }) => {
   const [showTokenization, setShowTokenization] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showSecurity, setShowSecurity] = useState(false);
   const [borrow, setBorrow] = useState(true);
   const [vault, setVault] = useState(false);
   const [vaultId, setVaultId] = useState(null);
@@ -37,6 +38,7 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(false);
     setShowSettings(false);
     setShowTokenization(false);
+    setShowSecurity(false);
   };
 
   const onDashBorrowClick = () => {
@@ -47,6 +49,7 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(false);
     setShowSettings(false);
     setShowTokenization(false);
+    setShowSecurity(false);
   };
 
   const onEarnClick = () => {
@@ -57,6 +60,7 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(false);
     setShowSettings(false);
     setShowTokenization(false);
+    setShowSecurity(false);
   };
 
   const onExchangeClick = () => {
@@ -67,6 +71,7 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(false);
     setShowSettings(false);
     setShowTokenization(false);
+    setShowSecurity(false);
   };
 
   const onHistoryClick = () => {
@@ -77,6 +82,7 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(true);
     setShowSettings(false);
     setShowTokenization(false);
+    setShowSecurity(false);
   };
 
   const onSettingsClick = () => {
@@ -87,6 +93,7 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(false);
     setShowSettings(true);
     setShowTokenization(false);
+    setShowSecurity(false);
   };
 
   const onTokenizationClick = () => {
@@ -97,6 +104,18 @@ export const DashboardProvider = ({ children }) => {
     setShowHistory(false);
     setShowSettings(false);
     setShowTokenization(true);
+    setShowSecurity(false);
+  };
+
+  const onSecurityClick = () => {
+    setShowHome(false);
+    setShowDashBorrow(false);
+    setShowEarn(false);
+    setShowExchange(false);
+    setShowHistory(false);
+    setShowSettings(false);
+    setShowTokenization(false);
+    setShowSecurity(true);
   };
 
   const onVaultClick = (id) => {
@@ -181,9 +200,11 @@ export const DashboardProvider = ({ children }) => {
         setShowExchange,
         showTokenization,
         showHistory,
+        showSecurity,
         setShowHistory,
         showSettings,
         setShowSettings,
+        setShowSecurity,
         onHomeClick,
         onDashBorrowClick,
         onEarnClick,
@@ -191,6 +212,7 @@ export const DashboardProvider = ({ children }) => {
         onTokenizationClick,
         onHistoryClick,
         onSettingsClick,
+        onSecurityClick,
         onVaultClick,
         vault,
         vaultId,

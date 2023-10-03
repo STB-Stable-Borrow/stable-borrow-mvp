@@ -19,6 +19,7 @@ function Sidebar({
   onHistoryClick,
   onSettingsClick,
   onHomeClick,
+  onSecurityClick,
   onTokenizationClick,
   activeTab,
   _verifyConnection,
@@ -76,6 +77,12 @@ function Sidebar({
       icon: settings,
       onClick: onSettingsClick,
     },
+    {
+      id: 8,
+      name: "Security",
+      icon: "",
+      onClick: onSecurityClick,
+    },
   ];
 
   const handleLogout = async () => {
@@ -102,7 +109,7 @@ function Sidebar({
         />
       )}
 
-      <div className="flex flex-col gap-[2.4vh]">
+      <div className="flex flex-col gap-[1.4vh]">
         {sidebarObj.map((item) => (
           <div
             className={`${
@@ -129,7 +136,7 @@ function Sidebar({
         onClick={handleLogout}
         className={`${
           isExpanded ? "w-[182px]" : "w-[42px]"
-        } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px] mt-[10vh] hover:text-[#009FBD] cursor-pointer `}
+        } py-[0.865vh] rounded-lg flex gap-[16px] items-center pl-[9px] mt-[4vh] hover:text-[#009FBD] cursor-pointer `}
       >
         <img src={logout} alt="" />
         {isExpanded && <p className="text-[#D9D9D9] text-[14px]  ">Logout</p>}
