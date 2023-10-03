@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import ReclaimToken from "./ReclaimToken";
 import reclaimToken from "../../../data/reclaimToken";
 import reclaim from "../../../assets/dashboard/reclaim.svg";
 
 function ReclaimTokenIndex({ showReclaimModal, setShowReclaimModal }) {
-  const handleReclaim = () => {
+  const [formData, setFormData] = useState([]);
+
+  const handleReclaim = (e) => {
     setShowReclaimModal(true);
+    e.preventDefault();
+    console.log(formData);
   };
   return (
-    <div>
+    <form>
       {reclaimToken.map((item) => {
         return (
           <ReclaimToken
@@ -16,6 +20,8 @@ function ReclaimTokenIndex({ showReclaimModal, setShowReclaimModal }) {
             number={item.id}
             key={item.id}
             question={item.question}
+            formData={formData}
+            setFormData={setFormData}
           />
         );
       })}
@@ -28,7 +34,7 @@ function ReclaimTokenIndex({ showReclaimModal, setShowReclaimModal }) {
       >
         Reclaim <img src={reclaim} alt="" className="w-[1.25em]" />
       </button>
-    </div>
+    </form>
   );
 }
 
