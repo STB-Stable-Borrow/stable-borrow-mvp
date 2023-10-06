@@ -57,7 +57,7 @@ function CreateAvatar({
     if (iFrame) {
       iFrame.src = `https://${domainName}.readyplayer.me/avatar?frameApi`;
     }
-  });
+  },[]);
 
   useEffect(() => {
     window.addEventListener("message", subscribe);
@@ -66,7 +66,7 @@ function CreateAvatar({
       window.removeEventListener("message", subscribe);
       document.removeEventListener("message", subscribe);
     };
-  });
+  },[]);
 
   return (
     <div className="md:mx-[167px] mx-[1.25rem] pb-[29.75rem] md:pb-0 ">

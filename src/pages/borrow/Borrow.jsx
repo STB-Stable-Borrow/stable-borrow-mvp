@@ -76,7 +76,7 @@ function Borrow() {
         }
       });
     })();
-  });
+  },[]);
 
   //get and set collaritazation ratio
   useEffect(() => {
@@ -87,7 +87,7 @@ function Borrow() {
         });
       }
     })();
-  });
+  },[]);
 
   const getMaxSTC = () => {
     return (xdcBlnc / colRt).toFixed(4);
