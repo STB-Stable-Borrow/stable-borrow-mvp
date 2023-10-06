@@ -154,7 +154,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   //get balances
   useEffect(() => {
@@ -167,7 +167,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   //get prices
   useEffect(() => {
@@ -181,7 +181,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   //get haunter info
   useEffect(() => {
@@ -195,7 +195,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   return (
     <div className="flex w-screen md:h-screen h-screen overflow-none bg-[#292C31] md:px-[4.17vw] ">
