@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import drag from "../../../assets/dashboard/drag.svg";
-import BuyV1 from "./BuyV1";
-import SellV1 from "./SellV1";
+import Buy from "./Buy";
+import Sell from "./Sell";
 
 function Tokenization() {
   const [isToggleOn, setIsToggleOn] = useState(true);
@@ -14,7 +14,7 @@ function Tokenization() {
     setIsToggleOn(!isToggleOn);
   };
   return (
-    <div className="rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center md:mx-auto mx-4  mt-[8.92vh]  md:mt-0 md:hidden">
+    <div className="rounded-[40px] bg-[#202225] h-full px-[1.30vw] py-[1.67vh] flex flex-col items-center  mx-auto  mt-[8.92vh]  md:mt-0 ">
       <div className="flex flex-col items-center">
         <h1 className="text-[#B0B0B0] text-[]  md:italic font-bold  ">
           Tokenization
@@ -43,7 +43,7 @@ function Tokenization() {
           Sell
         </button>
       </div>
-      {isToggleOn ? <BuyV1 /> : <SellV1 />}
+      {isToggleOn ? <Buy /> : <Sell />}
     </div>
   );
 }

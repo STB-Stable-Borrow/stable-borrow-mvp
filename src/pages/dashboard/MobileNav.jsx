@@ -19,7 +19,18 @@ function MobileNav() {
   const walletAddress = "0x1234567890123456789012345678901234567890";
   const [isExpanded, setIsExpanded] = useState(false);
   const [showNavigationMenu, setShowNavigationMenu] = useState(false);
-  const {onHomeClick,activeTab,active,onDashBorrowClick,onEarnClick,onExchangeClick,onHistoryClick,onSettingsClick} = useDashboard()
+  const {
+    onHomeClick,
+    activeTab,
+    active,
+    onSecurityClick,
+    onDashBorrowClick,
+    onEarnClick,
+    onExchangeClick,
+    onTokenizationClick,
+    onHistoryClick,
+    onSettingsClick,
+  } = useDashboard();
   const handleNavigation = () => {
     setShowNavigationMenu((prev) => !prev);
   };
@@ -29,7 +40,6 @@ function MobileNav() {
   const handleCloseNavigation = () => {
     setShowNavigationMenu(false);
   };
-
 
   const handleCopy = () => {
     const textToCopy = walletAddress;
@@ -70,10 +80,23 @@ function MobileNav() {
     },
 
     {
+      id: 7,
+      name: "Tokenization",
+      icon: "",
+      onClick: onTokenizationClick,
+    },
+
+    {
       id: 6,
       name: "Settings",
       icon: settings,
       onClick: onSettingsClick,
+    },
+    {
+      id: 8,
+      name: "Security",
+      icon: "",
+      onClick: onSecurityClick,
     },
   ];
 
