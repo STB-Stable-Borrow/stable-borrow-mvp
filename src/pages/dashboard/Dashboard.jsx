@@ -159,7 +159,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   //get balances
   useEffect(() => {
@@ -172,7 +172,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   //get prices
   useEffect(() => {
@@ -186,7 +186,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   //get haunter info
   useEffect(() => {
@@ -200,7 +200,7 @@ function Dashboard() {
         });
       }
     })();
-  });
+  },[]);
 
   const [showSecurityModal, setShowSecurityModal] = useState(false);
   const [showReclaimModal, setShowReclaimModal] = useState(false);
